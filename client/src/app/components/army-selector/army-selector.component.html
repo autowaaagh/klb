@@ -1,0 +1,17 @@
+<div>
+  Army:
+  <select [(ngModel)]="selectedArmy" (ngModelChange)="onArmyChange($event)">
+    <option *ngFor="let al of armyLists">{{al.name}}</option>
+  </select>
+
+  <div *ngIf="armyList">
+    <ul>
+      <li *ngFor="let unit of armyList.units">
+        {{unit.name}}
+        <ul>
+          <li *ngFor="let o of unit.unitOptions">{{o.unitSize}} ({{o.modelCount}})</li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>
