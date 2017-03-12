@@ -1,71 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ArmyList } from '../../model';
+import { ArmyList, Unit } from '../../model';
+import { BasileaData } from '../../basilea.data';
+
 
 @Component({
     moduleId: module.id,
     selector: 'army-selector',
-    templateUrl: 'army-selector.component.html'
+    templateUrl: 'army-selector.component.html',
+    styles: [
+        '.unit-options-list tr:first-child {background-color: #ccc; font-weight: bold }',
+        '.unit-header {background-color: #007ACC; color: #fff; font-weight: bold}',
+        '.unit-options-list { width: 100% }'
+    ]
 })
 export class ArmySelectorComponent implements OnInit {
     armyLists: ArmyList[] = [
+        new BasileaData().armyList,
         {
-            name: "Basilea",
-            units: [
-                {
-                    name: 'Paladin Knights',
-                    type: 'Cavalry',
-                    unitOptions: [
-                        {
-                            unitSize: 'Troop',
-                            modelCount: 5,
-                            sp: 8,
-                            me: 3,
-                            ra: 0,
-                            de: 5,
-                            at: 8,
-                            nv: { waver: 12, route: 14 },
-                            pts: 135,
-                            special: [
-                                'Headstrong',
-                                'Iron Resolve',
-                                'Thunderous Charge (2)'
-                            ]
-                        },{
-                            unitSize: 'Regiment',
-                            modelCount: 10,
-                            sp: 8,
-                            me: 3,
-                            ra: 0,
-                            de: 5,
-                            at: 16,
-                            nv: { waver: 15, route: 17 },
-                            pts: 210,
-                            special: [
-                                'Headstrong',
-                                'Iron Resolve',
-                                'Thunderous Charge (2)'
-                            ]
-                        }, {
-                            unitSize: 'Horde',
-                            modelCount: 20,
-                            sp: 8,
-                            me: 3,
-                            ra: 0,
-                            de: 5,
-                            at: 32,
-                            nv: { waver: 22, route: 24 },
-                            pts: 350,
-                            special: [
-                                'Headstrong',
-                                'Iron Resolve',
-                                'Thunderous Charge (2)'
-                            ]
-                        }
-                    ]
-                }
-            ]
-        }, {
             name: "Dwarfs",
             units: []
         }
@@ -78,10 +30,13 @@ export class ArmySelectorComponent implements OnInit {
 
     onArmyChange(name: string) {
         this.armyLists.forEach(s => {
-            if (s.name == name){
+            if (s.name == name) {
                 this.armyList = s;
             }
         });
     }
 
+    toggleExpanded(unit: Unit) {
+        unit.isExpanded = !unit.isExpanded;
+    }
 }

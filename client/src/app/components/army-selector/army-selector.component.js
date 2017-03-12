@@ -9,66 +9,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var basilea_data_1 = require('../../basilea.data');
 var ArmySelectorComponent = (function () {
     function ArmySelectorComponent() {
         this.armyLists = [
+            new basilea_data_1.BasileaData().armyList,
             {
-                name: "Basilea",
-                units: [
-                    {
-                        name: 'Paladin Knights',
-                        type: 'Cavalry',
-                        unitOptions: [
-                            {
-                                unitSize: 'Troop',
-                                modelCount: 5,
-                                sp: 8,
-                                me: 3,
-                                ra: 0,
-                                de: 5,
-                                at: 8,
-                                nv: { waver: 12, route: 14 },
-                                pts: 135,
-                                special: [
-                                    'Headstrong',
-                                    'Iron Resolve',
-                                    'Thunderous Charge (2)'
-                                ]
-                            }, {
-                                unitSize: 'Regiment',
-                                modelCount: 10,
-                                sp: 8,
-                                me: 3,
-                                ra: 0,
-                                de: 5,
-                                at: 16,
-                                nv: { waver: 15, route: 17 },
-                                pts: 210,
-                                special: [
-                                    'Headstrong',
-                                    'Iron Resolve',
-                                    'Thunderous Charge (2)'
-                                ]
-                            }, {
-                                unitSize: 'Horde',
-                                modelCount: 20,
-                                sp: 8,
-                                me: 3,
-                                ra: 0,
-                                de: 5,
-                                at: 32,
-                                nv: { waver: 22, route: 24 },
-                                pts: 350,
-                                special: [
-                                    'Headstrong',
-                                    'Iron Resolve',
-                                    'Thunderous Charge (2)'
-                                ]
-                            }
-                        ]
-                    }
-                ]
-            }, {
                 name: "Dwarfs",
                 units: []
             }
@@ -83,11 +29,19 @@ var ArmySelectorComponent = (function () {
             }
         });
     };
+    ArmySelectorComponent.prototype.toggleExpanded = function (unit) {
+        unit.isExpanded = !unit.isExpanded;
+    };
     ArmySelectorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'army-selector',
-            templateUrl: 'army-selector.component.html'
+            templateUrl: 'army-selector.component.html',
+            styles: [
+                '.unit-options-list tr:first-child {background-color: #ccc; font-weight: bold }',
+                '.unit-header {background-color: #007ACC; color: #fff; font-weight: bold}',
+                '.unit-options-list { width: 100% }'
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], ArmySelectorComponent);

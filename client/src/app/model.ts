@@ -7,6 +7,8 @@ export class Unit {
     name: string;
     type: string;
     unitOptions: UnitOption[];
+    special: string[];
+    isExpanded: boolean;
 }
 
 export class UnitOption {
@@ -19,7 +21,6 @@ export class UnitOption {
     at: number;
     nv: Nerve;
     pts: number;
-    special: string[];
 }
 
 export class Nerve {

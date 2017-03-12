@@ -1,17 +1,49 @@
 <div>
-  Army:
   <select [(ngModel)]="selectedArmy" (ngModelChange)="onArmyChange($event)">
     <option *ngFor="let al of armyLists">{{al.name}}</option>
   </select>
 
   <div *ngIf="armyList">
-    <ul>
-      <li *ngFor="let unit of armyList.units">
-        {{unit.name}}
-        <ul>
-          <li *ngFor="let o of unit.unitOptions">{{o.unitSize}} ({{o.modelCount}})</li>
-        </ul>
-      </li>
-    </ul>
+    <table class="unit-list">
+      <tbody>
+        <template ngFor let-unit [ngForOf]="armyList.units">
+          <tr class="unit-header" (click)="toggleExpanded(unit)">
+            <td>
+              <span *ngIf="unit.isExpanded">-</span>
+              <span *ngIf="!unit.isExpanded">+</span> {{unit.name}}
+            </td>
+            <td>{{unit.type}}</td>
+          </tr>
+          <tr class="unit-options-row" *ngIf="unit.isExpanded">
+            <td colspan=2>
+              <table class="unit-options-list">
+                <tbody>
+                  <tr>
+                    <td>Unit Size</td>
+                    <td>Sp</td>
+                    <td>Me</td>
+                    <td>Ra</td>
+                    <td>De</td>
+                    <td>At</td>
+                    <td>Ne</td>
+                    <td>Pts</td>
+                  </tr>
+                  <tr *ngFor="let o of unit.unitOptions">
+                    <td>{{o.unitSize}} ({{o.modelCount}})</td>
+                    <td>{{o.sp}}</td>
+                    <td>{{o.me}}</td>
+                    <td>{{o.ra}}</td>
+                    <td>{{o.de}}</td>
+                    <td>{{o.at}}</td>
+                    <td>{{o.ne}}</td>
+                    <td>{{o.pts}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
   </div>
 </div>
