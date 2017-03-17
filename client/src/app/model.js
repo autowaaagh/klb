@@ -23,4 +23,34 @@ var Nerve = (function () {
     return Nerve;
 }());
 exports.Nerve = Nerve;
+var Artefact = (function () {
+    function Artefact() {
+    }
+    return Artefact;
+}());
+exports.Artefact = Artefact;
+var UnitUpgrade = (function () {
+    function UnitUpgrade() {
+    }
+    return UnitUpgrade;
+}());
+exports.UnitUpgrade = UnitUpgrade;
+var Modifier = (function () {
+    function Modifier() {
+    }
+    return Modifier;
+}());
+exports.Modifier = Modifier;
+var OutputDescription = (function () {
+    function OutputDescription() {
+    }
+    return OutputDescription;
+}());
+exports.OutputDescription = OutputDescription;
+var DataLoader = (function () {
+    function DataLoader() {
+    }
+    return DataLoader;
+}());
+exports.DataLoader = DataLoader;
 //# sourceMappingURL=model.js.map

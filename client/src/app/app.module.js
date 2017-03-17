@@ -10,9 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+var http_1 = require('@angular/http');
 var forms_1 = require('@angular/forms');
 var app_component_1 = require('./app.component');
 var army_selector_component_1 = require('./components/army-selector/army-selector.component');
+var army_list_component_1 = require('./components/army-list/army-list.component');
+var list_printer_component_1 = require('./components/list-printer/list-printer.component');
+var army_entry_component_1 = require('./components/army-entry/army-entry.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -20,13 +24,19 @@ var AppModule = (function () {
         core_1.NgModule({
             imports: [
                 platform_browser_1.BrowserModule,
+                http_1.HttpModule,
                 forms_1.FormsModule
             ],
             declarations: [
                 app_component_1.AppComponent,
-                army_selector_component_1.ArmySelectorComponent
+                army_selector_component_1.ArmySelectorComponent,
+                army_list_component_1.ArmyListComponent,
+                list_printer_component_1.ListPrinterComponent,
+                army_entry_component_1.ArmyEntryComponent
             ],
-            bootstrap: [app_component_1.AppComponent]
+            bootstrap: [
+                app_component_1.AppComponent
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], AppModule);

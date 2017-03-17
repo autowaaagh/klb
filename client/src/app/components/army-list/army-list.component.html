@@ -1,0 +1,60 @@
+<div class="component">
+  <div class="tbl-top-bar">
+    <span class="col-3"><input [(ngModel)]="armyList.name" style="width:100%"></span>
+    <span class="col-3"><button class="btn-flat btn-new-list" (click)="newList()">New List</button></span>
+    <span class="col-3"><button class="btn-flat btn-output-list" (click)="outputList()">Output List</button></span>
+    <span class="col-3 list-total-points">{{armyList.points}}</span>
+  </div>
+  <table class="tbl-list">
+    <tbody>
+      <tr class="table-header">
+        <td>Unit</td>
+        <td>Sp</td>
+        <td>Me</td>
+        <td>Ra</td>
+        <td>De</td>
+        <td>At</td>
+        <td>Nv</td>
+        <td>Pts</td>
+        <td></td>
+      </tr>
+      <template ngFor let-unit [ngForOf]="armyList.units">
+        <tr class="unit-stats-row">
+          <td>{{unit.name}} ({{unit.unitOptions[0].unitSize}})</td>
+          <td>{{unit.unitOptions[0].sp}}</td>
+          <td>{{unit.unitOptions[0].me}}<span *ngIf="unit.unitOptions[0].me !== '-'">+</span></td>
+          <td>{{unit.unitOptions[0].ra}}<span *ngIf="unit.unitOptions[0].ra !== '-'">+</span></td>
+          <td>{{unit.unitOptions[0].de}}<span *ngIf="unit.unitOptions[0].de !== '-'">+</span></td>
+          <td>{{unit.unitOptions[0].at}}</td>
+          <td>{{unit.unitOptions[0].nv.waver}}/{{unit.unitOptions[0].nv.route}}</td>
+          <td>{{unit.unitOptions[0].pts}}</td>
+          <td><button class="btn-flat btn-remove-unit" (click)="removeUnit(unit)">&times;</button></td>
+        </tr>
+        <tr>
+          <td colspan=9>
+            <div class="unit-sub-row">
+              <span>
+                <select [(ngModel)]="unit.artefact" (ngModelChange)="onArtefactChange(unit)">
+                  <option *ngFor="let a of artefacts" [ngValue]="a">
+                    <span *ngIf="a.pts > 0">({{a.pts}})</span> {{a.name}}
+              </option>
+              </select>
+              </span>
+              <span class="special-rules" *ngIf="unit.piercing > 0">Piercing ({{unit.piercing}}), </span>
+              <span class="special-rules" *ngIf="unit.cs > 0">Crushing Strength ({{unit.cs}}), </span>
+              <span class="special-rules" *ngIf="unit.tc > 0">Thunderous Charge ({{unit.tc}}), </span>
+              <span class="special-rules" *ngFor="let s of unit.special; let last = last">{{s}}{{last ? '' : ', '}}</span>
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let u of unit.unitUpgrades">
+          <td colspan=9>
+            <div class="unit-sub-row">
+              <span class="special-rules"><label><input type="checkbox" [(ngModel)]="u.isSelected" (change)="onUpgradeChange(unit, u)">{{u.name}} (+{{u.pts}})</label></span>
+            </div>
+          </td>
+        </tr>
+      </template>
+    </tbody>
+  </table>
+</div>

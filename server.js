@@ -14,6 +14,7 @@ app.engine('html', require('ejs').renderFile);
 app.use(express.static(path.join(__dirname, 'client/src')));
 app.use('/node_modules', express.static(path.join(__dirname, 'client/node_modules')));
 app.use('/bower_components', express.static(path.join(__dirname, 'client/bower_components')));
+app.use('/data', express.static(path.join(__dirname, 'client/data')));
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({

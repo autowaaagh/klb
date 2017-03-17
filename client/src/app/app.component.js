@@ -15,7 +15,10 @@ var AppComponent = (function () {
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
-            template: "\n    <h1>List Builder</h1>\n\n    <army-selector></army-selector>\n  ",
+            template: "\n\n    <ul class=\"nav nav-tabs\">\n      <li class=\"active\"><a data-toggle=\"tab\" href=\"#list-builder\">List Builder</a></li>\n      <li><a data-toggle=\"tab\" href=\"#army-entry\">Army Entry</a></li>\n    </ul>\n\n    <div class=\"tab-content\">\n      <div id=\"list-builder\" class=\"tab-pane fade in active\">      \n        <h3>List Builder</h3>\n        <div class=\"container\">\n          <div class=\"col-md-6\"><army-selector (addUnitEvent)=\"armylist.addUnitToList($event)\"></army-selector></div>\n          <div class=\"col-md-6\"><army-list #armylist (printListEvent)=\"listprinter.outputList($event)\"></army-list></div>\n          <list-printer #listprinter></list-printer>\n        </div>\n      </div>\n      <div id=\"army-entry\" class=\"tab-pane fade\">      \n        <h3>Army Entry</h3>\n        <div class=\"col-md-12 container\"><army-entry></army-entry></div>\n      </div>\n    </div>\n     \n\n  ",
+            styles: [
+                '.container { cursor: default; }'
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], AppComponent);

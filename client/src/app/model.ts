@@ -1,6 +1,7 @@
 export class ArmyList {
     name: string;
     units: Unit[];
+    points: number;
 }
 
 export class Unit {
@@ -8,22 +9,59 @@ export class Unit {
     type: string;
     unitOptions: UnitOption[];
     special: string[];
+    unitUpgrades: UnitUpgrade[];
     isExpanded: boolean;
+    artefact: Artefact;
+    cs: number;
+    tc: number;
+    piercing: number;
 }
 
 export class UnitOption {
     unitSize: string;
     modelCount: number;
-    sp: number;
-    me: number;
-    ra: number;
-    de: number;
-    at: number;
+    sp: string;
+    me: string;
+    ra: string;
+    de: string;
+    at: string;
     nv: Nerve;
     pts: number;
 }
 
 export class Nerve {
-    waver: number;
-    route: number;
+    waver: string;
+    route: string;
+}
+
+export class Artefact {
+    name: string;
+    pts: number;
+    validTypes: string[];
+    description: string;
+}
+
+export class UnitUpgrade {
+    name: string;
+    pts: number;
+    isSelected: boolean;
+    unitModifiers: Modifier[];
+    unitOptionModifiers: Modifier[];
+}
+
+export class Modifier {
+    element: string;
+    newValue: any;
+    action: string;
+
+}
+
+export class OutputDescription {
+    name: string;
+    desc: string;
+}
+
+export class DataLoader {
+    name: string;
+    loc: string;
 }

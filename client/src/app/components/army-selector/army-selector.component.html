@@ -1,4 +1,4 @@
-<div>
+<div class="component">
   <select [(ngModel)]="selectedArmy" (ngModelChange)="onArmyChange($event)">
     <option *ngFor="let al of armyLists">{{al.name}}</option>
   </select>
@@ -9,10 +9,10 @@
         <template ngFor let-unit [ngForOf]="armyList.units">
           <tr class="unit-header" (click)="toggleExpanded(unit)">
             <td>
-              <span *ngIf="unit.isExpanded">-</span>
-              <span *ngIf="!unit.isExpanded">+</span> {{unit.name}}
+              <span *ngIf="unit.isExpanded">&nbsp;&nbsp;-</span>
+              <span *ngIf="!unit.isExpanded">&nbsp;&nbsp;+</span> {{unit.name}}
             </td>
-            <td>{{unit.type}}</td>
+            <td align="right">{{unit.type}}&nbsp;&nbsp;</td>
           </tr>
           <tr class="unit-options-row" *ngIf="unit.isExpanded">
             <td colspan=2>
@@ -25,17 +25,17 @@
                     <td>Ra</td>
                     <td>De</td>
                     <td>At</td>
-                    <td>Ne</td>
+                    <td>Nv</td>
                     <td>Pts</td>
                   </tr>
-                  <tr *ngFor="let o of unit.unitOptions">
+                  <tr *ngFor="let o of unit.unitOptions" (click)="addUnitOption(unit, o)">
                     <td>{{o.unitSize}} ({{o.modelCount}})</td>
                     <td>{{o.sp}}</td>
-                    <td>{{o.me}}</td>
-                    <td>{{o.ra}}</td>
-                    <td>{{o.de}}</td>
+                    <td>{{o.me}}<span *ngIf="o.me !== '-'">+</span></td>
+                    <td>{{o.ra}}<span *ngIf="o.ra !== '-'">+</span></td>
+                    <td>{{o.de}}<span *ngIf="o.de !== '-'">+</span></td>
                     <td>{{o.at}}</td>
-                    <td>{{o.ne}}</td>
+                    <td>{{o.nv.waver}}/{{o.nv.route}}</td>
                     <td>{{o.pts}}</td>
                   </tr>
                 </tbody>
