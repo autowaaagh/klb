@@ -22,7 +22,7 @@ var ArmySelectorComponent = (function () {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
-                _this.loadData(obj.loc);
+                _this.loadData('data/' + obj.file);
             }
         });
     }

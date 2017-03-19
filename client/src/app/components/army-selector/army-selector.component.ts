@@ -32,7 +32,7 @@ export class ArmySelectorComponent implements OnInit {
 
                 for (var i = 0; i < json.length; i++) {
                     var obj = json[i];
-                    this.loadData(obj.loc);
+                    this.loadData('data/' + obj.file);
                 }
             });
     }

@@ -16,10 +16,12 @@ var ArmyEntryComponent = (function () {
         var _this = this;
         this.http = http;
         this.armies = [];
+        this.newArmy = new model_1.DataLoader();
+        this.newUnit = new model_1.Unit();
+        this.selectedArmy = new model_1.ArmyList();
         this.http.get('data/armies.json')
             .subscribe(function (res) {
             var json = res.json();
-            console.log(json);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);
@@ -28,11 +30,47 @@ var ArmyEntryComponent = (function () {
     }
     ArmyEntryComponent.prototype.ngOnInit = function () { };
     ArmyEntryComponent.prototype.loadData = function (json) {
-        console.log(json);
         var dl = new model_1.DataLoader();
         dl.name = json['name'];
-        dl.loc = json['loc'];
+        dl.file = json['file'];
         this.armies.push(dl);
+    };
+    ArmyEntryComponent.prototype.btnAddNewArmyClick = function (input) {
+        var dl = JSON.parse(JSON.stringify(this.newArmy));
+        dl.file = 'army-' + dl.name.replace(' ', '-').toLocaleLowerCase() + '.json';
+        if (dl && dl.name !== '' && dl.name != undefined) {
+            this.armies.push(dl);
+            var a = new model_1.ArmyList();
+            a.name = this.newArmy.name;
+            a.points = 0;
+            this.http.post('/' + dl.file, a).subscribe(function (res) { console.log(res); });
+            this.http.post('/armies.json', this.armies).subscribe(function (res) { console.log(res); });
+            this.newArmy.name = '';
+            this.newArmy.file = '';
+            input.focus();
+        }
+    };
+    ArmyEntryComponent.prototype.btnRemoveArmyClick = function (index) {
+        var dl = JSON.parse(JSON.stringify(this.armies[index]));
+        this.armies.splice(index, 1);
+        this.http.post('/armies.json', this.armies).subscribe(function (res) { console.log(res); });
+        this.http.delete('/' + dl.file).subscribe(function (res) { console.log(res); });
+    };
+    ArmyEntryComponent.prototype.btnEditUnitsClick = function (index) {
+        var _this = this;
+        this.http.get('data/' + this.armies[index].file)
+            .subscribe(function (res) {
+            var json = res.json();
+            _this.selectedArmy = Object.assign(new model_1.ArmyList(), json);
+        }, function (err) {
+            console.log(err);
+        });
+    };
+    ArmyEntryComponent.prototype.btnAddNewUnitClick = function (input) {
+        var u = JSON.parse(JSON.stringify(this.newUnit));
+        if (u && u.name !== '' && u.name != undefined) {
+            this.selectedArmy.units.push(u);
+        }
     };
     ArmyEntryComponent = __decorate([
         core_1.Component({
