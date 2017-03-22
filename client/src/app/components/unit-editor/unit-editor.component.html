@@ -1,46 +1,43 @@
 <div class="container-fluid">
-  <!--*ngIf="unit.name != undefined && unit.name !== ''"-->
-  <div  class="">
-    <span class="col-2">Name</span><input class="col-10" [(ngModel)]="unit.name">
-    <div class="">
-      <div class="col-5">
-        <div class="form-group form-inline">
-          <label class="col-6 col-form-label" for="sel-unit-type-input">Type</label>
-          <div class="col-6">
-            <input id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">
-          </div>
-        </div>
-        <div class="form-group form-inline">
-          <label class="col-6 col-form-label" for="sel-unit-piercing-input">Piercing</label>
-          <div class="col-6">
-            <input id="sel-unit-piercing-input" class="form-control" [(ngModel)]="unit.piercing" type="number" min="0">
-          </div>
-        </div>
-        <div class="form-group form-inline">
-          <label class="col-6 col-form-label" for="sel-unit-cs-input">Crushing Strength</label>
-          <div class="col-6">
-            <input id="sel-unit-cs-input" class="form-control" [(ngModel)]="unit.cs" type="number" min="0">
-          </div>
-        </div>
-        <div class="form-group form-inline">
-          <label class="col-6 col-form-label" for="sel-unit-tc-input">Thunderous Charge</label>
-          <div class="col-6">
-            <input id="sel-unit-tc-input" class="form-control" [(ngModel)]="unit.tc" type="number" min="0">
-          </div>
+  <span class="col-2">Name</span><input class="col-10" [(ngModel)]="unit.name">
+  <div class="">
+    <div class="col-5">
+      <div class="form-group form-inline">
+        <label class="col-6 col-form-label" for="sel-unit-type-input">Type</label>
+        <div class="col-6">
+          <input id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">
         </div>
       </div>
-      <div class="col-2">
+      <div class="form-group form-inline">
+        <label class="col-6 col-form-label" for="sel-unit-piercing-input">Piercing</label>
+        <div class="col-6">
+          <input id="sel-unit-piercing-input" class="form-control" [(ngModel)]="unit.piercing" type="number" min="0">
+        </div>
       </div>
-      <div class="col-5">
-        <select size="5" class="col-12">
+      <div class="form-group form-inline">
+        <label class="col-6 col-form-label" for="sel-unit-cs-input">Crushing Strength</label>
+        <div class="col-6">
+          <input id="sel-unit-cs-input" class="form-control" [(ngModel)]="unit.cs" type="number" min="0">
+        </div>
+      </div>
+      <div class="form-group form-inline">
+        <label class="col-6 col-form-label" for="sel-unit-tc-input">Thunderous Charge</label>
+        <div class="col-6">
+          <input id="sel-unit-tc-input" class="form-control" [(ngModel)]="unit.tc" type="number" min="0">
+        </div>
+      </div>
+    </div>
+    <div class="col-2">
+    </div>
+    <div class="col-5">
+      <select size="5" class="col-12">
           <option *ngFor="let s of unit.special">{{s}}</option>
         </select>
+      <div>
+        <input #newSpecial class="col-12" (keyup.enter)="btnAddNewSpecialClick(newSpecial)">
         <div>
-          <input #newSpecial class="col-12" (keyup.enter)="btnAddNewSpecialClick(newSpecial)">
-          <div>
-            <button class="col-6" (click)="btnAddNewSpecialClick(newSpecial)">Add New</button>
-            <button class="col-6" (click)="btnRemoveSpecialClick()">Delete</button>
-          </div>
+          <button class="col-6" (click)="btnAddNewSpecialClick(newSpecial)">Add New</button>
+          <button class="col-6" (click)="btnRemoveSpecialClick()">Delete</button>
         </div>
       </div>
     </div>
