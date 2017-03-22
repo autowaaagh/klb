@@ -3,7 +3,7 @@
   <div>
     Units:
     <div>
-      <select size="18" class="col-md-12 select-fill-height" [(ngModel)]="selected" (ngModelChange)="onSelectionChange()">
+      <select size="18" class="col-md-12 select-fill-height" [(ngModel)]="selected">
           <option *ngFor="let u of army.units" [ngValue]="u">{{u.name}}</option>
         </select>
       <div>

@@ -16,8 +16,4 @@ export class UnitEditorComponent implements OnInit {
     }
 
     ngOnInit() { }
-
-    setSelectedUnit(unit: Unit) {
-        // this.unit = unit;
-    }
 }

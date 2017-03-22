@@ -15,9 +15,6 @@ var UnitEditorComponent = (function () {
         this.unit = new model_1.Unit();
     }
     UnitEditorComponent.prototype.ngOnInit = function () { };
-    UnitEditorComponent.prototype.setSelectedUnit = function (unit) {
-        // this.unit = unit;
-    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', model_1.Unit)

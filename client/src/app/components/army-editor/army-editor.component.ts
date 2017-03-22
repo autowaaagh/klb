@@ -1,5 +1,5 @@
 import { Http } from '@angular/http';
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 
 import { ArmyList, Unit, UnitOption, DataLoader } from '../../model';
 import { FileLoaderService } from '../../services/file-loader.service';
@@ -14,8 +14,6 @@ export class ArmyEditorComponent implements OnInit {
     selected: Unit;
     army: ArmyList;
     dataLoader: DataLoader;
-
-    @Output() selectedChangedEvent = new EventEmitter();
 
     constructor(private fl: FileLoaderService) {
         this.army = new ArmyList();
@@ -39,10 +37,6 @@ export class ArmyEditorComponent implements OnInit {
         this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
             console.log(res);
         });
-    }
-
-    onSelectionChange() {
-        this.selectedChangedEvent.emit(this.selected);
     }
 
     setSelectedArmy(army: ArmyList) {

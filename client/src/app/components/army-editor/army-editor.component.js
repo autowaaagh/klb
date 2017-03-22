@@ -14,7 +14,6 @@ var file_loader_service_1 = require('../../services/file-loader.service');
 var ArmyEditorComponent = (function () {
     function ArmyEditorComponent(fl) {
         this.fl = fl;
-        this.selectedChangedEvent = new core_1.EventEmitter();
         this.army = new model_1.ArmyList();
         this.selected = new model_1.Unit();
         this.dataLoader = new model_1.DataLoader();
@@ -33,9 +32,6 @@ var ArmyEditorComponent = (function () {
         this.fl.writeFile(this.dataLoader.file, this.army, function (res) {
             console.log(res);
         });
-    };
-    ArmyEditorComponent.prototype.onSelectionChange = function () {
-        this.selectedChangedEvent.emit(this.selected);
     };
     ArmyEditorComponent.prototype.setSelectedArmy = function (army) {
         this.army = army;
@@ -72,10 +68,6 @@ var ArmyEditorComponent = (function () {
             _this.writeArmyFile();
         });
     };
-    __decorate([
-        core_1.Output(), 
-        __metadata('design:type', Object)
-    ], ArmyEditorComponent.prototype, "selectedChangedEvent", void 0);
     ArmyEditorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
