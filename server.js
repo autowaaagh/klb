@@ -1,6 +1,7 @@
 var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
+var fs = require('fs');
 
 var index = require('./routes/index');
 
@@ -22,6 +23,35 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', index);
+
+app.post('/:id', function (req, res) {
+    var id = req.params.id;
+    var json = JSON.stringify(req.body);
+
+    fs.writeFile('client/data/' + id, json, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('/data/' + id + ' was POSTed successfully');
+        }
+
+        res.send('post complete');
+    });
+});
+
+app.delete('/:id', function (req, res) {
+    var id = req.params.id;
+
+    fs.unlink('client/data/' + id, function (err) {
+        if (err) {
+            console.log(err);
+        } else {
+            console.log('/data/' + id + ' was DELETEd successully');
+        }
+
+        res.send('delete complete');
+    });
+})
 
 app.listen(port, function () {
     console.log("Running on port " + port);

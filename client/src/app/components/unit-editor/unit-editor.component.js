@@ -9,24 +9,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var file_loader_service_1 = require('../../services/file-loader.service');
-var ArmyEntryComponent = (function () {
-    function ArmyEntryComponent() {
+var model_1 = require('../../model');
+var UnitEditorComponent = (function () {
+    function UnitEditorComponent() {
+        this.unit = new model_1.Unit();
     }
-    ArmyEntryComponent.prototype.ngOnInit = function () { };
-    ArmyEntryComponent = __decorate([
+    UnitEditorComponent.prototype.ngOnInit = function () { };
+    UnitEditorComponent.prototype.setSelectedUnit = function (unit) {
+        // this.unit = unit;
+    };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', model_1.Unit)
+    ], UnitEditorComponent.prototype, "unit", void 0);
+    UnitEditorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'army-entry',
-            templateUrl: 'army-entry.component.html',
-            styles: [
-                ".select-fill-height { heigh:100%; }"
-            ],
-            providers: [file_loader_service_1.FileLoaderService]
+            selector: 'unit-editor',
+            templateUrl: 'unit-editor.component.html'
         }), 
         __metadata('design:paramtypes', [])
-    ], ArmyEntryComponent);
-    return ArmyEntryComponent;
+    ], UnitEditorComponent);
+    return UnitEditorComponent;
 }());
-exports.ArmyEntryComponent = ArmyEntryComponent;
-//# sourceMappingURL=army-entry.component.js.map
+exports.UnitEditorComponent = UnitEditorComponent;
+//# sourceMappingURL=unit-editor.component.js.map

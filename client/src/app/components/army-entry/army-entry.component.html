@@ -1,57 +1,17 @@
-<div>
-  Available Armies:
-  <div #armiesEditor>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let a of armies; let i = index">
-          <td><input [(ngModel)]="a.name"></td>
-          <td><button (click)="btnRemoveArmyClick(i)">&times;</button></td>
-          <td><button (click)="btnEditUnitsClick(i)">Edit Units</button></td>
-        </tr>
-        <tr>
-          <td><input #newName [(ngModel)]="newArmy.name" (keyup.enter)="btnAddNewArmyClick(newName)"></td>
-          <td><button (click)="btnAddNewArmyClick(newName)">+</button></td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  <br/>
-  <br/>
-  <div #armyEditor>
-    <table>
-      <tbody>
-        <tr>
-          <td>Name</td>
-          <td><input [(ngModel)]="selectedArmy.name"></td>
-        </tr>
-      </tbody>
-    </table>
-    <br/>
-    <br/>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-        </tr>
-      </thead>
-      <tbody>
-        <template ngFor let-u [ngForOf]="selectedArmy.units">
-          <tr>
-            <td><input [(ngModel)]="u.name"></td>
-            <td><button>&times;</button></td>
-            <td><button>Edit Unit</button></td>
-          </tr>
-        </template>
-        <tr>
-          <td><input #newUnitName [(ngModel)]="newUnit.name" (keyup.enter)="btnAddNewUnitClick(newUnitName)"></td>
-          <td><button (click)="btnAddNewUnitClick(newUnitName)">+</button></td>
-        </tr>
-      </tbody>
-    </table>
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-md-2">
+      <armies-editor #armiesEditor (armyChangeEvent)="armyEditor.loadArmyFile($event)"></armies-editor>
+    </div>
+
+    <div class="col-md-3">
+      <army-editor #armyEditor></army-editor>
+    </div>
+
+    <div class="col-md-7">
+      <unit-editor #unitEditor [unit]="armyEditor.selected"></unit-editor>
+    </div>
+
   </div>
 </div>

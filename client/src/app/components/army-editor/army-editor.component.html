@@ -1,0 +1,18 @@
+<div class="container-fluid">
+  <span class="col-md-3">Name</span><input class="col-md-9" [(ngModel)]="army.name">
+  <div>
+    Units:
+    <div>
+      <select size="18" class="col-md-12 select-fill-height" [(ngModel)]="selected" (ngModelChange)="onSelectionChange()">
+          <option *ngFor="let u of army.units" [ngValue]="u">{{u.name}}</option>
+        </select>
+      <div>
+        <input #newUnitName class="col-md-12" (keyup.enter)="addUnit(newUnitName)">
+        <div>
+          <button class="col-md-6" (click)="addUnit(newUnitName)">Add New</button>
+          <button class="col-md-6" (click)="removeUnit(selected.name)">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -8,6 +8,9 @@ import { ArmySelectorComponent } from './components/army-selector/army-selector.
 import { ArmyListComponent } from './components/army-list/army-list.component';
 import { ListPrinterComponent } from './components/list-printer/list-printer.component';
 import { ArmyEntryComponent } from './components/army-entry/army-entry.component';
+import { UnitEditorComponent } from './components/unit-editor/unit-editor.component';
+import { ArmyEditorComponent } from './components/army-editor/army-editor.component';
+import { ArmiesEditorComponent } from './components/armies-editor/armies-editor.component';
 
 @NgModule({
   imports: [
@@ -20,7 +23,10 @@ import { ArmyEntryComponent } from './components/army-entry/army-entry.component
     ArmySelectorComponent,
     ArmyListComponent,
     ListPrinterComponent,
-    ArmyEntryComponent
+    ArmyEntryComponent,
+    UnitEditorComponent,
+    ArmyEditorComponent,
+    ArmiesEditorComponent
   ],
   bootstrap: [
     AppComponent

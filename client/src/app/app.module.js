@@ -17,6 +17,9 @@ var army_selector_component_1 = require('./components/army-selector/army-selecto
 var army_list_component_1 = require('./components/army-list/army-list.component');
 var list_printer_component_1 = require('./components/list-printer/list-printer.component');
 var army_entry_component_1 = require('./components/army-entry/army-entry.component');
+var unit_editor_component_1 = require('./components/unit-editor/unit-editor.component');
+var army_editor_component_1 = require('./components/army-editor/army-editor.component');
+var armies_editor_component_1 = require('./components/armies-editor/armies-editor.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -32,7 +35,10 @@ var AppModule = (function () {
                 army_selector_component_1.ArmySelectorComponent,
                 army_list_component_1.ArmyListComponent,
                 list_printer_component_1.ListPrinterComponent,
-                army_entry_component_1.ArmyEntryComponent
+                army_entry_component_1.ArmyEntryComponent,
+                unit_editor_component_1.UnitEditorComponent,
+                army_editor_component_1.ArmyEditorComponent,
+                armies_editor_component_1.ArmiesEditorComponent
             ],
             bootstrap: [
                 app_component_1.AppComponent

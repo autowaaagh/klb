@@ -1,0 +1,15 @@
+<div class="container-fluid">
+  Available Armies:
+  <div>
+    <select size="20" class="col-md-12 select-fill-height" [(ngModel)]="selectedArmy.name" (ngModelChange)="onArmyChange($event)">
+      <option *ngFor="let a of armies;">{{a.name}}</option>
+    </select>
+    <div>
+      <input #newName class="col-md-12" (keyup.enter)="addArmy(newName)">
+      <div>
+        <button class="col-md-6" (click)="addArmy(newName)">Add New</button>
+        <button class="col-md-6" (click)="removeArmy(selectedArmy.name)">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>

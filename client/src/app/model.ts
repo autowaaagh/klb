@@ -63,5 +63,5 @@ export class OutputDescription {
 
 export class DataLoader {
     name: string;
-    loc: string;
+    file: string;
 }
