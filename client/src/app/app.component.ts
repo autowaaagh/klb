@@ -14,21 +14,22 @@ import { Component } from '@angular/core';
       <div id="list-builder" class="tab-pane fade in active">      
         <h3>List Builder</h3>
         <div class="container-fluid">
-          <div class="col-6"><army-selector (addUnitEvent)="armylist.addUnitToList($event)"></army-selector></div>
-          <div class="col-6"><army-list #armylist (printListEvent)="listprinter.outputList($event)"></army-list></div>
+          <div class="col-md-6"><army-selector (addUnitEvent)="armylist.addUnitToList($event)"></army-selector></div>
+          <div class="col-md-6"><army-list #armylist (printListEvent)="listprinter.outputList($event)"></army-list></div>
           <list-printer #listprinter></list-printer>
         </div>
       </div>
       <div id="army-entry" class="tab-pane fade">      
         <h3>Army Entry</h3>
-        <div><army-entry></army-entry></div>
+        <div class="container-fluid"><army-entry></army-entry></div>
       </div>
     </div>
      
 
   `,
   styles: [
-    '.container { cursor: default; }'
+    '.container { cursor: default; }',
+    '.container-fluid { cursor: default; }'
   ]
 })
 export class AppComponent {

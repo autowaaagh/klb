@@ -1,11 +1,25 @@
 <div class="container-fluid">
   <span class="col-2">Name</span><input class="col-10" [(ngModel)]="unit.name">
-  <div class="">
+  <div class="col-12">
     <div class="col-5">
       <div class="form-group form-inline">
         <label class="col-6 col-form-label" for="sel-unit-type-input">Type</label>
         <div class="col-6">
-          <input id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">
+          <!--<input id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">-->
+          <select id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">
+              <option>Infantry</option>
+              <option>Large Infantry</option>
+              <option>Cavalry</option>
+              <option>Large Cavalry</option>
+              <option>Monster</option>
+              <option>War Engine</option>
+              <option>Hero (Infantry)</option>
+              <option>Hero (Large Infantry)</option>
+              <option>Hero (Cavalry)</option>
+              <option>Hero (Large Cavalry)</option>
+              <option>Hero (Monster)</option>
+              <option>Hero (War Engine)</option>
+          </select>
         </div>
       </div>
       <div class="form-group form-inline">
@@ -27,19 +41,23 @@
         </div>
       </div>
     </div>
-    <div class="col-2">
-    </div>
+    <div class="col-2"> </div>
     <div class="col-5">
-      <select size="5" class="col-12">
+      Special Rules
+      <select size="4" class="col-12" [(ngModel)]="selectedSpecial">
           <option *ngFor="let s of unit.special">{{s}}</option>
         </select>
       <div>
-        <input #newSpecial class="col-12" (keyup.enter)="btnAddNewSpecialClick(newSpecial)">
+        <input #newSpecial class="col-12" (keyup.enter)="addSpecial(newSpecial)">
         <div>
-          <button class="col-6" (click)="btnAddNewSpecialClick(newSpecial)">Add New</button>
-          <button class="col-6" (click)="btnRemoveSpecialClick()">Delete</button>
+          <button class="col-6" (click)="addSpecial(newSpecial)">Add New</button>
+          <button class="col-6" (click)="removeSpecial(selectedSpecial)">Delete</button>
         </div>
       </div>
     </div>
+  </div>
+  <div class="col-12">
+    Unit Options
+    <unit-option-editor [options]="unit.unitOptions" (optionsChangedEvent)="unitChanged()"></unit-option-editor>
   </div>
 </div>

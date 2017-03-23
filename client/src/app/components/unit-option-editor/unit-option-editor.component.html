@@ -1,0 +1,41 @@
+<div class="container-fluid">
+  <div class="row">
+    <label class="col-2 col-form-label">Unit Size</label>
+    <label class="col-1 col-form-label">#</label>
+    <label class="col-1 col-form-label">SP</label>
+    <label class="col-1 col-form-label">ME</label>
+    <label class="col-1 col-form-label">RA</label>
+    <label class="col-1 col-form-label">DE</label>
+    <label class="col-1 col-form-label">AT</label>
+    <label class="col-1 col-form-label">Waver</label>
+    <label class="col-1 col-form-label">Route</label>
+    <label class="col-1 col-form-label">Points</label>
+  </div>
+
+  <template ngFor let-option [ngForOf]="options" let-i = "index">
+    <div class="form-group form-inline row">
+      <!--<input id="unit-size" class="col-2" [(ngModel)]="option.unitSize">-->
+      <select id="unit-size" class="col-2" [(ngModel)]="option.unitSize" >
+            <option>Single</option>
+            <option>Troop</option>
+            <option>Regiment</option>
+            <option>Horde</option>
+            <option>Legion</option>
+        </select>
+      <input id="model-count" class="col-1 align-bottom" [(ngModel)]="option.modelCount">
+      <input id="sp" class="col-1 align-bottom" [(ngModel)]="option.sp">
+      <input id="me" class="col-1 align-bottom" [(ngModel)]="option.me">
+      <input id="ra" class="col-1 align-bottom" [(ngModel)]="option.ra">
+      <input id="de" class="col-1 align-bottom" [(ngModel)]="option.de">
+      <input id="at" class="col-1 align-bottom" [(ngModel)]="option.at">
+      <input id="nv-waver" class="col-1 align-bottom" [(ngModel)]="option.nv.waver">
+      <input id="nv-route" class="col-1 align-bottom" [(ngModel)]="option.nv.route">
+      <input id="pts" class="col-1 align-bottom" [(ngModel)]="option.pts">
+      <button (click)="removeUnitOption(i)">X</button>
+    </div>
+  </template>
+
+  <div class="row">
+    <button class="col-4" (click)="addUnitOption()">Add New</button>
+  </div>
+</div>

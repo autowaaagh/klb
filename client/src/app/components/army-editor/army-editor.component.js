@@ -29,6 +29,8 @@ var ArmyEditorComponent = (function () {
         });
     };
     ArmyEditorComponent.prototype.writeArmyFile = function () {
+        console.log('writeArmyFile');
+        console.log(this.army);
         this.fl.writeFile(this.dataLoader.file, this.army, function (res) {
             console.log(res);
         });
@@ -51,13 +53,40 @@ var ArmyEditorComponent = (function () {
         });
     };
     ArmyEditorComponent.prototype.addUnit = function (input) {
-        var u = new model_1.Unit();
-        u.name = input.value;
+        // let u = new Unit();
+        // u.name = input.value;
+        // u.type = "Infantry";
+        // u.piercing = 0;
+        // u.cs = 0;
+        // u.tc = 0;
+        // u.unitOptions = [{
+        // }]
+        var u = {
+            name: input.value,
+            type: 'Infantry',
+            piercing: 0,
+            cs: 0,
+            tc: 0,
+            unitOptions: [{
+                    unitSize: 'Troop',
+                    modelCount: '10',
+                    sp: '5',
+                    me: '4',
+                    ra: '-',
+                    de: '3',
+                    at: '10',
+                    nv: {
+                        waver: '10',
+                        route: '12'
+                    },
+                    pts: '100'
+                }]
+        };
         if (u.name !== '' && u.name != undefined) {
             if (this.army.units == undefined) {
                 this.army.units = [];
             }
-            this.army.units.push(u);
+            this.army.units.push(Object.assign(new model_1.Unit(), u));
             this.writeArmyFile();
         }
     };
@@ -68,6 +97,14 @@ var ArmyEditorComponent = (function () {
             _this.writeArmyFile();
         });
     };
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', model_1.Unit)
+    ], ArmyEditorComponent.prototype, "selected", void 0);
+    __decorate([
+        core_1.Input(), 
+        __metadata('design:type', model_1.ArmyList)
+    ], ArmyEditorComponent.prototype, "army", void 0);
     ArmyEditorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -11,6 +11,7 @@ import { ArmyEntryComponent } from './components/army-entry/army-entry.component
 import { UnitEditorComponent } from './components/unit-editor/unit-editor.component';
 import { ArmyEditorComponent } from './components/army-editor/army-editor.component';
 import { ArmiesEditorComponent } from './components/armies-editor/armies-editor.component';
+import { UnitOptionEditorComponent } from './components/unit-option-editor/unit-option-editor.component';
 
 @NgModule({
   imports: [
@@ -26,7 +27,8 @@ import { ArmiesEditorComponent } from './components/armies-editor/armies-editor.
     ArmyEntryComponent,
     UnitEditorComponent,
     ArmyEditorComponent,
-    ArmiesEditorComponent
+    ArmiesEditorComponent,
+    UnitOptionEditorComponent
   ],
   bootstrap: [
     AppComponent
