@@ -18,7 +18,11 @@ var ArmyEditorComponent = (function () {
         this.selected = new model_1.Unit();
         this.dataLoader = new model_1.DataLoader();
     }
-    ArmyEditorComponent.prototype.ngOnInit = function () { };
+    ArmyEditorComponent.prototype.ngOnInit = function () {
+        this.viewHeight = 100; //= this.elementView.nativeElement.offsetHeight;
+        console.log('elementview');
+        console.log(this.elementView.nativeElement.offsetHeight);
+    };
     ArmyEditorComponent.prototype.findUnit = function (name, callback) {
         this.army.units.forEach(function (n, i) {
             if (n.name === name) {
@@ -105,11 +109,16 @@ var ArmyEditorComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', model_1.ArmyList)
     ], ArmyEditorComponent.prototype, "army", void 0);
+    __decorate([
+        core_1.ViewChild('container'), 
+        __metadata('design:type', core_1.ElementRef)
+    ], ArmyEditorComponent.prototype, "elementView", void 0);
     ArmyEditorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
             selector: 'army-editor',
             templateUrl: 'army-editor.component.html',
+            styles: [],
             providers: [file_loader_service_1.FileLoaderService]
         }), 
         __metadata('design:paramtypes', [file_loader_service_1.FileLoaderService])

@@ -1,23 +1,23 @@
-<div class="container-fluid">
+<div class="container-fluid inherit-height" #container>
   <div class="row">
     <div class="col-12 no-padding">
       <input class="col-md-12" [(ngModel)]="army.name">
     </div>
   </div>
+
   <div class="row">
     <div class="col-md-12">
+      <select size="24" class="col-md-12" [(ngModel)]="selected" id="unitSelect">
+        <option *ngFor="let u of army.units" [ngValue]="u">{{u.name}}</option>
+      </select>
       <div>
-        <select size="18" class="col-md-12 select-fill-height" [(ngModel)]="selected">
-          <option *ngFor="let u of army.units" [ngValue]="u">{{u.name}}</option>
-        </select>
+        <input #newUnitName class="col-md-12" (keyup.enter)="addUnit(newUnitName)">
         <div>
-          <input #newUnitName class="col-md-12" (keyup.enter)="addUnit(newUnitName)">
-          <div>
-            <button class="col-md-6" (click)="addUnit(newUnitName)">Add New</button>
-            <button class="col-md-6" (click)="removeUnit(selected.name)">Delete</button>
-          </div>
+          <button class="col-md-6" (click)="addUnit(newUnitName)">Add New</button>
+          <button class="col-md-6" (click)="removeUnit(selected.name)">Delete</button>
         </div>
       </div>
     </div>
   </div>
+  
 </div>

@@ -1,13 +1,17 @@
 import { Http } from '@angular/http';
-import { Component, OnInit, Output, Input } from '@angular/core';
+import { Component, OnInit, Output, Input, ElementRef, ViewChild } from '@angular/core';
 
 import { ArmyList, Unit, UnitOption, DataLoader } from '../../model';
 import { FileLoaderService } from '../../services/file-loader.service';
+
 
 @Component({
     moduleId: module.id,
     selector: 'army-editor',
     templateUrl: 'army-editor.component.html',
+    styles: [
+        
+    ],
     providers: [FileLoaderService]
 })
 export class ArmyEditorComponent implements OnInit {
@@ -15,13 +19,21 @@ export class ArmyEditorComponent implements OnInit {
     @Input() army: ArmyList;
     dataLoader: DataLoader;
 
+    @ViewChild('container') elementView: ElementRef;
+    viewHeight: number;
+
     constructor(private fl: FileLoaderService) {
         this.army = new ArmyList();
         this.selected = new Unit();
         this.dataLoader = new DataLoader();
+
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.viewHeight = 100; //= this.elementView.nativeElement.offsetHeight;
+        console.log('elementview');
+        console.log(this.elementView.nativeElement.offsetHeight);
+    }
 
     findUnit(name: string, callback?: (unit: Unit, index: number) => void) {
         this.army.units.forEach((n, i) => {
@@ -34,7 +46,7 @@ export class ArmyEditorComponent implements OnInit {
     }
 
     writeArmyFile() {
-        console.log('writeArmyFile') ;
+        console.log('writeArmyFile');
         console.log(this.army);
         this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
             console.log(res);
