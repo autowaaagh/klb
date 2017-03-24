@@ -12,10 +12,10 @@
     <label class="col-1 col-form-label">Points</label>
   </div>
 
-  <template ngFor let-option [ngForOf]="options" let-i = "index">
+  <template ngFor let-option [ngForOf]="options" let-i="index">
     <div class="form-group form-inline row">
       <!--<input id="unit-size" class="col-2" [(ngModel)]="option.unitSize">-->
-      <select id="unit-size" class="col-2" [(ngModel)]="option.unitSize" >
+      <select id="unit-size" class="col-2" [(ngModel)]="option.unitSize">
             <option>Single</option>
             <option>Troop</option>
             <option>Regiment</option>
@@ -31,7 +31,7 @@
       <input id="nv-waver" class="col-1 align-bottom" [(ngModel)]="option.nv.waver">
       <input id="nv-route" class="col-1 align-bottom" [(ngModel)]="option.nv.route">
       <input id="pts" class="col-1 align-bottom" [(ngModel)]="option.pts">
-      <button (click)="removeUnitOption(i)">X</button>
+      <button class="col-1" (click)="removeUnitOption(i)">X</button>
     </div>
   </template>
 

@@ -21,6 +21,23 @@ export class UnitOptionEditorComponent implements OnInit {
 
     ngOnInit() { }
 
+    getNewOption(): UnitOption {
+        return {
+            unitSize: 'Troop',
+            modelCount: 10,
+            sp: '5',
+            me: '4',
+            ra: '-',
+            de: '3',
+            at: '10',
+            nv: {
+                waver: '10',
+                route: '12'
+            },
+            pts: 100
+        }
+    }
+
     ngDoCheck() {
         let hasChanged = false;
         if (this.options != undefined && this.options != null) {
@@ -32,7 +49,7 @@ export class UnitOptionEditorComponent implements OnInit {
             this.options.forEach((o, i) => {
                 if (i >= this.oldOptions.length) {
                     hasChanged = true;
-                    this.oldOptions.push(o);
+                    this.oldOptions.push(this.getNewOption());
                 }
 
                 if (this.oldOptions[i].unitSize !== o.unitSize) {
@@ -105,23 +122,7 @@ export class UnitOptionEditorComponent implements OnInit {
         if (this.options == undefined) {
             this.options = [];
         }
-
-        let o = {
-            unitSize: 'Troop',
-            modelCount: '10',
-            sp: '5',
-            me: '4',
-            ra: '-',
-            de: '3',
-            at: '10',
-            nv: {
-                    waver: '10',
-                route: '12'
-            },
-            pts: '100'
-        }
-
-        this.options.push(Object.assign(new UnitOption(), o));
+        this.options.push(this.getNewOption());
     }
 
     removeUnitOption(index: number) {

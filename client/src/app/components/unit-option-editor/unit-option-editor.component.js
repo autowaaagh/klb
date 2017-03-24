@@ -17,6 +17,22 @@ var UnitOptionEditorComponent = (function () {
         this.oldOptions = [];
     }
     UnitOptionEditorComponent.prototype.ngOnInit = function () { };
+    UnitOptionEditorComponent.prototype.getNewOption = function () {
+        return {
+            unitSize: 'Troop',
+            modelCount: 10,
+            sp: '5',
+            me: '4',
+            ra: '-',
+            de: '3',
+            at: '10',
+            nv: {
+                waver: '10',
+                route: '12'
+            },
+            pts: 100
+        };
+    };
     UnitOptionEditorComponent.prototype.ngDoCheck = function () {
         var _this = this;
         var hasChanged = false;
@@ -28,7 +44,7 @@ var UnitOptionEditorComponent = (function () {
             this.options.forEach(function (o, i) {
                 if (i >= _this.oldOptions.length) {
                     hasChanged = true;
-                    _this.oldOptions.push(o);
+                    _this.oldOptions.push(_this.getNewOption());
                 }
                 if (_this.oldOptions[i].unitSize !== o.unitSize) {
                     hasChanged = true;
@@ -87,21 +103,7 @@ var UnitOptionEditorComponent = (function () {
         if (this.options == undefined) {
             this.options = [];
         }
-        var o = {
-            unitSize: 'Troop',
-            modelCount: '10',
-            sp: '5',
-            me: '4',
-            ra: '-',
-            de: '3',
-            at: '10',
-            nv: {
-                waver: '10',
-                route: '12'
-            },
-            pts: '100'
-        };
-        this.options.push(Object.assign(new model_1.UnitOption(), o));
+        this.options.push(this.getNewOption());
     };
     UnitOptionEditorComponent.prototype.removeUnitOption = function (index) {
         if (index != undefined && index > -1) {

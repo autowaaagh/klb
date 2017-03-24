@@ -46,10 +46,10 @@ var UnitEditorComponent = (function () {
         //     hasChanged = true;
         //     this.oldUnit.unitOptions = this.unit.unitOptions;
         // }
-        if (this.unit.unitUpgrades !== this.oldUnit.unitUpgrades) {
-            hasChanged = true;
-            this.oldUnit.unitUpgrades = this.unit.unitUpgrades;
-        }
+        // if (this.unit.unitUpgrades !== this.oldUnit.unitUpgrades) {
+        //     hasChanged = true;
+        //     this.oldUnit.unitUpgrades = this.unit.unitUpgrades;
+        // }
         if (hasChanged) {
             this.unitChanged();
         }
@@ -96,7 +96,11 @@ var UnitEditorComponent = (function () {
         core_1.Component({
             moduleId: module.id,
             selector: 'unit-editor',
-            templateUrl: 'unit-editor.component.html'
+            templateUrl: 'unit-editor.component.html',
+            styles: [
+                '.bordered { border: 1px solid; margin-top: 5px; }',
+                '.no-padding { padding: 0px; }',
+            ]
         }), 
         __metadata('design:paramtypes', [])
     ], UnitEditorComponent);

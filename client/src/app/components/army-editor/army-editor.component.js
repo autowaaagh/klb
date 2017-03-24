@@ -69,7 +69,7 @@ var ArmyEditorComponent = (function () {
             tc: 0,
             unitOptions: [{
                     unitSize: 'Troop',
-                    modelCount: '10',
+                    modelCount: 10,
                     sp: '5',
                     me: '4',
                     ra: '-',
@@ -79,7 +79,7 @@ var ArmyEditorComponent = (function () {
                         waver: '10',
                         route: '12'
                     },
-                    pts: '100'
+                    pts: 100
                 }]
         };
         if (u.name !== '' && u.name != undefined) {

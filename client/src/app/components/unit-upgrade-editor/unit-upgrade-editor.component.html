@@ -1,0 +1,30 @@
+<div class="container-fluid">
+  <template ngFor let-upgrade [ngForOf]="upgrades" let-i="index">
+    <div class="form-group form-inline row bordered">
+      <input id="name" class="col-1 align-bottom col-10" [(ngModel)]="upgrade.name">
+      <input id="pts" class="col-1 align-bottom" [(ngModel)]="upgrade.pts">
+      <button class="col-1">X</button>
+      <div class="row">
+        <div class="col-10 col-md-offset-1">
+          <div clas="row">
+            <template ngFor let-mod [ngForOf]="upgrade.unitModifiers" let-modi="index">
+              Element: {{mod.element}} newValue: {{mod.newValue}} action: {{mod.action}} <br/>
+            </template>
+          </div>
+          <div clas="row">
+            <template ngFor let-optmod [ngForOf]="upgrade.unitOptionModifiers" let-optmodi="index">
+              Element: {{optmod.element}} newValue: {{optmod.newValue}} action: {{optmod.action}} <br/>
+            </template>
+          </div>
+          <div class="row">
+            <div class="col-4 col-md-offset-1"><button class="col-12">Add Modifier</button></div>
+            <div class="col-4"><button class="col-12">Add Option Modifier</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  <div class="row">
+    <button class="col-4" (click)="addUpgrade()">Add New</button>
+  </div>
+</div>
