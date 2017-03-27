@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 import { ArmyList, Unit, UnitOption, Artefact, UnitUpgrade, Modifier } from '../../model';
+import { FileLoaderService } from '../../services/file-loader.service';
 
 
 @Component({
@@ -24,26 +25,36 @@ import { ArmyList, Unit, UnitOption, Artefact, UnitUpgrade, Modifier } from '../
         '.unit-sub-row { margin-left: 10px; }',
         '.list-total-points { text-align: right; align: right; }'
         // '.tbl-top-bar button { margin: 0px 2px; }'
-    ]
+    ],
+    providers: [FileLoaderService]
 })
 export class ArmyListComponent implements OnInit {
     armyList: ArmyList;
     artefacts: Artefact[] = [];
     @Output() printListEvent = new EventEmitter();
 
-    constructor(private http: Http) {
+    constructor(private http: Http, private fl: FileLoaderService) {
         this.newList();
 
-        this.http.get('data/artefacts.json')
-            .subscribe(res => {
-                let json = res.json();
+        fl.getFile('data/artefacts.json', (res) => {
+            let json = res.json();
 
-                for (var i = 0; i < json.length; i++) {
-                    var obj = json[i];
-                    let a: Artefact = Object.assign(new Artefact(), obj);
-                    this.artefacts.push(a);
-                }
-            });
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                let a: Artefact = Object.assign(new Artefact(), obj);
+                this.artefacts.push(a);
+            }
+        });
+        // this.http.get('data/artefacts.json')
+        //     .subscribe(res => {
+        //         let json = res.json();
+
+        //         for (var i = 0; i < json.length; i++) {
+        //             var obj = json[i];
+        //             let a: Artefact = Object.assign(new Artefact(), obj);
+        //             this.artefacts.push(a);
+        //         }
+        //     });
     }
 
     ngOnInit() { }
@@ -94,8 +105,10 @@ export class ArmyListComponent implements OnInit {
 
     applyModifier(obj: any, mod: Modifier) {
         if (mod.action === 'add') {
-            obj[mod.element] += mod.newValue;
-            mod.newValue = -mod.newValue;
+            let n: number = Number.parseInt(mod.newValue);
+            let n1: number = Number.parseInt(obj[mod.element]);
+            obj[mod.element] = n1 + n;
+            mod.newValue = -n;
         } else if (mod.action === 'replace') {
             let oldVal = obj[mod.element];
             obj[mod.element] = mod.newValue;
@@ -118,13 +131,16 @@ export class ArmyListComponent implements OnInit {
         let p: number = 0;
 
         this.armyList.units.forEach((u, i) => {
+            console.log("unitOption: " + (u.unitOptions[0].pts + 0));
             p += u.unitOptions[0].pts;
             if (u.artefact !== null) {
+                console.log("uArtefact: " + (u.artefact.pts + 0));
                 p += u.artefact.pts;
             }
             if (u.unitUpgrades) {
                 u.unitUpgrades.forEach((ug, ugi) => {
                     if (ug.isSelected) {
+                        console.log("upgrade: " + (ug.pts + 0));
                         p += ug.pts;
                     }
                 });
@@ -147,24 +163,82 @@ export class ArmyListComponent implements OnInit {
     outputList() {
         let list: ArmyList = (JSON.parse(JSON.stringify(this.armyList)));
 
-        list.units.forEach((u, i) => {
-            if (u.artefact && u.artefact.name != '- Artefacts - ') {
-                u.unitOptions[0].pts += u.artefact.pts;
-            }
+        if (this.isListValid(list)) {
+            list.units.forEach((u, i) => {
+                if (u.artefact && u.artefact.name != '- Artefacts - ') {
+                    u.unitOptions[0].pts += u.artefact.pts;
+                }
 
-            if (u.unitUpgrades) {
-                u.unitUpgrades.forEach((uu, j) => {
-                    if (uu.isSelected) {
-                        u.unitOptions[0].pts += uu.pts;
+                if (u.unitUpgrades) {
+                    u.unitUpgrades.forEach((uu, j) => {
+                        if (uu.isSelected) {
+                            u.unitOptions[0].pts += uu.pts;
+                        }
+                    });
+                }
+
+                if (u.unitOptions[0].unitSize === 'Single') {
+                    u.unitOptions[0].unitSize = 'Single Model';
+                }
+            });
+
+            this.printListEvent.emit(list);
+        }
+    }
+
+    isListValid(list: ArmyList): boolean {
+        let isValid = true;
+
+        let universalUnlockable = 0;
+        let troopUnlockable = 0;
+        let monsterUnlockable = 0;
+        let heroUnlockable = 0;
+        let warengineUnlockable = 0;
+
+        if (list.points > 0) {
+            list.units.forEach((u, i) => {
+                let unitSize = u.unitOptions[0].unitSize;
+                let unitType = u.type;
+
+                if (unitSize === 'Regiment') {
+                    universalUnlockable++;
+                } else if (unitSize === 'Horde' || unitSize === 'Legion') {
+                    troopUnlockable += 2;
+                    monsterUnlockable++;
+                    heroUnlockable++;
+                    warengineUnlockable++;
+                } else {
+                    if (unitType === 'Monster') {
+                        this.reduceUnlockable(universalUnlockable, monsterUnlockable);
+                    } else if (unitType.indexOf('Hero') >= 0) {
+                        this.reduceUnlockable(universalUnlockable, heroUnlockable);
+                    } else if (unitType === 'War Engine') {
+                        this.reduceUnlockable(universalUnlockable, warengineUnlockable);
                     }
-                });
-            }
 
-            if (u.unitOptions[0].unitSize === 'Single') {
-                u.unitOptions[0].unitSize = 'Single Model';
-            }
-        });
+                    if (unitSize === 'Troop') {
+                        this.reduceUnlockable(universalUnlockable, troopUnlockable);
+                    }
+                }
+            });
+        } else {
+            isValid = false;
+        }
 
-        this.printListEvent.emit(list);
+        if (universalUnlockable < 0 || troopUnlockable < 0 || monsterUnlockable < 0 || heroUnlockable < 0 || warengineUnlockable < 0) {
+            isValid = false;
+        }
+
+        console.log(isValid);
+        // return isValid;
+        return true;
+    }
+
+    reduceUnlockable(universal: number, type: number) {
+        if (type <= 0) {
+            universal--;
+        } else {
+            type--;
+        }
     }
 }

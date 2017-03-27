@@ -11,20 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 var model_1 = require('../../model');
+var file_loader_service_1 = require('../../services/file-loader.service');
 var ArmySelectorComponent = (function () {
-    function ArmySelectorComponent(http) {
+    function ArmySelectorComponent(http, fl) {
         var _this = this;
         this.http = http;
+        this.fl = fl;
         this.armyLists = [];
         this.addUnitEvent = new core_1.EventEmitter();
-        this.http.get('data/armies.json')
-            .subscribe(function (res) {
+        fl.getFile('data/armies.json', function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData('data/' + obj.file);
             }
         });
+        // this.http.get('data/armies.json')
+        //     .subscribe(res => {
+        //         let json = res.json();
+        //         for (var i = 0; i < json.length; i++) {
+        //             var obj = json[i];
+        //             this.loadData('data/' + obj.file);
+        //         }
+        //     });
     }
     ArmySelectorComponent.prototype.loadData = function (loc) {
         var _this = this;
@@ -86,9 +95,10 @@ var ArmySelectorComponent = (function () {
                 '.unit-options-list { width: 100% }',
                 '.unit-list { width: 100% }',
                 '.unit-options-list tr:not(:first-child):hover td { background-color: #009CEE; color: #fff; }'
-            ]
+            ],
+            providers: [file_loader_service_1.FileLoaderService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, file_loader_service_1.FileLoaderService])
     ], ArmySelectorComponent);
     return ArmySelectorComponent;
 }());

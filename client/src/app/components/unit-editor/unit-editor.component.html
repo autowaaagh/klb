@@ -1,17 +1,17 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-12 no-padding">
-      <input class=" col-12 " [(ngModel)]="unit.name ">
+      <input class=" col-12" [(ngModel)]="unit.name">
     </div>
   </div>
-  <div class="row ">
-    <div class="col-12 bordered ">
-      <div class="col-5 ">
-        <div class="form-group form-inline ">
-          <label class="col-6 col-form-label " for="sel-unit-type-input ">Type</label>
-          <div class="col-6 ">
-            <!--<input id="sel-unit-type-input " class="form-control " [(ngModel)]="unit.type ">-->
-            <select id="sel-unit-type-input " class="form-control " [(ngModel)]="unit.type ">
+  <div class="row">
+    <div class="col-12 bordered">
+      <div class="col-5">
+        <div class="form-group form-inline">
+          <label class="col-6 col-form-label" for="sel-unit-type-input">Type</label>
+          <div class="col-6">
+            <!--<input id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">-->
+            <select id="sel-unit-type-input" class="form-control" [(ngModel)]="unit.type">
               <option>Infantry</option>
               <option>Large Infantry</option>
               <option>Cavalry</option>
@@ -27,52 +27,52 @@
           </select>
           </div>
         </div>
-        <div class="form-group form-inline ">
-          <label class="col-6 col-form-label " for="sel-unit-piercing-input ">Piercing</label>
-          <div class="col-6 ">
-            <input id="sel-unit-piercing-input " class="form-control " [(ngModel)]="unit.piercing " type="number
-      " min="0 ">
+        <div class="form-group form-inline">
+          <label class="col-6 col-form-label" for="sel-unit-piercing-input">Piercing</label>
+          <div class="col-6">
+            <input id="sel-unit-piercing-input" class="form-control" [(ngModel)]="unit.piercing" (ngModelChange)="changeToNum(unit.piercing, $event)"
+              type="number" min="0">
           </div>
         </div>
-        <div class="form-group form-inline ">
-          <label class="col-6 col-form-label " for="sel-unit-cs-input ">Crushing Strength</label>
-          <div class="col-6 ">
-            <input id="sel-unit-cs-input " class="form-control " [(ngModel)]="unit.cs " type="number " min="0 ">
+        <div class="form-group form-inline">
+          <label class="col-6 col-form-label" for="sel-unit-cs-input">Crushing Strength</label>
+          <div class="col-6">
+            <input id="sel-unit-cs-input" class="form-control" [(ngModel)]="unit.cs" type="number" min="0">
           </div>
         </div>
-        <div class="form-group form-inline ">
-          <label class="col-6 col-form-label " for="sel-unit-tc-input ">Thunderous Charge</label>
-          <div class="col-6 ">
-            <input id="sel-unit-tc-input " class="form-control " [(ngModel)]="unit.tc " type="number " min="0 ">
+        <div class="form-group form-inline">
+          <label class="col-6 col-form-label" for="sel-unit-tc-input">Thunderous Charge</label>
+          <div class="col-6">
+            <input id="sel-unit-tc-input" class="form-control" [(ngModel)]="unit.tc" type="number" min="0">
           </div>
         </div>
       </div>
-      <div class="col-2 "> </div>
-      <div class="col-5 ">
+      <div class="col-2"> </div>
+      <div class="col-5">
         Special Rules
-        <select size="4 " class="col-12 " [(ngModel)]="selectedSpecial ">
-          <option *ngFor="let s of unit.special ">{{s}}</option>
+        <select size="4" class="col-12" [(ngModel)]="selectedSpecial">
+          <option *ngFor="let s of unit.special">{{s}}</option>
         </select>
         <div>
-          <input #newSpecial class="col-12 " (keyup.enter)="addSpecial(newSpecial) ">
+          <input #newSpecial class="col-12" (keyup.enter)="addSpecial(newSpecial)">
           <div>
-            <button class="col-6 " (click)="addSpecial(newSpecial) ">Add New</button>
-            <button class="col-6 " (click)="removeSpecial(selectedSpecial) ">Delete</button>
+            <button class="col-6" (click)="addSpecial(newSpecial)">Add New</button>
+            <button class="col-6" (click)="removeSpecial(selectedSpecial)">Delete</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="row ">
-    <div class="col-12 bordered ">
+  <div class="row">
+    <div class="col-12 bordered">
       Unit Options
-      <unit-option-editor [options]="unit.unitOptions " (optionsChangedEvent)="unitChanged() "></unit-option-editor>
+      <unit-option-editor [options]="unit.unitOptions" (optionsChangedEvent)="unitChanged()"></unit-option-editor>
     </div>
   </div>
-  <div class="row ">
-    <div class="col-12 bordered ">
+  <div class="row">
+    <div class="col-12 bordered">
       Unit Upgrades
-      <unit-upgrade-editor [upgrades]="unit.unitUpgrades " (upgradesChangedEvent)="unitChanged() "></unit-upgrade-editor>
+      <unit-upgrade-editor [upgrades]="unit.unitUpgrades" (upgradesChangedEvent)="unitChanged()"></unit-upgrade-editor>
     </div>
   </div>
 </div>

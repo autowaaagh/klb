@@ -5,13 +5,13 @@
     "name": "Big Rats",
     "type": "Large Infantry",
     "piercing": 0,
-    "cs": "2",
+    "cs": 1,
     "tc": 0,
     "unitOptions": [{
       "unitSize": "Troop",
-      "modelCount": 10,
-      "sp": "4",
-      "me": "3",
+      "modelCount": 3,
+      "sp": "5",
+      "me": "4",
       "ra": "-",
       "de": "3",
       "at": "10",
@@ -19,22 +19,20 @@
         "waver": "10",
         "route": "12"
       },
-      "pts": 100
+      "pts": 150
     }],
     "unitUpgrades": [{
-      "name": "Great Weapons",
-      "pts": 0,
+      "name": "New Upgrade",
+      "pts": 5,
       "unitModifiers": [{
         "action": "add",
         "element": "cs",
         "newValue": "1"
       }],
-      "unitOptionModifiers": [{
-        "action": "replace",
-        "element": "sp",
-        "newValue": "3"
-      }],
+      "unitOptionModifiers": [],
       "isSelected": false
-    }]
+    }],
+    "artefact": null,
+    "isExpanded": false
   }]
 }

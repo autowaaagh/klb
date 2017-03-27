@@ -84,6 +84,10 @@ var UnitEditorComponent = (function () {
             _this.unitChanged();
         });
     };
+    UnitEditorComponent.prototype.changeToNum = function (property, val) {
+        console.log(property);
+        console.log(val);
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', model_1.Unit)

@@ -11,15 +11,16 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 var model_1 = require('../../model');
+var file_loader_service_1 = require('../../services/file-loader.service');
 var ArmyListComponent = (function () {
-    function ArmyListComponent(http) {
+    function ArmyListComponent(http, fl) {
         var _this = this;
         this.http = http;
+        this.fl = fl;
         this.artefacts = [];
         this.printListEvent = new core_1.EventEmitter();
         this.newList();
-        this.http.get('data/artefacts.json')
-            .subscribe(function (res) {
+        fl.getFile('data/artefacts.json', function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -27,6 +28,15 @@ var ArmyListComponent = (function () {
                 _this.artefacts.push(a);
             }
         });
+        // this.http.get('data/artefacts.json')
+        //     .subscribe(res => {
+        //         let json = res.json();
+        //         for (var i = 0; i < json.length; i++) {
+        //             var obj = json[i];
+        //             let a: Artefact = Object.assign(new Artefact(), obj);
+        //             this.artefacts.push(a);
+        //         }
+        //     });
     }
     ArmyListComponent.prototype.ngOnInit = function () { };
     ArmyListComponent.prototype.addUnitToList = function (unit) {
@@ -68,8 +78,10 @@ var ArmyListComponent = (function () {
     };
     ArmyListComponent.prototype.applyModifier = function (obj, mod) {
         if (mod.action === 'add') {
-            obj[mod.element] += mod.newValue;
-            mod.newValue = -mod.newValue;
+            var n = Number.parseInt(mod.newValue);
+            var n1 = Number.parseInt(obj[mod.element]);
+            obj[mod.element] = n1 + n;
+            mod.newValue = -n;
         }
         else if (mod.action === 'replace') {
             var oldVal = obj[mod.element];
@@ -93,13 +105,16 @@ var ArmyListComponent = (function () {
     ArmyListComponent.prototype.calculateListPoints = function () {
         var p = 0;
         this.armyList.units.forEach(function (u, i) {
+            console.log("unitOption: " + (u.unitOptions[0].pts + 0));
             p += u.unitOptions[0].pts;
             if (u.artefact !== null) {
+                console.log("uArtefact: " + (u.artefact.pts + 0));
                 p += u.artefact.pts;
             }
             if (u.unitUpgrades) {
                 u.unitUpgrades.forEach(function (ug, ugi) {
                     if (ug.isSelected) {
+                        console.log("upgrade: " + (ug.pts + 0));
                         p += ug.pts;
                     }
                 });
@@ -117,22 +132,79 @@ var ArmyListComponent = (function () {
     };
     ArmyListComponent.prototype.outputList = function () {
         var list = (JSON.parse(JSON.stringify(this.armyList)));
-        list.units.forEach(function (u, i) {
-            if (u.artefact && u.artefact.name != '- Artefacts - ') {
-                u.unitOptions[0].pts += u.artefact.pts;
-            }
-            if (u.unitUpgrades) {
-                u.unitUpgrades.forEach(function (uu, j) {
-                    if (uu.isSelected) {
-                        u.unitOptions[0].pts += uu.pts;
+        if (this.isListValid(list)) {
+            list.units.forEach(function (u, i) {
+                if (u.artefact && u.artefact.name != '- Artefacts - ') {
+                    u.unitOptions[0].pts += u.artefact.pts;
+                }
+                if (u.unitUpgrades) {
+                    u.unitUpgrades.forEach(function (uu, j) {
+                        if (uu.isSelected) {
+                            u.unitOptions[0].pts += uu.pts;
+                        }
+                    });
+                }
+                if (u.unitOptions[0].unitSize === 'Single') {
+                    u.unitOptions[0].unitSize = 'Single Model';
+                }
+            });
+            this.printListEvent.emit(list);
+        }
+    };
+    ArmyListComponent.prototype.isListValid = function (list) {
+        var _this = this;
+        var isValid = true;
+        var universalUnlockable = 0;
+        var troopUnlockable = 0;
+        var monsterUnlockable = 0;
+        var heroUnlockable = 0;
+        var warengineUnlockable = 0;
+        if (list.points > 0) {
+            list.units.forEach(function (u, i) {
+                var unitSize = u.unitOptions[0].unitSize;
+                var unitType = u.type;
+                if (unitSize === 'Regiment') {
+                    universalUnlockable++;
+                }
+                else if (unitSize === 'Horde' || unitSize === 'Legion') {
+                    troopUnlockable += 2;
+                    monsterUnlockable++;
+                    heroUnlockable++;
+                    warengineUnlockable++;
+                }
+                else {
+                    if (unitType === 'Monster') {
+                        _this.reduceUnlockable(universalUnlockable, monsterUnlockable);
                     }
-                });
-            }
-            if (u.unitOptions[0].unitSize === 'Single') {
-                u.unitOptions[0].unitSize = 'Single Model';
-            }
-        });
-        this.printListEvent.emit(list);
+                    else if (unitType.indexOf('Hero') >= 0) {
+                        _this.reduceUnlockable(universalUnlockable, heroUnlockable);
+                    }
+                    else if (unitType === 'War Engine') {
+                        _this.reduceUnlockable(universalUnlockable, warengineUnlockable);
+                    }
+                    if (unitSize === 'Troop') {
+                        _this.reduceUnlockable(universalUnlockable, troopUnlockable);
+                    }
+                }
+            });
+        }
+        else {
+            isValid = false;
+        }
+        if (universalUnlockable < 0 || troopUnlockable < 0 || monsterUnlockable < 0 || heroUnlockable < 0 || warengineUnlockable < 0) {
+            isValid = false;
+        }
+        console.log(isValid);
+        // return isValid;
+        return true;
+    };
+    ArmyListComponent.prototype.reduceUnlockable = function (universal, type) {
+        if (type <= 0) {
+            universal--;
+        }
+        else {
+            type--;
+        }
     };
     __decorate([
         core_1.Output(), 
@@ -158,9 +230,10 @@ var ArmyListComponent = (function () {
                 '.btn-remove-unit:hover { background-color: #d00; }',
                 '.unit-sub-row { margin-left: 10px; }',
                 '.list-total-points { text-align: right; align: right; }'
-            ]
+            ],
+            providers: [file_loader_service_1.FileLoaderService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, file_loader_service_1.FileLoaderService])
     ], ArmyListComponent);
     return ArmyListComponent;
 }());

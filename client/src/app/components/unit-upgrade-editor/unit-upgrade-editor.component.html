@@ -2,7 +2,7 @@
   <template ngFor let-upgrade [ngForOf]="upgrades" let-i="index">
     <div class="form-group form-inline row bordered">
       <input id="name" class="col-1 align-bottom col-10" [(ngModel)]="upgrade.name">
-      <input id="pts" class="col-1 align-bottom" [(ngModel)]="upgrade.pts">
+      <input id="pts" class="col-1 align-bottom" [(ngModel)]="upgrade.pts" type="number">
       <button class="col-1" (click)="removeUpgrade(i)">X</button>
       <div class="row">
         <div class="col-10 col-md-offset-1">

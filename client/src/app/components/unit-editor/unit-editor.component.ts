@@ -110,4 +110,9 @@ export class UnitEditorComponent implements OnInit {
             this.unitChanged();
         });
     }
+
+    changeToNum(property: any, val: string) {
+        console.log(property);
+        console.log(val);
+    }
 }

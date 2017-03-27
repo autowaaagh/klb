@@ -22,7 +22,7 @@
             <option>Horde</option>
             <option>Legion</option>
         </select>
-      <input id="model-count" class="col-1 align-bottom" [(ngModel)]="option.modelCount">
+      <input id="model-count" class="col-1 align-bottom" [(ngModel)]="option.modelCount" type="number">
       <input id="sp" class="col-1 align-bottom" [(ngModel)]="option.sp">
       <input id="me" class="col-1 align-bottom" [(ngModel)]="option.me">
       <input id="ra" class="col-1 align-bottom" [(ngModel)]="option.ra">
@@ -30,7 +30,7 @@
       <input id="at" class="col-1 align-bottom" [(ngModel)]="option.at">
       <input id="nv-waver" class="col-1 align-bottom" [(ngModel)]="option.nv.waver">
       <input id="nv-route" class="col-1 align-bottom" [(ngModel)]="option.nv.route">
-      <input id="pts" class="col-1 align-bottom" [(ngModel)]="option.pts">
+      <input id="pts" class="col-1 align-bottom" [(ngModel)]="option.pts" type="number">
       <button class="col-1" (click)="removeUnitOption(i)">X</button>
     </div>
   </template>

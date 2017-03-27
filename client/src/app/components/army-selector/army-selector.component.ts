@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 import { ArmyList, Unit, UnitOption, DataLoader } from '../../model';
+import { FileLoaderService } from '../../services/file-loader.service';
 
 
 @Component({
@@ -18,23 +19,33 @@ import { ArmyList, Unit, UnitOption, DataLoader } from '../../model';
         '.unit-options-list { width: 100% }',
         '.unit-list { width: 100% }',
         '.unit-options-list tr:not(:first-child):hover td { background-color: #009CEE; color: #fff; }'
-    ]
+    ],
+    providers: [FileLoaderService]
 })
 export class ArmySelectorComponent implements OnInit {
     armyLists: ArmyList[] = [];
     @Output() addUnitEvent = new EventEmitter();
     armyList: ArmyList;
 
-    constructor(private http: Http) {
-        this.http.get('data/armies.json')
-            .subscribe(res => {
-                let json = res.json();
+    constructor(private http: Http, private fl: FileLoaderService) {
+        fl.getFile('data/armies.json', (res) => {
+            let json = res.json();
 
                 for (var i = 0; i < json.length; i++) {
                     var obj = json[i];
                     this.loadData('data/' + obj.file);
                 }
-            });
+        });
+
+        // this.http.get('data/armies.json')
+        //     .subscribe(res => {
+        //         let json = res.json();
+
+        //         for (var i = 0; i < json.length; i++) {
+        //             var obj = json[i];
+        //             this.loadData('data/' + obj.file);
+        //         }
+        //     });
     }
 
     loadData(loc: string) {

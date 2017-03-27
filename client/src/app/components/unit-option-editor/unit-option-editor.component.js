@@ -18,20 +18,33 @@ var UnitOptionEditorComponent = (function () {
     }
     UnitOptionEditorComponent.prototype.ngOnInit = function () { };
     UnitOptionEditorComponent.prototype.getNewOption = function () {
-        return {
-            unitSize: 'Troop',
-            modelCount: 10,
-            sp: '5',
-            me: '4',
-            ra: '-',
-            de: '3',
-            at: '10',
-            nv: {
-                waver: '10',
-                route: '12'
-            },
-            pts: 100
-        };
+        var u = new model_1.UnitOption();
+        u.unitSize = 'Troop';
+        u.modelCount = 10;
+        u.sp = '5';
+        u.me = '4';
+        u.ra = '-';
+        u.de = '3';
+        u.at = '10';
+        u.nv = new model_1.Nerve();
+        u.nv.waver = '10';
+        u.nv.route = '12';
+        u.pts = 100;
+        return u;
+        // return {
+        //     unitSize: 'Troop',
+        //     modelCount: 10,
+        //     sp: '5',
+        //     me: '4',
+        //     ra: '-',
+        //     de: '3',
+        //     at: '10',
+        //     nv: {
+        //         waver: '10',
+        //         route: '12'
+        //     },
+        //     pts: 100
+        // }
     };
     UnitOptionEditorComponent.prototype.ngDoCheck = function () {
         var _this = this;
