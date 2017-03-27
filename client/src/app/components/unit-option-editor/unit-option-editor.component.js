@@ -39,7 +39,7 @@ var UnitOptionEditorComponent = (function () {
         if (this.options != undefined && this.options != null) {
             if (this.options.length < this.oldOptions.length) {
                 hasChanged = true;
-                this.oldOptions.splice(this.oldOptions.length - this.options.length);
+                this.oldOptions.length = this.options.length;
             }
             this.options.forEach(function (o, i) {
                 if (i >= _this.oldOptions.length) {

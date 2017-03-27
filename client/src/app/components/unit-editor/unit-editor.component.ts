@@ -3,6 +3,7 @@ import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angula
 
 import { ArmyList, Unit, UnitOption, DataLoader } from '../../model';
 import { UnitOptionEditorComponent } from '../unit-option-editor/unit-option-editor.component';
+import { UnitUpgradeEditorComponent } from '../unit-upgrade-editor/unit-upgrade-editor.component';
 
 @Component({
     moduleId: module.id,
@@ -87,7 +88,7 @@ export class UnitEditorComponent implements OnInit {
 
     unitChanged() {
         console.log('emit unit-changed event')
-        console.log(this.unit.unitOptions);
+        console.log(this.unit.unitUpgrades);
         this.unitChangedEvent.emit();
     }
 

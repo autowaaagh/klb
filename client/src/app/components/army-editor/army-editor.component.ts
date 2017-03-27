@@ -10,7 +10,7 @@ import { FileLoaderService } from '../../services/file-loader.service';
     selector: 'army-editor',
     templateUrl: 'army-editor.component.html',
     styles: [
-        
+
     ],
     providers: [FileLoaderService]
 })
@@ -30,7 +30,7 @@ export class ArmyEditorComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.viewHeight = 100; //= this.elementView.nativeElement.offsetHeight;
+        this.viewHeight = 100;
         console.log('elementview');
         console.log(this.elementView.nativeElement.offsetHeight);
     }
@@ -72,43 +72,36 @@ export class ArmyEditorComponent implements OnInit {
     }
 
     addUnit(input: any) {
-        // let u = new Unit();
-        // u.name = input.value;
-        // u.type = "Infantry";
-        // u.piercing = 0;
-        // u.cs = 0;
-        // u.tc = 0;
-        // u.unitOptions = [{
-
-        // }]
-        let u = {
-            name: input.value,
-            type: 'Infantry',
-            piercing: 0,
-            cs: 0,
-            tc: 0,
-            unitOptions: [{
-                unitSize: 'Troop',
-                modelCount: 10,
-                sp: '5',
-                me: '4',
-                ra: '-',
-                de: '3',
-                at: '10',
-                nv: {
-                    waver: '10',
-                    route: '12'
-                },
-                pts: 100
-            }]
-        }
+        let u = new Unit();
+        u.name = input.value;
+        u.type = 'Infantry';
+        u.piercing = 0;
+        u.cs = 0;
+        u.tc = 0;
+        u.unitOptions = [{
+            unitSize: 'Troop',
+            modelCount: 10,
+            sp: '5',
+            me: '4',
+            ra: '-',
+            de: '3',
+            at: '10',
+            nv: {
+                waver: '10',
+                route: '12'
+            },
+            pts: 100
+        }];
+        u.unitUpgrades = [];
+        u.artefact = null;
+        u.isExpanded = false;
 
         if (u.name !== '' && u.name != undefined) {
             if (this.army.units == undefined) {
                 this.army.units = [];
             }
 
-            this.army.units.push(Object.assign(new Unit(), u));
+            this.army.units.push(u);
             this.writeArmyFile();
         }
     }

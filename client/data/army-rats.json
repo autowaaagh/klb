@@ -1,1 +1,40 @@
-{"name":"Rats","points":0,"units":[{"name":"Critters","type":"Infantry","piercing":0,"cs":0,"tc":0,"unitOptions":[{"unitSize":"Troop","modelCount":20,"sp":"6","me":"4","ra":"-","de":"3","at":"10","nv":{"waver":"10","route":"12"},"pts":100},{"unitSize":"Horde","modelCount":"40","sp":"6","me":"5","ra":"-","de":"3","at":"10","nv":{"waver":"10","route":"12"},"pts":100}]}]}
+{
+  "name": "Rats",
+  "points": 0,
+  "units": [{
+    "name": "Big Rats",
+    "type": "Large Infantry",
+    "piercing": 0,
+    "cs": "2",
+    "tc": 0,
+    "unitOptions": [{
+      "unitSize": "Troop",
+      "modelCount": 10,
+      "sp": "4",
+      "me": "3",
+      "ra": "-",
+      "de": "3",
+      "at": "10",
+      "nv": {
+        "waver": "10",
+        "route": "12"
+      },
+      "pts": 100
+    }],
+    "unitUpgrades": [{
+      "name": "Great Weapons",
+      "pts": 0,
+      "unitModifiers": [{
+        "action": "add",
+        "element": "cs",
+        "newValue": "1"
+      }],
+      "unitOptionModifiers": [{
+        "action": "replace",
+        "element": "sp",
+        "newValue": "3"
+      }],
+      "isSelected": false
+    }]
+  }]
+}

@@ -66,7 +66,7 @@ var UnitEditorComponent = (function () {
     };
     UnitEditorComponent.prototype.unitChanged = function () {
         console.log('emit unit-changed event');
-        console.log(this.unit.unitOptions);
+        console.log(this.unit.unitUpgrades);
         this.unitChangedEvent.emit();
     };
     UnitEditorComponent.prototype.addSpecial = function (input) {
