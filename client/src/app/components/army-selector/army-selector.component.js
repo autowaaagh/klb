@@ -17,42 +17,48 @@ var ArmySelectorComponent = (function () {
         var _this = this;
         this.http = http;
         this.fl = fl;
-        this.armyLists = [];
+        this.armies = [];
         this.addUnitEvent = new core_1.EventEmitter();
+        this.armyList = new model_1.ArmyList();
         fl.getFile('data/armies.json', function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
-                _this.loadData('data/' + obj.file);
+                _this.loadData(obj);
+                _this.onArmyChange(_this.armies[0].name);
             }
         });
-        // this.http.get('data/armies.json')
-        //     .subscribe(res => {
-        //         let json = res.json();
-        //         for (var i = 0; i < json.length; i++) {
-        //             var obj = json[i];
-        //             this.loadData('data/' + obj.file);
-        //         }
-        //     });
     }
-    ArmySelectorComponent.prototype.loadData = function (loc) {
-        var _this = this;
-        if (loc && loc !== '') {
-            this.http.get(loc)
-                .subscribe(function (r) {
-                var b = Object.assign(new model_1.ArmyList(), r.json());
-                _this.armyLists.push(b);
-                _this.onArmyChange(_this.armyLists[0].name);
-            });
-        }
+    ArmySelectorComponent.prototype.loadData = function (json) {
+        var dl = new model_1.DataLoader();
+        dl.name = json['name'];
+        dl.file = json['file'];
+        console.log('armies');
+        console.log(this.armies);
+        this.armies.push(dl);
+        console.log(this.armies);
     };
     ArmySelectorComponent.prototype.ngOnInit = function () { };
+    ArmySelectorComponent.prototype.findArmy = function (name, callback) {
+        this.armies.forEach(function (n, i) {
+            if (n.name === name) {
+                if (callback != undefined) {
+                    callback(n, i);
+                }
+            }
+        });
+    };
     ArmySelectorComponent.prototype.onArmyChange = function (name) {
         var _this = this;
-        this.armyLists.forEach(function (s) {
-            if (s.name == name) {
-                _this.armyList = s;
-            }
+        this.findArmy(name, function (n, i) {
+            _this.loadArmyFile(n);
+        });
+    };
+    ArmySelectorComponent.prototype.loadArmyFile = function (dl) {
+        var _this = this;
+        this.fl.getFile('data/' + dl.file, function (res) {
+            var json = res.json();
+            _this.armyList = Object.assign(new model_1.ArmyList(), json);
         });
     };
     ArmySelectorComponent.prototype.toggleExpanded = function (unit) {

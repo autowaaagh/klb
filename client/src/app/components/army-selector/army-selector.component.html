@@ -1,6 +1,10 @@
 <div class="component">
-  <select [(ngModel)]="selectedArmy" (ngModelChange)="onArmyChange($event)">
+  <!--<select [(ngModel)]="selectedArmy" (ngModelChange)="onArmyChange($event)">
     <option *ngFor="let al of armyLists">{{al.name}}</option>
+  </select>-->
+
+  <select [(ngModel)]="armyList.name" (ngModelChange)="onArmyChange($event)">
+    <option *ngFor="let a of armies">{{a.name}}</option>
   </select>
 
   <div *ngIf="armyList">

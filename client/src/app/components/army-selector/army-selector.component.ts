@@ -23,39 +23,58 @@ import { FileLoaderService } from '../../services/file-loader.service';
     providers: [FileLoaderService]
 })
 export class ArmySelectorComponent implements OnInit {
-    armyLists: ArmyList[] = [];
+    armies: DataLoader[] = [];
     @Output() addUnitEvent = new EventEmitter();
-    armyList: ArmyList;
+    armyList: ArmyList = new ArmyList();
 
     constructor(private http: Http, private fl: FileLoaderService) {
         fl.getFile('data/armies.json', (res) => {
             let json = res.json();
 
-                for (var i = 0; i < json.length; i++) {
-                    var obj = json[i];
-                    this.loadData('data/' + obj.file);
-                }
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                this.loadData(obj);
+
+                this.onArmyChange(this.armies[0].name);
+            }
         });
     }
 
-    loadData(loc: string) {
-        if (loc && loc !== '') {
-            this.http.get(loc)
-                .subscribe(r => {
-                    let b: ArmyList = Object.assign(new ArmyList(), r.json());
-                    this.armyLists.push(b);
-                    this.onArmyChange(this.armyLists[0].name);
-                });
-        }
+    loadData(json: JSON) {
+
+        let dl = new DataLoader();
+        dl.name = json['name'];
+        dl.file = json['file'];
+
+        console.log('armies');
+        console.log(this.armies);
+        this.armies.push(dl);
+        console.log(this.armies);
     }
+
 
     ngOnInit() { }
 
-    onArmyChange(name: string) {
-        this.armyLists.forEach(s => {
-            if (s.name == name) {
-                this.armyList = s;
+    findArmy(name: string, callback?: (data: DataLoader, index: number) => void) {
+        this.armies.forEach((n, i) => {
+            if (n.name === name) {
+                if (callback != undefined) {
+                    callback(n, i);
+                }
             }
+        });
+    }
+
+    onArmyChange(name: string) {
+        this.findArmy(name, (n, i) => {
+            this.loadArmyFile(n);
+        });
+    }
+
+    loadArmyFile(dl: DataLoader) {
+        this.fl.getFile('data/' + dl.file, (res) => {
+            let json = res.json();
+            this.armyList = Object.assign(new ArmyList(), json);
         });
     }
 

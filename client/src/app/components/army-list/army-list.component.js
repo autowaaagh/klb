@@ -28,15 +28,6 @@ var ArmyListComponent = (function () {
                 _this.artefacts.push(a);
             }
         });
-        // this.http.get('data/artefacts.json')
-        //     .subscribe(res => {
-        //         let json = res.json();
-        //         for (var i = 0; i < json.length; i++) {
-        //             var obj = json[i];
-        //             let a: Artefact = Object.assign(new Artefact(), obj);
-        //             this.artefacts.push(a);
-        //         }
-        //     });
     }
     ArmyListComponent.prototype.ngOnInit = function () { };
     ArmyListComponent.prototype.addUnitToList = function (unit) {
