@@ -24,7 +24,6 @@ import { FileLoaderService } from '../../services/file-loader.service';
         '.btn-remove-unit:hover { background-color: #d00; }',
         '.unit-sub-row { margin-left: 10px; }',
         '.list-total-points { text-align: right; align: right; }'
-        // '.tbl-top-bar button { margin: 0px 2px; }'
     ],
     providers: [FileLoaderService]
 })
@@ -45,16 +44,6 @@ export class ArmyListComponent implements OnInit {
                 this.artefacts.push(a);
             }
         });
-        // this.http.get('data/artefacts.json')
-        //     .subscribe(res => {
-        //         let json = res.json();
-
-        //         for (var i = 0; i < json.length; i++) {
-        //             var obj = json[i];
-        //             let a: Artefact = Object.assign(new Artefact(), obj);
-        //             this.artefacts.push(a);
-        //         }
-        //     });
     }
 
     ngOnInit() { }

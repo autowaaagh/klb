@@ -36,16 +36,6 @@ export class ArmySelectorComponent implements OnInit {
                     this.loadData('data/' + obj.file);
                 }
         });
-
-        // this.http.get('data/armies.json')
-        //     .subscribe(res => {
-        //         let json = res.json();
-
-        //         for (var i = 0; i < json.length; i++) {
-        //             var obj = json[i];
-        //             this.loadData('data/' + obj.file);
-        //         }
-        //     });
     }
 
     loadData(loc: string) {
