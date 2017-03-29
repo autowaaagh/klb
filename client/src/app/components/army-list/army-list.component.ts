@@ -13,9 +13,13 @@ import { FileLoaderService } from '../../services/file-loader.service';
         '.component { padding:5px; overflow: auto; }',
         'table { width: 100% } ',
         '.unit-stats-row td:nth-of-type(even) { background-color: #eee }',
+        '.unit-extras-row { border-bottom: 2px solid; border-color: #aaa; }',
         '.table-header {background-color: #ccc; font-weight: bold }',
-        '.tbl-list td:first-child { width: 50% }',
-        '.tbl-list td:not(:first-child) { width: 50px; text-align:center; }',
+        //'.tbl-list td:first-child { width: 50% }',
+        '.tbl-list td:first-child { width: 50px; }',
+        //'.tbl-list td:nth-child(2) { width: 50% }',
+        // '.tbl-list td:not(:first-child) { width: 50px; text-align:center; }',
+        '.tbl-list td:not(::nth-child(2)) { width: 50px; text-align:center; }',
         '.special-rules { font-style: italic; font-size: 8pt }',
         'button {  display: inline-block; width: 100%; box-shadow: none;  border-radius: 0px; cursor: default;}',
         '.btn-flat { background-color: #007ACC; color: #fff; border: none; }',
@@ -28,7 +32,7 @@ import { FileLoaderService } from '../../services/file-loader.service';
     providers: [FileLoaderService]
 })
 export class ArmyListComponent implements OnInit {
-    armyList: ArmyList;
+    army: ArmyList;
     artefacts: Artefact[] = [];
     @Output() printListEvent = new EventEmitter();
 
@@ -48,30 +52,52 @@ export class ArmyListComponent implements OnInit {
 
     ngOnInit() { }
 
+    findUnit(name: string, callback?: (unit: Unit, index: number) => void) {
+        this.army.units.forEach((n, i) => {
+            if (n.name === name) {
+                if (callback != undefined) {
+                    callback(n, i);
+                }
+            }
+        });
+    }
+
     addUnitToList(unit: Unit) {
         unit.artefact = this.artefacts[0];
-        this.armyList.units.push(unit);
+        this.army.units.push(unit);
 
         this.calculateListPoints();
     }
 
-    removeUnit(unit: Unit) {
-        this.armyList.units.forEach((u, i) => {
-            if (unit === u) {
-                this.armyList.units.splice(i, 1);
+    removeUnit(index: number) {
+        this.army.units.splice(index, 1);
+    }
 
-                this.calculateListPoints();
+    moveUp(index: number) {
+        this.arrayMove(this.army.units, index, index - 1);
+    }
 
-                return;
-            }
-        });
+    moveDown(index: number) {
+        this.arrayMove(this.army.units, index, index + 1);
+    }
+
+    arrayMove(arr: Array<any>, i: number, newi: number): Array<any> {
+        console.log(arr);
+        console.log(i);
+        console.log(newi);
+        if (newi < 0 || newi >= arr.length) {
+            return arr;
+        }
+
+        arr.splice(newi, 0, arr.splice(i, 1)[0]);
+        return arr;
     }
 
     onArtefactChange(unit: Unit) {
         let artefact: Artefact = unit.artefact;
 
         if (artefact.name !== "- Artefacts -") {
-            this.armyList.units.forEach((u, i) => {
+            this.army.units.forEach((u, i) => {
                 if (u !== unit && u.artefact === artefact) {
                     u.artefact = this.artefacts[0];
                 }
@@ -119,28 +145,25 @@ export class ArmyListComponent implements OnInit {
     calculateListPoints() {
         let p: number = 0;
 
-        this.armyList.units.forEach((u, i) => {
-            console.log("unitOption: " + (u.unitOptions[0].pts + 0));
+        this.army.units.forEach((u, i) => {
             p += u.unitOptions[0].pts;
             if (u.artefact !== null) {
-                console.log("uArtefact: " + (u.artefact.pts + 0));
                 p += u.artefact.pts;
             }
             if (u.unitUpgrades) {
                 u.unitUpgrades.forEach((ug, ugi) => {
                     if (ug.isSelected) {
-                        console.log("upgrade: " + (ug.pts + 0));
                         p += ug.pts;
                     }
                 });
             }
         });
 
-        this.armyList.points = p;
+        this.army.points = p;
     }
 
     newList() {
-        this.armyList = {
+        this.army = {
             name: "New List",
             points: 0,
             units: []
@@ -150,7 +173,7 @@ export class ArmyListComponent implements OnInit {
     }
 
     outputList() {
-        let list: ArmyList = (JSON.parse(JSON.stringify(this.armyList)));
+        let list: ArmyList = (JSON.parse(JSON.stringify(this.army)));
 
         if (this.isListValid(list)) {
             list.units.forEach((u, i) => {

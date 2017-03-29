@@ -15,8 +15,8 @@ import { FileLoaderService } from '../../services/file-loader.service';
         '.unit-options-list td:first-child { width: 50% }',
         '.unit-options-list td:not(:first-child) { width: 50px; text-align:center; }',
         '.unit-options-list tr:first-child {background-color: #ccc; font-weight: bold }',
-        '.unit-header {background-color: #007ACC; color: #fff; font-weight: bold}',
-        '.unit-options-list { width: 100% }',
+        '.unit-header {background-color: #007ACC; color: #fff; font-weight: bold; }',
+        '.unit-options-list { width: 100%; }',
         '.unit-list { width: 100% }',
         '.unit-options-list tr:not(:first-child):hover td { background-color: #009CEE; color: #fff; }'
     ],

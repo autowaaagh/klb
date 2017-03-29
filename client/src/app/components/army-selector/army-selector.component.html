@@ -13,12 +13,12 @@
         <template ngFor let-unit [ngForOf]="armyList.units">
           <tr class="unit-header" (click)="toggleExpanded(unit)">
             <td>
-              <span *ngIf="unit.isExpanded">&nbsp;&nbsp;-</span>
-              <span *ngIf="!unit.isExpanded">&nbsp;&nbsp;+</span> {{unit.name}}
+              <span *ngIf="unit.isExpanded">&nbsp;&nbsp;&#9660;</span>
+              <span *ngIf="!unit.isExpanded">&nbsp;&nbsp;&#9658;</span> {{unit.name}}
             </td>
             <td align="right">{{unit.type}}&nbsp;&nbsp;</td>
           </tr>
-          <tr class="unit-options-row" *ngIf="unit.isExpanded">
+          <tr class="unit-options-row" *ngIf="unit.isExpanded" >
             <td colspan=2>
               <table class="unit-options-list">
                 <tbody>
