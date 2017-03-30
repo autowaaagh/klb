@@ -19,6 +19,8 @@ export class ArmiesEditorComponent implements OnInit {
     constructor(private fl: FileLoaderService) {
         fl.getFile('data/armies.json', (res) => {
             let json = res.json();
+            json.sort(this.compare);
+
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 this.loadData(obj);
@@ -38,6 +40,14 @@ export class ArmiesEditorComponent implements OnInit {
                 }
             }
         });
+    }
+
+    compare(a: DataLoader, b: DataLoader): number {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     }
 
     writeArmiesFile() {

@@ -18,11 +18,7 @@ var ArmyEditorComponent = (function () {
         this.selected = new model_1.Unit();
         this.dataLoader = new model_1.DataLoader();
     }
-    ArmyEditorComponent.prototype.ngOnInit = function () {
-        this.viewHeight = 100;
-        console.log('elementview');
-        console.log(this.elementView.nativeElement.offsetHeight);
-    };
+    ArmyEditorComponent.prototype.ngOnInit = function () { };
     ArmyEditorComponent.prototype.findUnit = function (name, callback) {
         this.army.units.forEach(function (n, i) {
             if (n.name === name) {
@@ -31,6 +27,13 @@ var ArmyEditorComponent = (function () {
                 }
             }
         });
+    };
+    ArmyEditorComponent.prototype.compare = function (a, b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     };
     ArmyEditorComponent.prototype.writeArmyFile = function () {
         console.log('writeArmyFile');
@@ -47,7 +50,11 @@ var ArmyEditorComponent = (function () {
         this.fl.getFile('data/' + dl.file, function (res) {
             _this.dataLoader = dl;
             var json = res.json();
+            console.log("compare");
+            console.log(json);
+            // json.sort(this.compare);
             _this.army = Object.assign(new model_1.ArmyList(), json);
+            _this.army.units.sort(_this.compare);
             if (_this.army.units != undefined && _this.army.units.length > 0) {
                 _this.selected = _this.army.units[0];
             }
@@ -103,10 +110,6 @@ var ArmyEditorComponent = (function () {
         core_1.Input(), 
         __metadata('design:type', model_1.ArmyList)
     ], ArmyEditorComponent.prototype, "army", void 0);
-    __decorate([
-        core_1.ViewChild('container'), 
-        __metadata('design:type', core_1.ElementRef)
-    ], ArmyEditorComponent.prototype, "elementView", void 0);
     ArmyEditorComponent = __decorate([
         core_1.Component({
             moduleId: module.id,

@@ -22,6 +22,7 @@ var ArmySelectorComponent = (function () {
         this.armyList = new model_1.ArmyList();
         fl.getFile('data/armies.json', function (res) {
             var json = res.json();
+            json.sort(_this.compare);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);
@@ -48,11 +49,44 @@ var ArmySelectorComponent = (function () {
             }
         });
     };
+    ArmySelectorComponent.prototype.compare = function (a, b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
+    };
+    ArmySelectorComponent.prototype.compareUnitName = function (a, b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
+    };
+    ArmySelectorComponent.prototype.compareUnitType = function (a, b) {
+        if (a.type < b.type)
+            return -1;
+        if (a.type > b.type)
+            return 1;
+        return 0;
+    };
     ArmySelectorComponent.prototype.onArmyChange = function (name) {
         var _this = this;
         this.findArmy(name, function (n, i) {
             _this.loadArmyFile(n);
         });
+    };
+    ArmySelectorComponent.prototype.onSortChange = function (a) {
+        switch (a) {
+            case "name":
+                this.armyList.units.sort(this.compareUnitName);
+                break;
+            case "troop":
+                this.armyList.units.sort(this.compareUnitType);
+                break;
+            default:
+                break;
+        }
     };
     ArmySelectorComponent.prototype.loadArmyFile = function (dl) {
         var _this = this;

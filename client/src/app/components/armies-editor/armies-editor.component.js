@@ -20,6 +20,7 @@ var ArmiesEditorComponent = (function () {
         this.armyChangeEvent = new core_1.EventEmitter();
         fl.getFile('data/armies.json', function (res) {
             var json = res.json();
+            json.sort(_this.compare);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);
@@ -36,6 +37,13 @@ var ArmiesEditorComponent = (function () {
                 }
             }
         });
+    };
+    ArmiesEditorComponent.prototype.compare = function (a, b) {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     };
     ArmiesEditorComponent.prototype.writeArmiesFile = function () {
         this.fl.writeFile('armies.json', this.armies);

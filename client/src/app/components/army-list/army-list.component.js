@@ -22,6 +22,7 @@ var ArmyListComponent = (function () {
         this.newList();
         fl.getFile('data/artefacts.json', function (res) {
             var json = res.json();
+            console.log(json);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 var a = Object.assign(new model_1.Artefact(), obj);

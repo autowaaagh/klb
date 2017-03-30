@@ -41,6 +41,7 @@ export class ArmyListComponent implements OnInit {
 
         fl.getFile('data/artefacts.json', (res) => {
             let json = res.json();
+            console.log(json);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];

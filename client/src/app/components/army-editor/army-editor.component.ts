@@ -19,9 +19,6 @@ export class ArmyEditorComponent implements OnInit {
     @Input() army: ArmyList;
     dataLoader: DataLoader;
 
-    @ViewChild('container') elementView: ElementRef;
-    viewHeight: number;
-
     constructor(private fl: FileLoaderService) {
         this.army = new ArmyList();
         this.selected = new Unit();
@@ -29,11 +26,7 @@ export class ArmyEditorComponent implements OnInit {
 
     }
 
-    ngOnInit() {
-        this.viewHeight = 100;
-        console.log('elementview');
-        console.log(this.elementView.nativeElement.offsetHeight);
-    }
+    ngOnInit() { }
 
     findUnit(name: string, callback?: (unit: Unit, index: number) => void) {
         this.army.units.forEach((n, i) => {
@@ -43,6 +36,14 @@ export class ArmyEditorComponent implements OnInit {
                 }
             }
         });
+    }
+
+    compare(a: Unit, b: Unit): number {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
     }
 
     writeArmyFile() {
@@ -61,7 +62,12 @@ export class ArmyEditorComponent implements OnInit {
         this.fl.getFile('data/' + dl.file, (res) => {
             this.dataLoader = dl;
             let json = res.json();
+            console.log("compare");
+            console.log(json);
+            // json.sort(this.compare);
+
             this.army = Object.assign(new ArmyList(), json);
+            this.army.units.sort(this.compare);
 
             if (this.army.units != undefined && this.army.units.length > 0) {
                 this.selected = this.army.units[0];

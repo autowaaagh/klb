@@ -30,6 +30,7 @@ export class ArmySelectorComponent implements OnInit {
     constructor(private http: Http, private fl: FileLoaderService) {
         fl.getFile('data/armies.json', (res) => {
             let json = res.json();
+            json.sort(this.compare);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -65,10 +66,47 @@ export class ArmySelectorComponent implements OnInit {
         });
     }
 
+    compare(a: DataLoader, b: DataLoader): number {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
+    }
+
+    compareUnitName(a: Unit, b: Unit): number {
+        if (a.name < b.name)
+            return -1;
+        if (a.name > b.name)
+            return 1;
+        return 0;
+    }
+
+    compareUnitType(a: Unit, b: Unit): number {
+        if (a.type < b.type)
+            return -1;
+        if (a.type > b.type)
+            return 1;
+        return 0;
+    }
+
     onArmyChange(name: string) {
         this.findArmy(name, (n, i) => {
             this.loadArmyFile(n);
         });
+    }
+
+    onSortChange(a: string) {
+        switch (a) {
+            case "name":
+                this.armyList.units.sort(this.compareUnitName);
+            break;
+            case "troop":
+                this.armyList.units.sort(this.compareUnitType);
+            break;
+            default:
+            break;
+        }
     }
 
     loadArmyFile(dl: DataLoader) {
