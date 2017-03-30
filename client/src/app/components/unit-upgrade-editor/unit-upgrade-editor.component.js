@@ -117,6 +117,27 @@ var UnitUpgradeEditorComponent = (function () {
     UnitUpgradeEditorComponent.prototype.removeMod = function (arr, index) {
         arr.splice(index, 1);
     };
+    UnitUpgradeEditorComponent.prototype.setAction = function (mod) {
+        switch (mod.element) {
+            case 'name':
+            case 'type':
+            case 'sp':
+            case 'me':
+            case 'ra':
+            case 'de':
+            case 'at':
+                mod.action = 'replace';
+                break;
+            case 'piercing':
+            case 'cs':
+            case 'tc':
+                mod.action = 'add';
+                break;
+            case 'special':
+                mod.action = 'add-array';
+                break;
+        }
+    };
     __decorate([
         core_1.Input(), 
         __metadata('design:type', Array)

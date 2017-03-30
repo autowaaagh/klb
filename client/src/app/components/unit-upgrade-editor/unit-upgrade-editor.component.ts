@@ -146,4 +146,26 @@ export class UnitUpgradeEditorComponent implements OnInit {
     removeMod(arr: Modifier[], index: number) {
         arr.splice(index, 1);
     }
+
+    setAction(mod: Modifier) {
+        switch (mod.element) {
+            case 'name':
+            case 'type':
+            case 'sp':
+            case 'me':
+            case 'ra':
+            case 'de':
+            case 'at':
+                mod.action = 'replace';
+            break;
+            case 'piercing':
+            case 'cs':
+            case 'tc':
+                mod.action = 'add';
+            break;
+            case 'special':
+                mod.action = 'add-array';
+            break;
+        }
+    }
 }

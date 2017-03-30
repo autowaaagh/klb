@@ -9,8 +9,8 @@
           <div clas="row">
             <template ngFor let-mod [ngForOf]="upgrade.unitModifiers" let-modi="index">
               <div class="row">
-                <label class="col-1 text-right">Element</label>
-                <select class="col-2" [(ngModel)]="mod.element">
+                <label class="col-2 text-right">Element</label>
+                <select class="col-3" [(ngModel)]="mod.element" (ngModelChange)="setAction(mod)">
                     <option>name</option>
                     <option>type</option>
                     <option>special</option>
@@ -19,15 +19,15 @@
                     <option>tc</option>
                 </select>
 
-                <label class="col-1 text-right">Value</label>
+                <label class="col-2 text-right">Value</label>
                 <input class="col-4" type="text" [(ngModel)]="mod.newValue">
 
-                <label class="col-1 text-right">Action</label>
+                <!--<label class="col-1 text-right">Action</label>
                 <select class="col-2" [(ngModel)]="mod.action">
                     <option>add</option>
                     <option>replace</option>
                     <option>add-array</option>
-                </select>
+                </select>-->
 
                 <button class="col-1" (click)="removeMod(upgrade.unitModifiers, modi)">x</button>
               </div>
@@ -36,8 +36,8 @@
           <div clas="row">
             <template ngFor let-optmod [ngForOf]="upgrade.unitOptionModifiers" let-optmodi="index">
               <div class="row">
-                <label class="col-1 text-right">Element</label>
-                <select class="col-2" [(ngModel)]="optmod.element">
+                <label class="col-2 text-right">Element</label>
+                <select class="col-3" [(ngModel)]="optmod.element" (ngModelChange)="setAction(optmod)">
                     <option>sp</option>
                     <option>me</option>
                     <option>ra</option>
@@ -45,15 +45,15 @@
                     <option>at</option>
                 </select>
 
-                <label class="col-1 text-right">Value</label>
+                <label class="col-2 text-right">Value</label>
                 <input type="text" class="col-4" [(ngModel)]="optmod.newValue">
 
-                <label class="col-1 text-right">Action</label>
+                <!--<label class="col-1 text-right">Action</label>
                 <select class="col-2" [(ngModel)]="optmod.action">
                     <option>add</option>
                     <option>replace</option>
                     <option>add-array</option>
-                </select>
+                </select>-->
 
                 <button class="col-1" (click)="removeMod(upgrade.unitOptionModifiers, optmodi)">x</button>
               </div>
