@@ -8,6 +8,8 @@ import { Component } from '@angular/core';
     <ul class="nav nav-tabs">
       <li class="active"><a data-toggle="tab" href="#list-builder">List Builder</a></li>
       <li><a data-toggle="tab" href="#army-entry">Army Entry</a></li>
+      <li><a data-toggle="tab" href="#special-rules-editor">Special Rules Entry</a></li>
+      <li><a data-toggle="tab" href="#artefact-editor">Artefact Entry</a></li>
     </ul>
 
     <div class="tab-content">
@@ -23,6 +25,14 @@ import { Component } from '@angular/core';
         <h3>Army Entry</h3>
         <div class="container-fluid"><army-entry></army-entry></div>
       </div>
+      <div id="special-rules-editor" class="tab-pane fade">      
+        <h3>Special Rules Entry</h3>
+        <div class="container-fluid"><special-rules-editor></special-rules-editor></div>
+      </div>
+      <div id="artefact-editor" class="tab-pane fade">      
+        <h3>Artefact Entry</h3>
+        <div class="container-fluid"><artefact-editor></artefact-editor></div>
+      </div>
     </div>
      
 
@@ -36,3 +46,4 @@ export class AppComponent {
 
 
 }
+

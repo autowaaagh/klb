@@ -47,8 +47,6 @@ export class ArmyEditorComponent implements OnInit {
     }
 
     writeArmyFile() {
-        console.log('writeArmyFile');
-        console.log(this.army);
         this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
             console.log(res);
         });
@@ -62,9 +60,6 @@ export class ArmyEditorComponent implements OnInit {
         this.fl.getFile('data/' + dl.file, (res) => {
             this.dataLoader = dl;
             let json = res.json();
-            console.log("compare");
-            console.log(json);
-            // json.sort(this.compare);
 
             this.army = Object.assign(new ArmyList(), json);
             this.army.units.sort(this.compare);

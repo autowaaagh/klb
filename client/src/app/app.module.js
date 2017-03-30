@@ -22,6 +22,8 @@ var army_editor_component_1 = require('./components/army-editor/army-editor.comp
 var armies_editor_component_1 = require('./components/armies-editor/armies-editor.component');
 var unit_option_editor_component_1 = require('./components/unit-option-editor/unit-option-editor.component');
 var unit_upgrade_editor_component_1 = require('./components/unit-upgrade-editor/unit-upgrade-editor.component');
+var special_rules_editor_component_1 = require('./components/special-rules-editor/special-rules-editor.component');
+var artefact_editor_component_1 = require('./components/artefact-editor/artefact-editor.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -42,7 +44,9 @@ var AppModule = (function () {
                 army_editor_component_1.ArmyEditorComponent,
                 armies_editor_component_1.ArmiesEditorComponent,
                 unit_option_editor_component_1.UnitOptionEditorComponent,
-                unit_upgrade_editor_component_1.UnitUpgradeEditorComponent
+                unit_upgrade_editor_component_1.UnitUpgradeEditorComponent,
+                special_rules_editor_component_1.SpecialRulesEditorComponent,
+                artefact_editor_component_1.ArtefactEditorComponent
             ],
             bootstrap: [
                 app_component_1.AppComponent

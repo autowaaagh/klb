@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <template ngFor let-special [ngForOf]="specials" let-i="index">
+    <div class="row">
+      <div class="col-3">
+        <div class="row">
+          <input class="col-12" [(ngModel)]="special.name" (ngModelChange)="onChange()">
+        </div>
+      </div>
+      <div class="col-9">
+        <div class="row">
+          <input class="col-11" [(ngModel)]="special.desc" (ngModelChange)="onChange()">
+          <button class="col-1" (click)="removeSpecial(i)">&times;</button>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <div class="row">
+    <button class="col-2" (click)="addNew()">Add New</button>
+  </div>
+</div>

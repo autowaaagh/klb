@@ -53,4 +53,10 @@ var DataLoader = (function () {
     return DataLoader;
 }());
 exports.DataLoader = DataLoader;
+var SpecialRule = (function () {
+    function SpecialRule() {
+    }
+    return SpecialRule;
+}());
+exports.SpecialRule = SpecialRule;
 //# sourceMappingURL=model.js.map

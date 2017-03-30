@@ -65,3 +65,8 @@ export class DataLoader {
     name: string;
     file: string;
 }
+
+export class SpecialRule {
+    name: string;
+    desc: string;
+}

@@ -36,8 +36,6 @@ var ArmyEditorComponent = (function () {
         return 0;
     };
     ArmyEditorComponent.prototype.writeArmyFile = function () {
-        console.log('writeArmyFile');
-        console.log(this.army);
         this.fl.writeFile(this.dataLoader.file, this.army, function (res) {
             console.log(res);
         });
@@ -50,9 +48,6 @@ var ArmyEditorComponent = (function () {
         this.fl.getFile('data/' + dl.file, function (res) {
             _this.dataLoader = dl;
             var json = res.json();
-            console.log("compare");
-            console.log(json);
-            // json.sort(this.compare);
             _this.army = Object.assign(new model_1.ArmyList(), json);
             _this.army.units.sort(_this.compare);
             if (_this.army.units != undefined && _this.army.units.length > 0) {

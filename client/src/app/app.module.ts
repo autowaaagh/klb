@@ -13,6 +13,8 @@ import { ArmyEditorComponent } from './components/army-editor/army-editor.compon
 import { ArmiesEditorComponent } from './components/armies-editor/armies-editor.component';
 import { UnitOptionEditorComponent } from './components/unit-option-editor/unit-option-editor.component';
 import { UnitUpgradeEditorComponent } from './components/unit-upgrade-editor/unit-upgrade-editor.component';
+import { SpecialRulesEditorComponent } from './components/special-rules-editor/special-rules-editor.component';
+import { ArtefactEditorComponent } from './components/artefact-editor/artefact-editor.component';
 
 @NgModule({
   imports: [
@@ -30,7 +32,9 @@ import { UnitUpgradeEditorComponent } from './components/unit-upgrade-editor/uni
     ArmyEditorComponent,
     ArmiesEditorComponent,
     UnitOptionEditorComponent,
-    UnitUpgradeEditorComponent
+    UnitUpgradeEditorComponent,
+    SpecialRulesEditorComponent,
+    ArtefactEditorComponent
   ],
   bootstrap: [
     AppComponent
