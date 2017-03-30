@@ -64,7 +64,6 @@ export class ArmyListComponent implements OnInit {
     }
 
     addUnitToList(unit: Unit) {
-        unit.artefact = this.artefacts[0];
         this.army.units.push(unit);
 
         this.calculateListPoints();

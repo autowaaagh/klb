@@ -38,9 +38,10 @@
             <div class="unit-sub-row">
               <span>
                 <select [(ngModel)]="unit.artefact" (ngModelChange)="onArtefactChange(unit)">
+                  <option>- Artefacts -</option>
                   <option *ngFor="let a of artefacts" [ngValue]="a">
                     <span *ngIf="a.pts > 0">({{a.pts}})</span> {{a.name}}
-              </option>
+                </option>
               </select>
               </span>
               <span class="special-rules" *ngIf="unit.piercing > 0">Piercing ({{unit.piercing}}), </span>

@@ -41,7 +41,6 @@ var ArmyListComponent = (function () {
         });
     };
     ArmyListComponent.prototype.addUnitToList = function (unit) {
-        unit.artefact = this.artefacts[0];
         this.army.units.push(unit);
         this.calculateListPoints();
     };
