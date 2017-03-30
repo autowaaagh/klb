@@ -71,6 +71,7 @@ export class ArmyListComponent implements OnInit {
 
     removeUnit(index: number) {
         this.army.units.splice(index, 1);
+        this.calculateListPoints();
     }
 
     moveUp(index: number) {

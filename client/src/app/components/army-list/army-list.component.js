@@ -46,6 +46,7 @@ var ArmyListComponent = (function () {
     };
     ArmyListComponent.prototype.removeUnit = function (index) {
         this.army.units.splice(index, 1);
+        this.calculateListPoints();
     };
     ArmyListComponent.prototype.moveUp = function (index) {
         this.arrayMove(this.army.units, index, index - 1);
