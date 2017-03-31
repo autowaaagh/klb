@@ -3,6 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 
+import { Ng2CompleterModule } from 'ng2-completer';
+
 import { AppComponent } from './app.component';
 import { ArmySelectorComponent } from './components/army-selector/army-selector.component';
 import { ArmyListComponent } from './components/army-list/army-list.component';
@@ -16,11 +18,13 @@ import { UnitUpgradeEditorComponent } from './components/unit-upgrade-editor/uni
 import { SpecialRulesEditorComponent } from './components/special-rules-editor/special-rules-editor.component';
 import { ArtefactEditorComponent } from './components/artefact-editor/artefact-editor.component';
 
+
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    Ng2CompleterModule
   ],
   declarations: [
     AppComponent,

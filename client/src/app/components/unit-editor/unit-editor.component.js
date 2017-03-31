@@ -9,12 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
+var ng2_completer_1 = require('ng2-completer');
 var model_1 = require('../../model');
+var file_loader_service_1 = require('../../services/file-loader.service');
 var UnitEditorComponent = (function () {
-    function UnitEditorComponent() {
+    function UnitEditorComponent(completerService, fl) {
+        this.completerService = completerService;
+        this.fl = fl;
+        this.specials = [];
         this.unitChangedEvent = new core_1.EventEmitter();
         this.unit = new model_1.Unit();
         this.oldUnit = new model_1.Unit();
+        this.loadSpecials();
+        this.dataService = completerService.local(this.specials, 'name', 'name');
     }
     UnitEditorComponent.prototype.ngDoCheck = function () {
         var hasChanged = false;
@@ -64,6 +71,23 @@ var UnitEditorComponent = (function () {
             }
         });
     };
+    UnitEditorComponent.prototype.loadSpecials = function () {
+        var _this = this;
+        this.fl.getFile('data/special-rules.json', function (res) {
+            var json = res.json();
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                var s = _this.loadSpecial(obj);
+                _this.specials.push(s);
+            }
+        });
+    };
+    UnitEditorComponent.prototype.loadSpecial = function (json) {
+        var sr = new model_1.SpecialRule();
+        sr.name = json['name'];
+        sr.desc = json['desc'];
+        return sr;
+    };
     UnitEditorComponent.prototype.unitChanged = function () {
         console.log('emit unit-changed event');
         console.log(this.unit.unitUpgrades);
@@ -104,9 +128,10 @@ var UnitEditorComponent = (function () {
             styles: [
                 '.bordered { border: 1px solid; margin-top: 5px; }',
                 '.no-padding { padding: 0px; }',
-            ]
+            ],
+            providers: [file_loader_service_1.FileLoaderService]
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [ng2_completer_1.CompleterService, file_loader_service_1.FileLoaderService])
     ], UnitEditorComponent);
     return UnitEditorComponent;
 }());

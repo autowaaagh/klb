@@ -54,7 +54,9 @@
           <option *ngFor="let s of unit.special">{{s}}</option>
         </select>
         <div>
-          <input #newSpecial class="col-12" (keyup.enter)="addSpecial(newSpecial)">
+          <!--<input #newSpecial class="col-12" (keyup.enter)="addSpecial(newSpecial)">-->
+          <ng2-completer #newSpecial class="col-12" (keyup.enter)="addSpecial(newSpecial)" [(ngModel)]="searchStr" [datasource]="dataService"
+            [minSearchLength]="0"></ng2-completer>
           <div>
             <button class="col-6" (click)="addSpecial(newSpecial)">Add New</button>
             <button class="col-6" (click)="removeSpecial(selectedSpecial)">Delete</button>

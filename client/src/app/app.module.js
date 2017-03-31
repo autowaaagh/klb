@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var forms_1 = require('@angular/forms');
+var ng2_completer_1 = require('ng2-completer');
 var app_component_1 = require('./app.component');
 var army_selector_component_1 = require('./components/army-selector/army-selector.component');
 var army_list_component_1 = require('./components/army-list/army-list.component');
@@ -32,7 +33,8 @@ var AppModule = (function () {
             imports: [
                 platform_browser_1.BrowserModule,
                 http_1.HttpModule,
-                forms_1.FormsModule
+                forms_1.FormsModule,
+                ng2_completer_1.Ng2CompleterModule
             ],
             declarations: [
                 app_component_1.AppComponent,

@@ -1,9 +1,11 @@
 import { Http } from '@angular/http';
 import { Component, OnInit, Input, Output, EventEmitter, DoCheck } from '@angular/core';
+import { CompleterService, CompleterData } from 'ng2-completer';
 
-import { ArmyList, Unit, UnitOption, DataLoader } from '../../model';
+import { ArmyList, Unit, UnitOption, DataLoader, SpecialRule } from '../../model';
 import { UnitOptionEditorComponent } from '../unit-option-editor/unit-option-editor.component';
 import { UnitUpgradeEditorComponent } from '../unit-upgrade-editor/unit-upgrade-editor.component';
+import { FileLoaderService } from '../../services/file-loader.service';
 
 @Component({
     moduleId: module.id,
@@ -12,14 +14,27 @@ import { UnitUpgradeEditorComponent } from '../unit-upgrade-editor/unit-upgrade-
     styles: [
         '.bordered { border: 1px solid; margin-top: 5px; }',
         '.no-padding { padding: 0px; }',
-    ]
+    ],
+    providers: [FileLoaderService]
 })
 export class UnitEditorComponent implements OnInit {
     @Input() unit: Unit;
     oldUnit: Unit;
     selectedSpecial: string;
+    specials: SpecialRule[] = [];
+
+    protected searchStr: string;
+    protected dataService: CompleterData;
 
     @Output() unitChangedEvent = new EventEmitter();
+
+    constructor(private completerService: CompleterService, private fl: FileLoaderService) {
+        this.unit = new Unit();
+        this.oldUnit = new Unit();
+        this.loadSpecials();
+
+        this.dataService = completerService.local(this.specials, 'name', 'name');
+    }
 
     ngDoCheck() {
         let hasChanged = false;
@@ -69,11 +84,6 @@ export class UnitEditorComponent implements OnInit {
         }
     }
 
-    constructor() {
-        this.unit = new Unit();
-        this.oldUnit = new Unit();
-    }
-
     ngOnInit() { }
 
     findSpecial(name: string, callback?: (name: string, index: number) => void) {
@@ -84,6 +94,27 @@ export class UnitEditorComponent implements OnInit {
                 }
             }
         })
+    }
+
+    loadSpecials() {
+        this.fl.getFile('data/special-rules.json', (res) => {
+            let json = res.json();
+
+            for (var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                let s = this.loadSpecial(obj);
+                this.specials.push(s);
+            }
+
+        });
+    }
+
+    loadSpecial(json: JSON): SpecialRule {
+        let sr = new SpecialRule();
+        sr.name = json['name'];
+        sr.desc = json['desc'];
+
+        return sr;
     }
 
     unitChanged() {
