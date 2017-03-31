@@ -46,6 +46,21 @@ var UnitOptionEditorComponent = (function () {
         //     pts: 100
         // }
     };
+    UnitOptionEditorComponent.prototype.copyOption = function (source) {
+        var u = new model_1.UnitOption();
+        u.unitSize = source.unitSize;
+        u.modelCount = source.modelCount;
+        u.sp = source.sp;
+        u.me = source.me;
+        u.ra = source.ra;
+        u.de = source.de;
+        u.at = source.at;
+        u.nv = new model_1.Nerve();
+        u.nv.waver = source.nv.waver;
+        u.nv.route = source.nv.route;
+        u.pts = source.pts;
+        return u;
+    };
     UnitOptionEditorComponent.prototype.ngDoCheck = function () {
         var _this = this;
         var hasChanged = false;
@@ -116,7 +131,12 @@ var UnitOptionEditorComponent = (function () {
         if (this.options == undefined) {
             this.options = [];
         }
-        this.options.push(this.getNewOption());
+        if (this.options.length > 0) {
+            this.options.push(this.copyOption(this.options[this.options.length - 1]));
+        }
+        else {
+            this.options.push(this.getNewOption());
+        }
     };
     UnitOptionEditorComponent.prototype.removeUnitOption = function (index) {
         if (index != undefined && index > -1) {

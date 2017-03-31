@@ -53,6 +53,23 @@ export class UnitOptionEditorComponent implements OnInit {
         // }
     }
 
+    copyOption(source: UnitOption): UnitOption {
+        let u = new UnitOption();
+        u.unitSize = source.unitSize;
+        u.modelCount = source.modelCount;
+        u.sp = source.sp;
+        u.me = source.me;
+        u.ra = source.ra;
+        u.de = source.de;
+        u.at = source.at;
+        u.nv = new Nerve();
+        u.nv.waver = source.nv.waver;
+        u.nv.route = source.nv.route;
+        u.pts = source.pts;
+
+        return u;
+    }
+
     ngDoCheck() {
         let hasChanged = false;
         if (this.options != undefined && this.options != null) {
@@ -137,7 +154,12 @@ export class UnitOptionEditorComponent implements OnInit {
         if (this.options == undefined) {
             this.options = [];
         }
-        this.options.push(this.getNewOption());
+
+        if (this.options.length > 0) {
+            this.options.push(this.copyOption(this.options[this.options.length - 1]));
+        } else {
+            this.options.push(this.getNewOption());
+        }
     }
 
     removeUnitOption(index: number) {
