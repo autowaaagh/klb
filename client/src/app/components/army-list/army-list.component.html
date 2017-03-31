@@ -32,7 +32,7 @@
           <td>{{unit.unitOptions[0].pts}}</td>
           <td><button class="btn-flat btn-remove-unit" (click)="removeUnit(i)">&times;</button></td>
         </tr>
-        <tr class="unit-extras-row">
+        <tr>
           <td><button class="btn-flat" (click)="moveDown(i)">&#9660;</button></td>
           <td colspan=9>
             <div class="unit-sub-row">
@@ -41,7 +41,7 @@
                   <option>- Artefacts -</option>
                   <option *ngFor="let a of artefacts" [ngValue]="a">
                     <span *ngIf="a.pts > 0">({{a.pts}})</span> {{a.name}}
-                </option>
+              </option>
               </select>
               </span>
               <span class="special-rules" *ngIf="unit.piercing > 0">Piercing ({{unit.piercing}}), </span>
@@ -57,6 +57,9 @@
               <span class="special-rules"><label><input type="checkbox" [(ngModel)]="u.isSelected" (change)="onUpgradeChange(unit, u)">{{u.name}} (+{{u.pts}})</label></span>
             </div>
           </td>
+        </tr>
+        <tr class="unit-extras-row">
+          <td colspan=100>
         </tr>
       </template>
     </tbody>
