@@ -37,7 +37,7 @@ var ArmyEditorComponent = (function () {
     };
     ArmyEditorComponent.prototype.writeArmyFile = function () {
         this.fl.writeFile(this.dataLoader.file, this.army, function (res) {
-            console.log(res);
+            // console.log(res);
         });
     };
     ArmyEditorComponent.prototype.setSelectedArmy = function (army) {

@@ -146,7 +146,7 @@ export class UnitOptionEditorComponent implements OnInit {
     }
 
     optionsChanged() {
-        console.log('emit options-changed event');
+        // console.log('emit options-changed event');
         this.optionsChangedEvent.emit();
     }
 

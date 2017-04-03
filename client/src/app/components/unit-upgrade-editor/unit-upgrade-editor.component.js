@@ -80,8 +80,8 @@ var UnitUpgradeEditorComponent = (function () {
         return hasChanged;
     };
     UnitUpgradeEditorComponent.prototype.upgradesChanged = function () {
-        console.log('emit upgrades-changed event');
-        console.log(this.upgrades);
+        // console.log('emit upgrades-changed event');
+        // console.log(this.upgrades);
         this.upgradesChangedEvent.emit();
     };
     UnitUpgradeEditorComponent.prototype.getNewUpgrade = function () {

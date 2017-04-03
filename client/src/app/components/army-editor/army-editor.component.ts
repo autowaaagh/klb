@@ -48,7 +48,7 @@ export class ArmyEditorComponent implements OnInit {
 
     writeArmyFile() {
         this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
-            console.log(res);
+            // console.log(res);
         });
     }
 

@@ -101,8 +101,8 @@ export class UnitUpgradeEditorComponent implements OnInit {
     }
 
     upgradesChanged() {
-        console.log('emit upgrades-changed event');
-        console.log(this.upgrades);
+        // console.log('emit upgrades-changed event');
+        // console.log(this.upgrades);
         this.upgradesChangedEvent.emit();
     }
 

@@ -118,8 +118,8 @@ export class UnitEditorComponent implements OnInit {
     }
 
     unitChanged() {
-        console.log('emit unit-changed event')
-        console.log(this.unit.unitUpgrades);
+        // console.log('emit unit-changed event')
+        // console.log(this.unit.unitUpgrades);
         this.unitChangedEvent.emit();
     }
 
@@ -143,7 +143,7 @@ export class UnitEditorComponent implements OnInit {
     }
 
     changeToNum(property: any, val: string) {
-        console.log(property);
-        console.log(val);
+        // console.log(property);
+        // console.log(val);
     }
 }

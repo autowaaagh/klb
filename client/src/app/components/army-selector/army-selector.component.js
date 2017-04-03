@@ -34,10 +34,10 @@ var ArmySelectorComponent = (function () {
         var dl = new model_1.DataLoader();
         dl.name = json['name'];
         dl.file = json['file'];
-        console.log('armies');
-        console.log(this.armies);
+        // console.log('armies');
+        // console.log(this.armies);
         this.armies.push(dl);
-        console.log(this.armies);
+        // console.log(this.armies);
     };
     ArmySelectorComponent.prototype.ngOnInit = function () { };
     ArmySelectorComponent.prototype.findArmy = function (name, callback) {

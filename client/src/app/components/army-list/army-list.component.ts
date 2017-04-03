@@ -41,7 +41,7 @@ export class ArmyListComponent implements OnInit {
 
         fl.getFile('data/artefacts.json', (res) => {
             let json = res.json();
-            console.log(json);
+            // console.log(json);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -83,9 +83,9 @@ export class ArmyListComponent implements OnInit {
     }
 
     arrayMove(arr: Array<any>, i: number, newi: number): Array<any> {
-        console.log(arr);
-        console.log(i);
-        console.log(newi);
+        // console.log(arr);
+        // console.log(i);
+        // console.log(newi);
         if (newi < 0 || newi >= arr.length) {
             return arr;
         }
@@ -242,7 +242,7 @@ export class ArmyListComponent implements OnInit {
             isValid = false;
         }
 
-        console.log(isValid);
+        // console.log(isValid);
         // return isValid;
         return true;
     }

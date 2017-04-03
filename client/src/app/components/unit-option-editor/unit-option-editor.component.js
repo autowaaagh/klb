@@ -124,7 +124,7 @@ var UnitOptionEditorComponent = (function () {
         }
     };
     UnitOptionEditorComponent.prototype.optionsChanged = function () {
-        console.log('emit options-changed event');
+        // console.log('emit options-changed event');
         this.optionsChangedEvent.emit();
     };
     UnitOptionEditorComponent.prototype.addUnitOption = function () {

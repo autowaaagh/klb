@@ -23,7 +23,7 @@ var SpecialRulesEditorComponent = (function () {
     };
     SpecialRulesEditorComponent.prototype.writeSpecials = function () {
         this.fl.writeFile('special-rules.json', this.specials, function (res) {
-            console.log(res);
+            // console.log(res);
         });
     };
     SpecialRulesEditorComponent.prototype.loadSpecials = function () {

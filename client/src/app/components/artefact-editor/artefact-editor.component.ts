@@ -27,7 +27,7 @@ export class ArtefactEditorComponent implements OnInit {
 
     writeArtefacts() {
         this.fl.writeFile('artefacts.json', this.artefacts, (res) => {
-            console.log(res);
+            // console.log(res);
         })
     }
 

@@ -3,6 +3,11 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
+var mongojs = require('mongojs');
+var db = mongojs('klb:klb@klb');
+var coll = db.collection('armylistcoll');
+// console.log(coll);
+
 var index = require('./routes/index');
 
 var port = 3000;
@@ -32,7 +37,7 @@ app.post('/:id', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log('/data/' + id + ' was POSTed successfully');
+            // console.log('/data/' + id + ' was POSTed successfully');
         }
 
         res.send('post complete');
@@ -46,7 +51,7 @@ app.delete('/:id', function (req, res) {
         if (err) {
             console.log(err);
         } else {
-            console.log('/data/' + id + ' was DELETEd successully');
+            // console.log('/data/' + id + ' was DELETEd successully');
         }
 
         res.send('delete complete');

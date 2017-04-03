@@ -22,7 +22,7 @@ var ArmyListComponent = (function () {
         this.newList();
         fl.getFile('data/artefacts.json', function (res) {
             var json = res.json();
-            console.log(json);
+            // console.log(json);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 var a = Object.assign(new model_1.Artefact(), obj);
@@ -55,9 +55,9 @@ var ArmyListComponent = (function () {
         this.arrayMove(this.army.units, index, index + 1);
     };
     ArmyListComponent.prototype.arrayMove = function (arr, i, newi) {
-        console.log(arr);
-        console.log(i);
-        console.log(newi);
+        // console.log(arr);
+        // console.log(i);
+        // console.log(newi);
         if (newi < 0 || newi >= arr.length) {
             return arr;
         }
@@ -201,7 +201,7 @@ var ArmyListComponent = (function () {
         if (universalUnlockable < 0 || troopUnlockable < 0 || monsterUnlockable < 0 || heroUnlockable < 0 || warengineUnlockable < 0) {
             isValid = false;
         }
-        console.log(isValid);
+        // console.log(isValid);
         // return isValid;
         return true;
     };

@@ -89,8 +89,8 @@ var UnitEditorComponent = (function () {
         return sr;
     };
     UnitEditorComponent.prototype.unitChanged = function () {
-        console.log('emit unit-changed event');
-        console.log(this.unit.unitUpgrades);
+        // console.log('emit unit-changed event')
+        // console.log(this.unit.unitUpgrades);
         this.unitChangedEvent.emit();
     };
     UnitEditorComponent.prototype.addSpecial = function (input) {
@@ -109,8 +109,8 @@ var UnitEditorComponent = (function () {
         });
     };
     UnitEditorComponent.prototype.changeToNum = function (property, val) {
-        console.log(property);
-        console.log(val);
+        // console.log(property);
+        // console.log(val);
     };
     __decorate([
         core_1.Input(), 

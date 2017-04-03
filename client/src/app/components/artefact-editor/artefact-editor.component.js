@@ -23,7 +23,7 @@ var ArtefactEditorComponent = (function () {
     };
     ArtefactEditorComponent.prototype.writeArtefacts = function () {
         this.fl.writeFile('artefacts.json', this.artefacts, function (res) {
-            console.log(res);
+            // console.log(res);
         });
     };
     ArtefactEditorComponent.prototype.loadArtefacts = function () {

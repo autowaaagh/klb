@@ -27,7 +27,7 @@ export class SpecialRulesEditorComponent implements OnInit {
 
     writeSpecials() {
         this.fl.writeFile('special-rules.json', this.specials, (res) => {
-            console.log(res);
+            // console.log(res);
         })
     }
 
