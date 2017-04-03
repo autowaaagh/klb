@@ -86,7 +86,9 @@ var ArmyEditorComponent = (function () {
             if (this.army.units == undefined) {
                 this.army.units = [];
             }
+            input.value = '';
             this.army.units.push(u);
+            this.selected = this.army.units[this.army.units.length - 1];
             this.writeArmyFile();
         }
     };
@@ -94,6 +96,7 @@ var ArmyEditorComponent = (function () {
         var _this = this;
         this.findUnit(name, function (n, i) {
             _this.army.units.splice(i, 1);
+            _this.selected = _this.army.units[_this.army.units.length - 1];
             _this.writeArmyFile();
         });
     };

@@ -102,7 +102,9 @@ export class ArmyEditorComponent implements OnInit {
                 this.army.units = [];
             }
 
+            input.value = '';
             this.army.units.push(u);
+            this.selected = this.army.units[this.army.units.length - 1];
             this.writeArmyFile();
         }
     }
@@ -110,6 +112,7 @@ export class ArmyEditorComponent implements OnInit {
     removeUnit(name: string) {
         this.findUnit(name, (n, i) => {
             this.army.units.splice(i, 1);
+            this.selected = this.army.units[this.army.units.length - 1];
             this.writeArmyFile();
         });
     }
