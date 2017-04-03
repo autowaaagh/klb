@@ -25,12 +25,26 @@ export class ArmiesEditorComponent implements OnInit {
                 var obj = json[i];
                 this.loadData(obj);
 
-                this.onArmyChange(this.armies[0].name);
+                if (i === 0) {
+                    this.selectArmy(0);
+                    // this.selectedArmy.name = this.armies[0].name;
+                    // this.onArmyChange(this.armies[0].name);
+                }
             }
         });
     }
 
     ngOnInit() { }
+
+    selectArmy(i: number = -1) {
+        if (i < 0) {
+            i = this.armies.length - 1;
+        }
+        let name = this.armies[i].name;
+
+        this.selectedArmy.name = name;
+        this.onArmyChange(name);
+    }
 
     findArmy(name: string, callback?: (data: DataLoader, index: number) => void) {
         this.armies.forEach((n, i) => {
@@ -85,7 +99,10 @@ export class ArmiesEditorComponent implements OnInit {
             a.points = 0;
 
             this.fl.writeFile(dl.file, a);
-            this.writeArmiesFile();;
+            this.writeArmiesFile();
+
+            // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
+            this.selectArmy();
 
             input.value = '';
             input.focus();
@@ -98,6 +115,9 @@ export class ArmiesEditorComponent implements OnInit {
 
             this.writeArmiesFile();
             this.fl.deleteFile(n.file);
+
+            // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
+            this.selectArmy();
         });
     }
 }

@@ -24,11 +24,22 @@ var ArmiesEditorComponent = (function () {
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);
-                _this.onArmyChange(_this.armies[0].name);
+                if (i === 0) {
+                    _this.selectArmy(0);
+                }
             }
         });
     }
     ArmiesEditorComponent.prototype.ngOnInit = function () { };
+    ArmiesEditorComponent.prototype.selectArmy = function (i) {
+        if (i === void 0) { i = -1; }
+        if (i < 0) {
+            i = this.armies.length - 1;
+        }
+        var name = this.armies[i].name;
+        this.selectedArmy.name = name;
+        this.onArmyChange(name);
+    };
     ArmiesEditorComponent.prototype.findArmy = function (name, callback) {
         this.armies.forEach(function (n, i) {
             if (n.name === name) {
@@ -74,7 +85,8 @@ var ArmiesEditorComponent = (function () {
             a.points = 0;
             this.fl.writeFile(dl.file, a);
             this.writeArmiesFile();
-            ;
+            // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
+            this.selectArmy();
             input.value = '';
             input.focus();
         }
@@ -85,6 +97,8 @@ var ArmiesEditorComponent = (function () {
             _this.armies.splice(i, 1);
             _this.writeArmiesFile();
             _this.fl.deleteFile(n.file);
+            // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
+            _this.selectArmy();
         });
     };
     __decorate([
