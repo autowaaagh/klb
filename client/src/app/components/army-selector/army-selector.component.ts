@@ -42,7 +42,7 @@ export class ArmySelectorComponent implements OnInit {
 
         fl.getArmies((res) => {
             let json = res.json();
-            // console.log(json);
+            console.log(json);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];

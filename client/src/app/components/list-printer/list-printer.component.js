@@ -11,33 +11,41 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var http_1 = require('@angular/http');
 var core_1 = require('@angular/core');
 var model_1 = require('../../model');
+var file_loader_service_1 = require('../../services/file-loader.service');
 var ListPrinterComponent = (function () {
-    function ListPrinterComponent(http) {
-        var _this = this;
+    function ListPrinterComponent(http, fl) {
         this.http = http;
+        this.fl = fl;
         this.isShown = false;
         this.armyList = new model_1.ArmyList();
         this.descList = [];
         this.descriptions = [];
-        this.http.get('data/special-rules.json')
-            .subscribe(function (res) {
+        this.loadSpecials();
+    }
+    ListPrinterComponent.prototype.loadSpecials = function () {
+        var _this = this;
+        this.fl.getSpecialRules(function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
-                var od = Object.assign(new model_1.OutputDescription(), obj);
-                _this.descList.push(od);
+                var s = _this.loadSpecial(obj);
+                _this.descList.push(s);
             }
         });
-    }
+    };
+    ListPrinterComponent.prototype.loadSpecial = function (json) {
+        var od = new model_1.OutputDescription();
+        // console.log(json);
+        od.name = json['name'];
+        od.desc = json['desc'];
+        return od;
+    };
     ListPrinterComponent.prototype.ngOnInit = function () { };
     ListPrinterComponent.prototype.ngAfterViewInit = function () { };
     ListPrinterComponent.prototype.outputList = function (list) {
         this.armyList = list;
         this.populateArtefactDescriptions();
         this.populateSpecialDescriptions();
-        // this.isShown = true;
-        // setTimeout(() => {
-        // let html = this.printDiv.nativeElement;
         var filename = list.name + '_' + list.points;
         var doc = new jsPDF();
         var text = list.name + ' (' + list.points + ')';
@@ -75,7 +83,6 @@ var ListPrinterComponent = (function () {
             }
         });
         doc.save(filename + '.pdf');
-        // });
     };
     ListPrinterComponent.prototype.getColumns = function () {
         return [
@@ -253,9 +260,10 @@ var ListPrinterComponent = (function () {
                 '.descriptions-desc {  }',
                 '.big-col { width: 33%; text-align:left; }',
                 '.med-col { width: 40px; }'
-            ]
+            ],
+            providers: [file_loader_service_1.FileLoaderService]
         }), 
-        __metadata('design:paramtypes', [http_1.Http])
+        __metadata('design:paramtypes', [http_1.Http, file_loader_service_1.FileLoaderService])
     ], ListPrinterComponent);
     return ListPrinterComponent;
 }());

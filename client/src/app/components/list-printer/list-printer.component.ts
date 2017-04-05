@@ -2,6 +2,7 @@ import { Http } from '@angular/http';
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, Directive } from '@angular/core';
 
 import { ArmyList, Unit, UnitOption, Artefact, UnitUpgrade, Modifier, OutputDescription } from '../../model';
+import { FileLoaderService } from '../../services/file-loader.service';
 
 declare let jsPDF: any;
 declare let html2canvas: any;
@@ -31,7 +32,8 @@ declare let autoTable: any;
         '.descriptions-desc {  }',
         '.big-col { width: 33%; text-align:left; }',
         '.med-col { width: 40px; }'
-    ]
+    ],
+    providers: [FileLoaderService]
 })
 export class ListPrinterComponent implements OnInit {
     isShown: boolean = false;
@@ -40,17 +42,29 @@ export class ListPrinterComponent implements OnInit {
     descriptions: OutputDescription[] = [];
     @ViewChild('printable') printDiv: any;
 
-    constructor(private http: Http) {
-        this.http.get('data/special-rules.json')
-            .subscribe(res => {
-                let json = res.json();
+    constructor(private http: Http, private fl: FileLoaderService) {
+        this.loadSpecials();
+    }
 
-                for (var i = 0; i < json.length; i++) {
-                    var obj = json[i];
-                    let od: OutputDescription = Object.assign(new OutputDescription(), obj);
-                    this.descList.push(od);
-                }
-            });
+    loadSpecials() {
+        this.fl.getSpecialRules((res) => {
+            let json = res.json();
+
+            for(var i = 0; i < json.length; i++) {
+                var obj = json[i];
+                let s = this.loadSpecial(obj);
+                this.descList.push(s);
+            }
+        });
+    }
+
+    loadSpecial(json: JSON): OutputDescription {
+        let od = new OutputDescription();
+        // console.log(json);
+        od.name = json['name'];
+        od.desc = json['desc'];
+
+        return od;
     }
 
     ngOnInit() { }
@@ -62,9 +76,6 @@ export class ListPrinterComponent implements OnInit {
         this.populateArtefactDescriptions();
         this.populateSpecialDescriptions();
 
-        // this.isShown = true;
-        // setTimeout(() => {
-        // let html = this.printDiv.nativeElement;
         let filename: string = list.name + '_' + list.points;
 
         var doc = new jsPDF();
@@ -105,7 +116,6 @@ export class ListPrinterComponent implements OnInit {
             }
         });
         doc.save(filename + '.pdf');
-        // });
     }
 
     getColumns() {
