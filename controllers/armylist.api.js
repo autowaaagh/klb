@@ -3,7 +3,7 @@ var express = require('express'),
     ArmyList = require('../schemas/ArmyListSchema').ArmyList;
 
 router.get("/", function (req, res) {
-    ArmyList.find({}, function (err, data) {
+    ArmyList.find({}, [], {sort: {name:1}}, function (err, data) {
         if (err) {
             res.send("error");
             return;
