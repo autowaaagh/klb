@@ -128,7 +128,7 @@ export class ListPrinterComponent implements OnInit {
         this.armyList.units.forEach((u, i) => {
             let specials: string[] = [];
 
-            specials.push(u.type);
+            specials.push(u.unitType);
             if (u.artefact && u.artefact.name != '- Artefacts -') {
                 specials.push(u.artefact.name);
             }

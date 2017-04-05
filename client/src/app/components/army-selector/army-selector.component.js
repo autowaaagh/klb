@@ -14,15 +14,24 @@ var model_1 = require('../../model');
 var file_loader_service_1 = require('../../services/file-loader.service');
 var ArmySelectorComponent = (function () {
     function ArmySelectorComponent(http, fl) {
+        // fl.getFile('data/armies.json', (res) => {
+        //     let json = res.json();
+        //     json.sort(this.compare);
         var _this = this;
         this.http = http;
         this.fl = fl;
         this.armies = [];
         this.addUnitEvent = new core_1.EventEmitter();
         this.armyList = new model_1.ArmyList();
-        fl.getFile('data/armies.json', function (res) {
+        //     for (var i = 0; i < json.length; i++) {
+        //         var obj = json[i];
+        //         this.loadData(obj);
+        //         this.onArmyChange(this.armies[0].name);
+        //     }
+        // });
+        fl.getArmies(function (res) {
             var json = res.json();
-            json.sort(_this.compare);
+            // console.log(json);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);
@@ -33,7 +42,8 @@ var ArmySelectorComponent = (function () {
     ArmySelectorComponent.prototype.loadData = function (json) {
         var dl = new model_1.DataLoader();
         dl.name = json['name'];
-        dl.file = json['file'];
+        // dl.file = json['file'];
+        dl.id = json['_id'];
         // console.log('armies');
         // console.log(this.armies);
         this.armies.push(dl);
@@ -64,9 +74,9 @@ var ArmySelectorComponent = (function () {
         return 0;
     };
     ArmySelectorComponent.prototype.compareUnitType = function (a, b) {
-        if (a.type < b.type)
+        if (a.unitType < b.unitType)
             return -1;
-        if (a.type > b.type)
+        if (a.unitType > b.unitType)
             return 1;
         return 0;
     };
@@ -90,7 +100,11 @@ var ArmySelectorComponent = (function () {
     };
     ArmySelectorComponent.prototype.loadArmyFile = function (dl) {
         var _this = this;
-        this.fl.getFile('data/' + dl.file, function (res) {
+        // this.fl.getFile('data/' + dl.file, (res) => {
+        //     let json = res.json();
+        //     this.armyList = Object.assign(new ArmyList(), json);
+        // });
+        this.fl.getArmy(dl.id, function (res) {
             var json = res.json();
             _this.armyList = Object.assign(new model_1.ArmyList(), json);
         });
@@ -101,7 +115,7 @@ var ArmySelectorComponent = (function () {
     ArmySelectorComponent.prototype.addUnitOption = function (unit, unitOption) {
         var u = {
             name: unit.name,
-            type: unit.type,
+            unitType: unit.unitType,
             special: unit.special,
             cs: unit.cs,
             tc: unit.tc,

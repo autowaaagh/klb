@@ -28,9 +28,21 @@ export class ArmySelectorComponent implements OnInit {
     armyList: ArmyList = new ArmyList();
 
     constructor(private http: Http, private fl: FileLoaderService) {
-        fl.getFile('data/armies.json', (res) => {
+        // fl.getFile('data/armies.json', (res) => {
+        //     let json = res.json();
+        //     json.sort(this.compare);
+
+        //     for (var i = 0; i < json.length; i++) {
+        //         var obj = json[i];
+        //         this.loadData(obj);
+
+        //         this.onArmyChange(this.armies[0].name);
+        //     }
+        // });
+
+        fl.getArmies((res) => {
             let json = res.json();
-            json.sort(this.compare);
+            // console.log(json);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -38,14 +50,15 @@ export class ArmySelectorComponent implements OnInit {
 
                 this.onArmyChange(this.armies[0].name);
             }
-        });
+        })
     }
 
     loadData(json: JSON) {
 
         let dl = new DataLoader();
         dl.name = json['name'];
-        dl.file = json['file'];
+        // dl.file = json['file'];
+        dl.id = json['_id'];
 
         // console.log('armies');
         // console.log(this.armies);
@@ -83,9 +96,9 @@ export class ArmySelectorComponent implements OnInit {
     }
 
     compareUnitType(a: Unit, b: Unit): number {
-        if (a.type < b.type)
+        if (a.unitType < b.unitType)
             return -1;
-        if (a.type > b.type)
+        if (a.unitType > b.unitType)
             return 1;
         return 0;
     }
@@ -100,17 +113,21 @@ export class ArmySelectorComponent implements OnInit {
         switch (a) {
             case "name":
                 this.armyList.units.sort(this.compareUnitName);
-            break;
+                break;
             case "troop":
                 this.armyList.units.sort(this.compareUnitType);
-            break;
+                break;
             default:
-            break;
+                break;
         }
     }
 
     loadArmyFile(dl: DataLoader) {
-        this.fl.getFile('data/' + dl.file, (res) => {
+        // this.fl.getFile('data/' + dl.file, (res) => {
+        //     let json = res.json();
+        //     this.armyList = Object.assign(new ArmyList(), json);
+        // });
+        this.fl.getArmy(dl.id, (res) => {
             let json = res.json();
             this.armyList = Object.assign(new ArmyList(), json);
         });
@@ -123,7 +140,7 @@ export class ArmySelectorComponent implements OnInit {
     addUnitOption(unit: Unit, unitOption: UnitOption) {
         let u: Unit = {
             name: unit.name,
-            type: unit.type,
+            unitType: unit.unitType,
             special: unit.special,
             cs: unit.cs,
             tc: unit.tc,

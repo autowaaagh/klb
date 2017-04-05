@@ -17,21 +17,34 @@ export class ArmiesEditorComponent implements OnInit {
     @Output() armyChangeEvent = new EventEmitter();
 
     constructor(private fl: FileLoaderService) {
-        fl.getFile('data/armies.json', (res) => {
+        // fl.getFile('data/armies.json', (res) => {
+        //     let json = res.json();
+        //     json.sort(this.compare);
+
+        //     for (var i = 0; i < json.length; i++) {
+        //         var obj = json[i];
+        //         this.loadData(obj);
+
+        //         if (i === 0) {
+        //             this.selectArmy(0);
+        //             // this.selectedArmy.name = this.armies[0].name;
+        //             // this.onArmyChange(this.armies[0].name);
+        //         }
+        //     }
+        // });
+
+        fl.getArmies((res) => {
             let json = res.json();
-            json.sort(this.compare);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 this.loadData(obj);
 
-                if (i === 0) {
+                if (i == 0) {
                     this.selectArmy(0);
-                    // this.selectedArmy.name = this.armies[0].name;
-                    // this.onArmyChange(this.armies[0].name);
                 }
             }
-        });
+        })
     }
 
     ngOnInit() { }
@@ -65,13 +78,14 @@ export class ArmiesEditorComponent implements OnInit {
     }
 
     writeArmiesFile() {
-        this.fl.writeFile('armies.json', this.armies);
+        // this.fl.writeFile('armies.json', this.armies);
     }
 
     loadData(json: JSON) {
         let dl = new DataLoader();
         dl.name = json['name'];
-        dl.file = json['file'];
+        // dl.file = json['file'];
+        dl.id = json['_id'];
 
         this.armies.push(dl);
     }
@@ -98,8 +112,9 @@ export class ArmiesEditorComponent implements OnInit {
             a.name = dl.name;
             a.points = 0;
 
-            this.fl.writeFile(dl.file, a);
-            this.writeArmiesFile();
+            this.fl.createNewArmy(a);
+            // this.fl.writeFile(dl.file, a);            
+            // this.writeArmiesFile();
 
             // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
             this.selectArmy();
@@ -113,8 +128,10 @@ export class ArmiesEditorComponent implements OnInit {
         this.findArmy(name, (n, i) => {
             this.armies.splice(i, 1);
 
-            this.writeArmiesFile();
-            this.fl.deleteFile(n.file);
+            // this.writeArmiesFile();
+            // this.fl.deleteFile(n.file);
+
+            this.fl.removeArmy(n.id);
 
             // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
             this.selectArmy();

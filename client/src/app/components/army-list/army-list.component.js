@@ -14,22 +14,33 @@ var model_1 = require('../../model');
 var file_loader_service_1 = require('../../services/file-loader.service');
 var ArmyListComponent = (function () {
     function ArmyListComponent(http, fl) {
-        var _this = this;
         this.http = http;
         this.fl = fl;
         this.artefacts = [];
         this.printListEvent = new core_1.EventEmitter();
         this.newList();
-        fl.getFile('data/artefacts.json', function (res) {
+        this.loadArtefacts();
+    }
+    ArmyListComponent.prototype.loadArtefacts = function () {
+        var _this = this;
+        this.fl.getArtefacts(function (res) {
             var json = res.json();
-            // console.log(json);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
-                var a = Object.assign(new model_1.Artefact(), obj);
+                var a = _this.loadArtefact(obj);
                 _this.artefacts.push(a);
             }
         });
-    }
+    };
+    ArmyListComponent.prototype.loadArtefact = function (json) {
+        var a = new model_1.Artefact();
+        a.name = json['name'];
+        a.description = json['description'];
+        a.pts = json['pts'];
+        a.validTypes = json['validTypes'];
+        a.id = json['_id'];
+        return a;
+    };
     ArmyListComponent.prototype.ngOnInit = function () { };
     ArmyListComponent.prototype.findUnit = function (name, callback) {
         this.army.units.forEach(function (n, i) {
@@ -55,9 +66,6 @@ var ArmyListComponent = (function () {
         this.arrayMove(this.army.units, index, index + 1);
     };
     ArmyListComponent.prototype.arrayMove = function (arr, i, newi) {
-        // console.log(arr);
-        // console.log(i);
-        // console.log(newi);
         if (newi < 0 || newi >= arr.length) {
             return arr;
         }
@@ -169,7 +177,7 @@ var ArmyListComponent = (function () {
         if (list.points > 0) {
             list.units.forEach(function (u, i) {
                 var unitSize = u.unitOptions[0].unitSize;
-                var unitType = u.type;
+                var unitType = u.unitType;
                 if (unitSize === 'Regiment') {
                     universalUnlockable++;
                 }

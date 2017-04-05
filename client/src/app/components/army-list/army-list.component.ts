@@ -38,17 +38,31 @@ export class ArmyListComponent implements OnInit {
 
     constructor(private http: Http, private fl: FileLoaderService) {
         this.newList();
+        this.loadArtefacts();
 
-        fl.getFile('data/artefacts.json', (res) => {
+    }
+
+    loadArtefacts() {
+        this.fl.getArtefacts((res) => {
             let json = res.json();
-            // console.log(json);
 
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
-                let a: Artefact = Object.assign(new Artefact(), obj);
+                let a = this.loadArtefact(obj);
                 this.artefacts.push(a);
-            }
+            }            
         });
+    }
+
+    loadArtefact(json: JSON): Artefact {
+        let a = new Artefact();
+        a.name = json['name'];
+        a.description = json['description'];
+        a.pts = json['pts'];
+        a.validTypes = json['validTypes'];
+        a.id = json['_id'];
+
+        return a;
     }
 
     ngOnInit() { }
@@ -83,9 +97,6 @@ export class ArmyListComponent implements OnInit {
     }
 
     arrayMove(arr: Array<any>, i: number, newi: number): Array<any> {
-        // console.log(arr);
-        // console.log(i);
-        // console.log(newi);
         if (newi < 0 || newi >= arr.length) {
             return arr;
         }
@@ -211,7 +222,7 @@ export class ArmyListComponent implements OnInit {
         if (list.points > 0) {
             list.units.forEach((u, i) => {
                 let unitSize = u.unitOptions[0].unitSize;
-                let unitType = u.type;
+                let unitType = u.unitType;
 
                 if (unitSize === 'Regiment') {
                     universalUnlockable++;

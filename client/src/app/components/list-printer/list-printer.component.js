@@ -95,7 +95,7 @@ var ListPrinterComponent = (function () {
         var data = [];
         this.armyList.units.forEach(function (u, i) {
             var specials = [];
-            specials.push(u.type);
+            specials.push(u.unitType);
             if (u.artefact && u.artefact.name != '- Artefacts -') {
                 specials.push(u.artefact.name);
             }

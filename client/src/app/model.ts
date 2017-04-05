@@ -6,7 +6,7 @@ export class ArmyList {
 
 export class Unit {
     name: string;
-    type: string;
+    unitType: string;
     unitOptions: UnitOption[];
     special: string[];
     unitUpgrades: UnitUpgrade[];
@@ -35,6 +35,7 @@ export class Nerve {
 }
 
 export class Artefact {
+    id: string;
     name: string;
     pts: number;
     validTypes: string[];
@@ -64,9 +65,11 @@ export class OutputDescription {
 export class DataLoader {
     name: string;
     file: string;
+    id: string;
 }
 
 export class SpecialRule {
+    id: string;
     name: string;
     desc: string;
 }

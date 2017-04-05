@@ -3,19 +3,22 @@ var path = require('path');
 var bodyParser = require('body-parser');
 var fs = require('fs');
 
-var mongojs = require('mongojs');
-var db = mongojs('klb:klb@klb');
-var coll = db.collection('armylistcoll');
-// console.log(coll);
+var routes = require('./routes/web');
+var apiRoutes = require('./routes/api');
+var migrateRoutes = require('./routes/migrate');
 
-var index = require('./routes/index');
+
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://klb:klb@localhost/klb');
+var db = mongoose.connection;
+
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function () {
+    console.log("connected to mongo KLB");
+});
 
 var port = 3000;
 var app = express();
-
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
-app.engine('html', require('ejs').renderFile);
 
 app.use(express.static(path.join(__dirname, 'client/src')));
 app.use('/node_modules', express.static(path.join(__dirname, 'client/node_modules')));
@@ -27,36 +30,10 @@ app.use(bodyParser.urlencoded({
     extended: false
 }));
 
-app.use('/', index);
 
-app.post('/:id', function (req, res) {
-    var id = req.params.id;
-    var json = JSON.stringify(req.body);
-
-    fs.writeFile('client/data/' + id, json, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            // console.log('/data/' + id + ' was POSTed successfully');
-        }
-
-        res.send('post complete');
-    });
-});
-
-app.delete('/:id', function (req, res) {
-    var id = req.params.id;
-
-    fs.unlink('client/data/' + id, function (err) {
-        if (err) {
-            console.log(err);
-        } else {
-            // console.log('/data/' + id + ' was DELETEd successully');
-        }
-
-        res.send('delete complete');
-    });
-})
+app.use('/', routes);
+app.use('/api', apiRoutes);
+app.use('/migrate', migrateRoutes);
 
 app.listen(port, function () {
     console.log("Running on port " + port);

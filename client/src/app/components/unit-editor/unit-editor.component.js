@@ -29,9 +29,9 @@ var UnitEditorComponent = (function () {
             hasChanged = true;
             this.oldUnit.name = this.unit.name;
         }
-        if (this.unit.type !== this.oldUnit.type) {
+        if (this.unit.unitType !== this.oldUnit.unitType) {
             hasChanged = true;
-            this.oldUnit.type = this.unit.type;
+            this.oldUnit.unitType = this.unit.unitType;
         }
         if (this.unit.piercing !== this.oldUnit.piercing) {
             hasChanged = true;
@@ -72,8 +72,16 @@ var UnitEditorComponent = (function () {
         });
     };
     UnitEditorComponent.prototype.loadSpecials = function () {
+        // this.fl.getFile('data/special-rules.json', (res) => {
+        //     let json = res.json();
         var _this = this;
-        this.fl.getFile('data/special-rules.json', function (res) {
+        //     for (var i = 0; i < json.length; i++) {
+        //         var obj = json[i];
+        //         let s = this.loadSpecial(obj);
+        //         this.specials.push(s);
+        //     }
+        // });
+        this.fl.getSpecialRules(function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];

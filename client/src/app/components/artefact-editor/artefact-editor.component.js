@@ -18,17 +18,9 @@ var ArtefactEditorComponent = (function () {
         this.loadArtefacts();
     }
     ArtefactEditorComponent.prototype.ngOnInit = function () { };
-    ArtefactEditorComponent.prototype.onChange = function () {
-        this.writeArtefacts();
-    };
-    ArtefactEditorComponent.prototype.writeArtefacts = function () {
-        this.fl.writeFile('artefacts.json', this.artefacts, function (res) {
-            // console.log(res);
-        });
-    };
     ArtefactEditorComponent.prototype.loadArtefacts = function () {
         var _this = this;
-        this.fl.getFile('data/artefacts.json', function (res) {
+        this.fl.getArtefacts(function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -38,21 +30,35 @@ var ArtefactEditorComponent = (function () {
         });
     };
     ArtefactEditorComponent.prototype.loadArtefact = function (json) {
-        var a = Object.assign(new model_1.Artefact(), json);
+        var a = new model_1.Artefact();
+        a.name = json['name'];
+        a.description = json['description'];
+        a.pts = json['pts'];
+        a.validTypes = json['validTypes'];
+        a.id = json['_id'];
         return a;
     };
-    ArtefactEditorComponent.prototype.addNew = function () {
+    ArtefactEditorComponent.prototype.update = function (index) {
+        var a = this.artefacts[index];
+        this.fl.updateArtefact(a.id, a);
+    };
+    ArtefactEditorComponent.prototype.createArtefact = function () {
+        var _this = this;
         var a = new model_1.Artefact();
-        a.name = "";
+        a.name = "New Artefact";
         a.pts = 0;
         a.description = "";
         a.validTypes = [];
-        this.artefacts.push(a);
-        this.onChange();
+        this.fl.createNewArtefact(a, function (res) {
+            var data = res.json();
+            a.id = data._id;
+            _this.artefacts.push(a);
+        });
     };
     ArtefactEditorComponent.prototype.remove = function (index) {
+        var a = this.artefacts[index];
+        this.fl.removeArtefact(a.id);
         this.artefacts.splice(index, 1);
-        this.onChange();
     };
     ArtefactEditorComponent = __decorate([
         core_1.Component({

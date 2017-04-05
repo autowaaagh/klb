@@ -13,18 +13,30 @@ var model_1 = require('../../model');
 var file_loader_service_1 = require('../../services/file-loader.service');
 var ArmiesEditorComponent = (function () {
     function ArmiesEditorComponent(fl) {
+        // fl.getFile('data/armies.json', (res) => {
+        //     let json = res.json();
+        //     json.sort(this.compare);
         var _this = this;
         this.fl = fl;
         this.armies = [];
         this.selectedArmy = new model_1.ArmyList();
         this.armyChangeEvent = new core_1.EventEmitter();
-        fl.getFile('data/armies.json', function (res) {
+        //     for (var i = 0; i < json.length; i++) {
+        //         var obj = json[i];
+        //         this.loadData(obj);
+        //         if (i === 0) {
+        //             this.selectArmy(0);
+        //             // this.selectedArmy.name = this.armies[0].name;
+        //             // this.onArmyChange(this.armies[0].name);
+        //         }
+        //     }
+        // });
+        fl.getArmies(function (res) {
             var json = res.json();
-            json.sort(_this.compare);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);
-                if (i === 0) {
+                if (i == 0) {
                     _this.selectArmy(0);
                 }
             }
@@ -57,12 +69,13 @@ var ArmiesEditorComponent = (function () {
         return 0;
     };
     ArmiesEditorComponent.prototype.writeArmiesFile = function () {
-        this.fl.writeFile('armies.json', this.armies);
+        // this.fl.writeFile('armies.json', this.armies);
     };
     ArmiesEditorComponent.prototype.loadData = function (json) {
         var dl = new model_1.DataLoader();
         dl.name = json['name'];
-        dl.file = json['file'];
+        // dl.file = json['file'];
+        dl.id = json['_id'];
         this.armies.push(dl);
     };
     ArmiesEditorComponent.prototype.onArmyChange = function (name) {
@@ -83,8 +96,9 @@ var ArmiesEditorComponent = (function () {
             var a = new model_1.ArmyList();
             a.name = dl.name;
             a.points = 0;
-            this.fl.writeFile(dl.file, a);
-            this.writeArmiesFile();
+            this.fl.createNewArmy(a);
+            // this.fl.writeFile(dl.file, a);            
+            // this.writeArmiesFile();
             // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
             this.selectArmy();
             input.value = '';
@@ -95,8 +109,9 @@ var ArmiesEditorComponent = (function () {
         var _this = this;
         this.findArmy(name, function (n, i) {
             _this.armies.splice(i, 1);
-            _this.writeArmiesFile();
-            _this.fl.deleteFile(n.file);
+            // this.writeArmiesFile();
+            // this.fl.deleteFile(n.file);
+            _this.fl.removeArmy(n.id);
             // this.selectedArmy.name = this.armies[this.armies.length - 1].name;
             _this.selectArmy();
         });

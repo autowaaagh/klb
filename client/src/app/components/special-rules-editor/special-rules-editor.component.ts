@@ -21,18 +21,8 @@ export class SpecialRulesEditorComponent implements OnInit {
 
     ngOnInit() { }
 
-    onChange() {
-        this.writeSpecials();
-    }
-
-    writeSpecials() {
-        this.fl.writeFile('special-rules.json', this.specials, (res) => {
-            // console.log(res);
-        })
-    }
-
     loadSpecials() {
-        this.fl.getFile('data/special-rules.json', (res) => {
+        this.fl.getSpecialRules((res) => {
             let json = res.json();
 
             for (var i = 0; i < json.length; i++) {
@@ -40,29 +30,39 @@ export class SpecialRulesEditorComponent implements OnInit {
                 let s = this.loadSpecial(obj);
                 this.specials.push(s);
             }
-
-        });
+        })
     }
 
     loadSpecial(json: JSON): SpecialRule {
         let sr = new SpecialRule();
         sr.name = json['name'];
         sr.desc = json['desc'];
+        sr.id = json['_id'];
 
         return sr;
     }
 
-    addNew() {
+    update(index: number) {
+        let s = this.specials[index];
+        this.fl.updateSpecialRule(s.id, s);
+    }
+
+    createNew() {
         let sr = new SpecialRule();
-        sr.name = "";
+        sr.name = "New Special Rule";
         sr.desc = "";
 
-        this.specials.push(sr);
-        this.onChange();
+        this.fl.createNewSpecialRule(sr, (res) => {
+            let data = res.json();
+            sr.id = data._id;
+            
+            this.specials.push(sr);
+        });
     }
 
     removeSpecial(index: number) {
+        let sr = this.specials[index];
+        this.fl.removeSpecialRule(sr.id);
         this.specials.splice(index, 1);
-        this.onChange();
     }
 }

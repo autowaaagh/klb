@@ -14,29 +14,117 @@ var FileLoaderService = (function () {
     function FileLoaderService(http) {
         this.http = http;
     }
-    FileLoaderService.prototype.writeFile = function (name, data, callback) {
-        this.http.post('/' + name, data)
+    // writeFile(name: string, data: any, callback?: ((response: Response) => void)) {
+    //     //     this.http.post('api/army/'/* + name*/, data)
+    //     //         .subscribe(res => {
+    //     //             if (callback != undefined) {
+    //     //                 callback(res);
+    //     //             }
+    //     //         });
+    // }
+    // deleteFile(name: string, callback?: ((response: Response) => void)) {
+    //     this.http.delete('/' + name)
+    //         .subscribe(res => {
+    //             if (callback != undefined) {
+    //                 callback(res);
+    //             }
+    //         });
+    // }
+    // getFile(name: string, callback?: ((response: Response) => void)) {
+    //     this.http.get(name)
+    //         .subscribe(res => {
+    //             if (callback != undefined) {
+    //                 callback(res);
+    //             }
+    //         });
+    // }
+    FileLoaderService.prototype.readAll = function (url, callback) {
+        this.http.get('api/' + url + '/')
             .subscribe(function (res) {
             if (callback != undefined) {
                 callback(res);
             }
         });
     };
-    FileLoaderService.prototype.deleteFile = function (name, callback) {
-        this.http.delete('/' + name)
+    FileLoaderService.prototype.readSingle = function (url, id, callback) {
+        this.http.get('api/' + url + '/' + id)
             .subscribe(function (res) {
             if (callback != undefined) {
                 callback(res);
             }
         });
     };
-    FileLoaderService.prototype.getFile = function (name, callback) {
-        this.http.get(name)
+    FileLoaderService.prototype.create = function (url, data, callback) {
+        this.http.post('api/' + url + '/', data)
             .subscribe(function (res) {
             if (callback != undefined) {
                 callback(res);
             }
         });
+    };
+    FileLoaderService.prototype.update = function (url, id, data, callback) {
+        this.http.put('api/' + url + '/' + id, data)
+            .subscribe(function (res) {
+            if (callback != undefined) {
+                callback(res);
+            }
+        });
+    };
+    FileLoaderService.prototype.remove = function (url, id, callback) {
+        this.http.delete('api/' + url + '/' + id)
+            .subscribe(function (res) {
+            if (callback != undefined) {
+                callback(res);
+            }
+        });
+    };
+    //==================== ARMIES ====================//
+    FileLoaderService.prototype.getArmies = function (callback) {
+        this.readAll('army', callback);
+    };
+    FileLoaderService.prototype.getArmy = function (id, callback) {
+        this.readSingle('army', id, callback);
+    };
+    FileLoaderService.prototype.createNewArmy = function (data, callback) {
+        this.create('army', data, callback);
+    };
+    FileLoaderService.prototype.updateArmy = function (id, data, callback) {
+        this.update('army', id, data, callback);
+    };
+    FileLoaderService.prototype.removeArmy = function (id, callback) {
+        this.remove('army', id, callback);
+    };
+    //==================== ARTEFACTS ====================//
+    FileLoaderService.prototype.getArtefacts = function (callback) {
+        this.readAll('artefact', callback);
+    };
+    FileLoaderService.prototype.getArtefact = function (id, callback) {
+        this.readSingle('artefact', id, callback);
+    };
+    FileLoaderService.prototype.createNewArtefact = function (data, callback) {
+        this.create('artefact', data, callback);
+    };
+    FileLoaderService.prototype.updateArtefact = function (id, data, callback) {
+        this.update('artefact', id, data, callback);
+    };
+    FileLoaderService.prototype.removeArtefact = function (id, callback) {
+        this.remove('artefact', id, callback);
+    };
+    //==================== SPECIAL RULES ====================//
+    FileLoaderService.prototype.getSpecialRules = function (callback) {
+        this.readAll('specialrule', callback);
+    };
+    FileLoaderService.prototype.getSpecialRule = function (id, callback) {
+        this.readSingle('specialrule', id, callback);
+    };
+    FileLoaderService.prototype.createNewSpecialRule = function (data, callback) {
+        this.create('specialrule', data, callback);
+    };
+    FileLoaderService.prototype.updateSpecialRule = function (id, data, callback) {
+        this.update('specialrule', id, data, callback);
+    };
+    FileLoaderService.prototype.removeSpecialRule = function (id, callback) {
+        this.remove('specialrule', id, callback);
     };
     FileLoaderService = __decorate([
         core_1.Injectable(), 

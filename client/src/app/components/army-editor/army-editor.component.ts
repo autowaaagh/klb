@@ -47,9 +47,11 @@ export class ArmyEditorComponent implements OnInit {
     }
 
     writeArmyFile() {
-        this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
-            // console.log(res);
-        });
+        // this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
+        //     // console.log(res);
+        // });
+
+        this.fl.updateArmy(this.dataLoader.id, this.army);
     }
 
     setSelectedArmy(army: ArmyList) {
@@ -57,7 +59,8 @@ export class ArmyEditorComponent implements OnInit {
     }
 
     loadArmyFile(dl: DataLoader) {
-        this.fl.getFile('data/' + dl.file, (res) => {
+        // this.fl.getFile('data/' + dl.file, (res) => {
+        this.fl.getArmy(dl.id, (res) => {
             this.dataLoader = dl;
             let json = res.json();
 
@@ -75,7 +78,7 @@ export class ArmyEditorComponent implements OnInit {
     addUnit(input: any) {
         let u = new Unit();
         u.name = input.value;
-        u.type = 'Infantry';
+        u.unitType = 'Infantry';
         u.piercing = 0;
         u.cs = 0;
         u.tc = 0;

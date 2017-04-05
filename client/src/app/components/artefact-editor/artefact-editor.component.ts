@@ -21,18 +21,8 @@ export class ArtefactEditorComponent implements OnInit {
 
     ngOnInit() { }
 
-    onChange() {
-        this.writeArtefacts();
-    }
-
-    writeArtefacts() {
-        this.fl.writeFile('artefacts.json', this.artefacts, (res) => {
-            // console.log(res);
-        })
-    }
-
     loadArtefacts() {
-        this.fl.getFile('data/artefacts.json', (res) => {
+        this.fl.getArtefacts((res) => {
             let json = res.json();
 
             for (var i = 0; i < json.length; i++) {
@@ -40,27 +30,43 @@ export class ArtefactEditorComponent implements OnInit {
                 let a = this.loadArtefact(obj);
                 this.artefacts.push(a);
             }
-        })
+        });
     }
 
     loadArtefact(json: JSON): Artefact {
-        let a = Object.assign(new Artefact(), json);
+        let a = new Artefact();
+        a.name = json['name'];
+        a.description = json['description'];
+        a.pts = json['pts'];
+        a.validTypes = json['validTypes'];
+        a.id = json['_id'];
+
         return a;
     }
 
-    addNew() {
+    update(index: number) {
+        let a = this.artefacts[index];
+        this.fl.updateArtefact(a.id, a);
+    }
+
+    createArtefact() {
         let a = new Artefact();
-        a.name = "";
+        a.name = "New Artefact";
         a.pts = 0;
         a.description = "";
         a.validTypes = [];
 
-        this.artefacts.push(a);
-        this.onChange();
+        this.fl.createNewArtefact(a, (res) => {
+            let data = res.json();
+            a.id = data._id;
+
+            this.artefacts.push(a);
+        });
     }
 
     remove(index: number) {
+        let a = this.artefacts[index];
+        this.fl.removeArtefact(a.id);
         this.artefacts.splice(index, 1);
-        this.onChange();
     }
 }

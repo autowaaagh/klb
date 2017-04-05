@@ -3,13 +3,13 @@
     <div class="row">
       <div class="col-3">
         <div class="row">
-          <input class="col-12" [(ngModel)]="artefact.name" (ngModelChange)="onChange()">
+          <input class="col-12" [(ngModel)]="artefact.name" (ngModelChange)="update(i)">
         </div>
       </div>
       <div class="col-9">
         <div class="row">
-          <input class="col-1" [(ngModel)]="artefact.pts" (ngModelChange)="onChange()">
-          <input class="col-10" [(ngModel)]="artefact.description" (ngModelChange)="onChange()">
+          <input class="col-1" [(ngModel)]="artefact.pts" (ngModelChange)="update(i)">
+          <input class="col-10" [(ngModel)]="artefact.description" (ngModelChange)="update(i)">
           <button class="col-1" (click)="remove(i)">&times;</button>
         </div>
       </div>
@@ -17,6 +17,6 @@
   </template>
 
   <div class="row">
-    <button class="col-2" (click)="addNew()">Add New</button>
+    <button class="col-2" (click)="createArtefact()">Add New</button>
   </div>
 </div>

@@ -36,16 +36,18 @@ var ArmyEditorComponent = (function () {
         return 0;
     };
     ArmyEditorComponent.prototype.writeArmyFile = function () {
-        this.fl.writeFile(this.dataLoader.file, this.army, function (res) {
-            // console.log(res);
-        });
+        // this.fl.writeFile(this.dataLoader.file, this.army, (res) => {
+        //     // console.log(res);
+        // });
+        this.fl.updateArmy(this.dataLoader.id, this.army);
     };
     ArmyEditorComponent.prototype.setSelectedArmy = function (army) {
         this.army = army;
     };
     ArmyEditorComponent.prototype.loadArmyFile = function (dl) {
         var _this = this;
-        this.fl.getFile('data/' + dl.file, function (res) {
+        // this.fl.getFile('data/' + dl.file, (res) => {
+        this.fl.getArmy(dl.id, function (res) {
             _this.dataLoader = dl;
             var json = res.json();
             _this.army = Object.assign(new model_1.ArmyList(), json);
@@ -61,7 +63,7 @@ var ArmyEditorComponent = (function () {
     ArmyEditorComponent.prototype.addUnit = function (input) {
         var u = new model_1.Unit();
         u.name = input.value;
-        u.type = 'Infantry';
+        u.unitType = 'Infantry';
         u.piercing = 0;
         u.cs = 0;
         u.tc = 0;

@@ -18,17 +18,9 @@ var SpecialRulesEditorComponent = (function () {
         this.loadSpecials();
     }
     SpecialRulesEditorComponent.prototype.ngOnInit = function () { };
-    SpecialRulesEditorComponent.prototype.onChange = function () {
-        this.writeSpecials();
-    };
-    SpecialRulesEditorComponent.prototype.writeSpecials = function () {
-        this.fl.writeFile('special-rules.json', this.specials, function (res) {
-            // console.log(res);
-        });
-    };
     SpecialRulesEditorComponent.prototype.loadSpecials = function () {
         var _this = this;
-        this.fl.getFile('data/special-rules.json', function (res) {
+        this.fl.getSpecialRules(function (res) {
             var json = res.json();
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
@@ -41,18 +33,28 @@ var SpecialRulesEditorComponent = (function () {
         var sr = new model_1.SpecialRule();
         sr.name = json['name'];
         sr.desc = json['desc'];
+        sr.id = json['_id'];
         return sr;
     };
-    SpecialRulesEditorComponent.prototype.addNew = function () {
+    SpecialRulesEditorComponent.prototype.update = function (index) {
+        var s = this.specials[index];
+        this.fl.updateSpecialRule(s.id, s);
+    };
+    SpecialRulesEditorComponent.prototype.createNew = function () {
+        var _this = this;
         var sr = new model_1.SpecialRule();
-        sr.name = "";
+        sr.name = "New Special Rule";
         sr.desc = "";
-        this.specials.push(sr);
-        this.onChange();
+        this.fl.createNewSpecialRule(sr, function (res) {
+            var data = res.json();
+            sr.id = data._id;
+            _this.specials.push(sr);
+        });
     };
     SpecialRulesEditorComponent.prototype.removeSpecial = function (index) {
+        var sr = this.specials[index];
+        this.fl.removeSpecialRule(sr.id);
         this.specials.splice(index, 1);
-        this.onChange();
     };
     SpecialRulesEditorComponent = __decorate([
         core_1.Component({

@@ -44,9 +44,9 @@ export class UnitEditorComponent implements OnInit {
             this.oldUnit.name = this.unit.name;
         }
 
-        if (this.unit.type !== this.oldUnit.type) {
+        if (this.unit.unitType !== this.oldUnit.unitType) {
             hasChanged = true;
-            this.oldUnit.type = this.unit.type;
+            this.oldUnit.unitType = this.unit.unitType;
         }
 
         if (this.unit.piercing !== this.oldUnit.piercing) {
@@ -97,7 +97,17 @@ export class UnitEditorComponent implements OnInit {
     }
 
     loadSpecials() {
-        this.fl.getFile('data/special-rules.json', (res) => {
+        // this.fl.getFile('data/special-rules.json', (res) => {
+        //     let json = res.json();
+
+        //     for (var i = 0; i < json.length; i++) {
+        //         var obj = json[i];
+        //         let s = this.loadSpecial(obj);
+        //         this.specials.push(s);
+        //     }
+
+        // });
+        this.fl.getSpecialRules((res) => {
             let json = res.json();
 
             for (var i = 0; i < json.length; i++) {
@@ -105,8 +115,7 @@ export class UnitEditorComponent implements OnInit {
                 let s = this.loadSpecial(obj);
                 this.specials.push(s);
             }
-
-        });
+        })
     }
 
     loadSpecial(json: JSON): SpecialRule {
