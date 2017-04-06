@@ -9,31 +9,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('@angular/core');
-var AppComponent = (function () {
-    function AppComponent(el) {
-        this.el = el;
+var MainComponent = (function () {
+    function MainComponent() {
     }
-    AppComponent.prototype.menuClick = function (event, panel) {
-        var isShown = $(this.el.nativeElement).find('#' + panel).hasClass('in');
-        if (isShown) {
-            event.stopPropagation();
-        }
-    };
-    AppComponent = __decorate([
+    MainComponent.prototype.ngOnInit = function () { };
+    MainComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
-            selector: 'my-app',
-            templateUrl: 'app.component.html',
-            styles: [
-                '.collapse { height: 0px; }',
-                '.container { cursor: default; }',
-                '.container-fluid { cursor: default; }',
-                '.no-bottom-margin { margin-bottom: 0px; }',
-            ]
+            selector: 'main',
+            templateUrl: 'main.component.html'
         }), 
-        __metadata('design:paramtypes', [core_1.ElementRef])
-    ], AppComponent);
-    return AppComponent;
+        __metadata('design:paramtypes', [])
+    ], MainComponent);
+    return MainComponent;
 }());
-exports.AppComponent = AppComponent;
-//# sourceMappingURL=app.component.js.map
+exports.MainComponent = MainComponent;
+//# sourceMappingURL=main.component.js.map

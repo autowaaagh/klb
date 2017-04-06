@@ -1,0 +1,106 @@
+<div class="accordion" id="myGroup">
+  <!--<script>
+    $('.accordion-toggle').on('click', function (e) {
+      // if($(this).parents('.accordion-group').children('.accordion-body').hasClass('in')){
+      //     e.preventDefault();
+      //     e.stopPropagation();
+      // }
+      console.log('click');
+    });
+
+  </script>-->
+  <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+          aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#">KoW List Builder</a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <ul class="nav navbar-nav">
+          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#list-builder"
+              (click)="menuClick($event, 'list-builder')">List Builder <span class="sr-only">(current)</span></a></li>
+          <!--<li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenarios">Scenarios</a></li>-->
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Editor<span class="caret"></span></a>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#army-entry" (click)="menuClick($event, 'army-entry')">Army Editor</a></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#special-rules-editor" (click)="menuClick($event, 'special-rules-editor')">Special Rules Editor</a></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#artefact-editor" (click)="menuClick($event, 'artefact-editor')">Artefact Editor</a></li>
+              <!--<li role="separator" class="divider"></li>
+            <li><a href="#">Separated link</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#">One more separated link</a></li>-->
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+
+
+  <div class="panel no-bottom-margin">
+    <div id="list-builder" class="accordion-body collapse in">
+      <h3>&nbsp;</h3>
+      <div class="container-fluid">
+        <div class="col-md-6">
+          <army-selector (addUnitEvent)="armylist.addUnitToList($event)"></army-selector>
+        </div>
+        <div class="col-md-6">
+          <army-list #armylist (printListEvent)="listprinter.outputList($event)"></army-list>
+        </div>
+        <list-printer #listprinter></list-printer>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
+    <div id="scenarios" class="accordion-body collapse">
+      <h3>&nbsp;</h3>
+      <div class="container-fluid">
+
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
+    <div id="army-entry" class="accordion-body collapse">
+      <h3>&nbsp;</h3>
+      <div class="container-fluid">
+        <army-entry></army-entry>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
+    <div id="special-rules-editor" class="accordion-body collapse">
+      <h3>&nbsp;</h3>
+      <div class="container-fluid">
+        <special-rules-editor></special-rules-editor>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
+    <div id="artefact-editor" class="accordion-body collapse">
+      <h3>&nbsp;</h3>
+      <div class="container-fluid">
+        <artefact-editor></artefact-editor>
+      </div>
+    </div>
+  </div>
+
+</div>

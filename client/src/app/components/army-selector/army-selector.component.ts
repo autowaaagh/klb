@@ -18,7 +18,6 @@ import { FileLoaderService } from '../../services/file-loader.service';
         '.unit-header {background-color: #007ACC; color: #fff; font-weight: bold; }',
         '.unit-options-list { width: 100%; }',
         '.unit-list { width: 100% }',
-        '.unit-options-list tr:not(:first-child):hover td { background-color: #009CEE; color: #fff; }'
     ],
     providers: [FileLoaderService]
 })
