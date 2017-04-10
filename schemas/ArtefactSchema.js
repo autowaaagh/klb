@@ -11,4 +11,4 @@ var Artefact = mongoose.model('Artefact', artefactSchema, 'artefacts');
 
 module.exports = {
     Artefact: Artefact
-}
+};

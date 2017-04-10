@@ -1,14 +1,4 @@
 <div class="accordion" id="myGroup">
-  <!--<script>
-    $('.accordion-toggle').on('click', function (e) {
-      // if($(this).parents('.accordion-group').children('.accordion-body').hasClass('in')){
-      //     e.preventDefault();
-      //     e.stopPropagation();
-      // }
-      console.log('click');
-    });
-
-  </script>-->
   <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container-fluid">
       <!-- Brand and toggle get grouped for better mobile display -->
@@ -28,19 +18,23 @@
         <ul class="nav navbar-nav">
           <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#list-builder"
               (click)="menuClick($event, 'list-builder')">List Builder <span class="sr-only">(current)</span></a></li>
-          <!--<li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenarios">Scenarios</a></li>-->
+          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenarios">Scenarios</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Data Editor<span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#army-entry" (click)="menuClick($event, 'army-entry')">Army Editor</a></li>
-              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#special-rules-editor" (click)="menuClick($event, 'special-rules-editor')">Special Rules Editor</a></li>
-              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#artefact-editor" (click)="menuClick($event, 'artefact-editor')">Artefact Editor</a></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#army-entry"
+                  (click)="menuClick($event, 'army-entry')">Army Editor</a></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#special-rules-editor"
+                  (click)="menuClick($event, 'special-rules-editor')">Special Rules Editor</a></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#artefact-editor"
+                  (click)="menuClick($event, 'artefact-editor')">Artefact Editor</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenario-editor"
+                  (click)="menuClick($event, 'scenario-editor')">Scenario Editor</a></li>
               <!--<li role="separator" class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-            <li role="separator" class="divider"></li>
             <li><a href="#">One more separated link</a></li>-->
             </ul>
           </li>
@@ -52,9 +46,9 @@
   </nav>
 
 
+  <h3>&nbsp;</h3>
   <div class="panel no-bottom-margin">
     <div id="list-builder" class="accordion-body collapse in">
-      <h3>&nbsp;</h3>
       <div class="container-fluid">
         <div class="col-md-6">
           <army-selector (addUnitEvent)="armylist.addUnitToList($event)"></army-selector>
@@ -69,16 +63,14 @@
 
   <div class="panel no-bottom-margin">
     <div id="scenarios" class="accordion-body collapse">
-      <h3>&nbsp;</h3>
       <div class="container-fluid">
-
+        <scenario-list></scenario-list>
       </div>
     </div>
   </div>
 
   <div class="panel no-bottom-margin">
     <div id="army-entry" class="accordion-body collapse">
-      <h3>&nbsp;</h3>
       <div class="container-fluid">
         <army-entry></army-entry>
       </div>
@@ -87,7 +79,6 @@
 
   <div class="panel no-bottom-margin">
     <div id="special-rules-editor" class="accordion-body collapse">
-      <h3>&nbsp;</h3>
       <div class="container-fluid">
         <special-rules-editor></special-rules-editor>
       </div>
@@ -96,9 +87,16 @@
 
   <div class="panel no-bottom-margin">
     <div id="artefact-editor" class="accordion-body collapse">
-      <h3>&nbsp;</h3>
       <div class="container-fluid">
         <artefact-editor></artefact-editor>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
+    <div id="scenario-editor" class="accordion-body collapse">
+      <div class="container-fluid">
+        <scenario-editor></scenario-editor>
       </div>
     </div>
   </div>

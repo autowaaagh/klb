@@ -14,8 +14,11 @@ var AppComponent = (function () {
         this.el = el;
     }
     AppComponent.prototype.menuClick = function (event, panel) {
-        var isShown = $(this.el.nativeElement).find('#' + panel).hasClass('in');
-        if (isShown) {
+        var stopPagination = false;
+        if ($(this.el.nativeElement).find('#' + panel).hasClass('in')) {
+            stopPagination = true;
+        }
+        if (stopPagination) {
             event.stopPropagation();
         }
     };

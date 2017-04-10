@@ -20,8 +20,13 @@ export class AppComponent {
   constructor(private el: ElementRef) { }
 
   menuClick(event: any, panel: any) {
-    let isShown: boolean = $(this.el.nativeElement).find('#' + panel).hasClass('in');
-    if (isShown) {
+    let stopPagination: Boolean = false;
+
+    if ($(this.el.nativeElement).find('#' + panel).hasClass('in')) {
+      stopPagination = true;
+    } 
+
+    if (stopPagination) {
       event.stopPropagation();
     }
   }

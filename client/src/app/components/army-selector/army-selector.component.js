@@ -31,7 +31,6 @@ var ArmySelectorComponent = (function () {
         // });
         fl.getArmies(function (res) {
             var json = res.json();
-            console.log(json);
             for (var i = 0; i < json.length; i++) {
                 var obj = json[i];
                 _this.loadData(obj);

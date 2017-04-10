@@ -14,30 +14,6 @@ var FileLoaderService = (function () {
     function FileLoaderService(http) {
         this.http = http;
     }
-    // writeFile(name: string, data: any, callback?: ((response: Response) => void)) {
-    //     //     this.http.post('api/army/'/* + name*/, data)
-    //     //         .subscribe(res => {
-    //     //             if (callback != undefined) {
-    //     //                 callback(res);
-    //     //             }
-    //     //         });
-    // }
-    // deleteFile(name: string, callback?: ((response: Response) => void)) {
-    //     this.http.delete('/' + name)
-    //         .subscribe(res => {
-    //             if (callback != undefined) {
-    //                 callback(res);
-    //             }
-    //         });
-    // }
-    // getFile(name: string, callback?: ((response: Response) => void)) {
-    //     this.http.get(name)
-    //         .subscribe(res => {
-    //             if (callback != undefined) {
-    //                 callback(res);
-    //             }
-    //         });
-    // }
     FileLoaderService.prototype.readAll = function (url, callback) {
         this.http.get('api/' + url + '/')
             .subscribe(function (res) {
@@ -125,6 +101,22 @@ var FileLoaderService = (function () {
     };
     FileLoaderService.prototype.removeSpecialRule = function (id, callback) {
         this.remove('specialrule', id, callback);
+    };
+    //==================== SPECIAL RULES ====================//
+    FileLoaderService.prototype.getScenarios = function (callback) {
+        this.readAll('scenario', callback);
+    };
+    FileLoaderService.prototype.getScenario = function (id, callback) {
+        this.readSingle('scenario', id, callback);
+    };
+    FileLoaderService.prototype.createNewScenario = function (data, callback) {
+        this.create('scenario', data, callback);
+    };
+    FileLoaderService.prototype.updateScenario = function (id, data, callback) {
+        this.update('scenario', id, data, callback);
+    };
+    FileLoaderService.prototype.removeScenario = function (id, callback) {
+        this.remove('scenario', id, callback);
     };
     FileLoaderService = __decorate([
         core_1.Injectable(), 

@@ -59,4 +59,10 @@ var SpecialRule = (function () {
     return SpecialRule;
 }());
 exports.SpecialRule = SpecialRule;
+var Scenario = (function () {
+    function Scenario() {
+    }
+    return Scenario;
+}());
+exports.Scenario = Scenario;
 //# sourceMappingURL=model.js.map

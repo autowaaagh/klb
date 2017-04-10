@@ -3,13 +3,15 @@ var express = require('express'),
     ArmyList = require('../schemas/ArmyListSchema').ArmyList;
 
 router.get("/", function (req, res) {
-    ArmyList.find({}, [], {sort: {name:1}}, function (err, data) {
-        if (err) {
-            res.send("error");
-            return;
-        }
-        res.send(data);
-    });
+    ArmyList.find()
+            .sort({name: 1})
+            .exec(function(err, data) {
+                if (err) {
+                    res.send("error");
+                    return;
+                }
+                res.send(data);
+            });
 }).get("/:id", function (req, res) {
     var id = req.params.id;
     ArmyList.find({

@@ -6,32 +6,6 @@ export class FileLoaderService {
 
     constructor(private http: Http) { }
 
-    // writeFile(name: string, data: any, callback?: ((response: Response) => void)) {
-    //     //     this.http.post('api/army/'/* + name*/, data)
-    //     //         .subscribe(res => {
-    //     //             if (callback != undefined) {
-    //     //                 callback(res);
-    //     //             }
-    //     //         });
-    // }
-
-    // deleteFile(name: string, callback?: ((response: Response) => void)) {
-    //     this.http.delete('/' + name)
-    //         .subscribe(res => {
-    //             if (callback != undefined) {
-    //                 callback(res);
-    //             }
-    //         });
-    // }
-
-    // getFile(name: string, callback?: ((response: Response) => void)) {
-    //     this.http.get(name)
-    //         .subscribe(res => {
-    //             if (callback != undefined) {
-    //                 callback(res);
-    //             }
-    //         });
-    // }
     protected readAll(url: string, callback?: ((response: Response) => void)) {
         this.http.get('api/' + url + '/')
             .subscribe(res => {
@@ -76,7 +50,7 @@ export class FileLoaderService {
                 }
             })
     }
-    
+
     //==================== ARMIES ====================//
     getArmies(callback?: ((response: Response) => void)) {
         this.readAll('army', callback);
@@ -138,5 +112,26 @@ export class FileLoaderService {
 
     removeSpecialRule(id: string, callback?: ((response: Response) => void)) {
         this.remove('specialrule', id, callback);
+    }
+
+    //==================== SPECIAL RULES ====================//
+    getScenarios(callback?: ((response: Response) => void)) {
+        this.readAll('scenario', callback);
+    }
+
+    getScenario(id: string, callback?: ((response: Response) => void)) {
+        this.readSingle('scenario', id, callback);
+    }
+
+    createNewScenario(data: any, callback?: ((response: Response) => void)) {
+        this.create('scenario', data, callback);
+    }
+
+    updateScenario(id: string, data: any, callback?: ((response: Response) => void)) {
+        this.update('scenario', id, data, callback);
+    }
+
+    removeScenario(id: string, callback?: ((response: Response) => void)) {
+        this.remove('scenario', id, callback);
     }
 }

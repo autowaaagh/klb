@@ -25,6 +25,8 @@ var unit_option_editor_component_1 = require('./components/unit-option-editor/un
 var unit_upgrade_editor_component_1 = require('./components/unit-upgrade-editor/unit-upgrade-editor.component');
 var special_rules_editor_component_1 = require('./components/special-rules-editor/special-rules-editor.component');
 var artefact_editor_component_1 = require('./components/artefact-editor/artefact-editor.component');
+var scenario_list_component_1 = require('./components/scenario-list/scenario-list.component');
+var scenario_editor_component_1 = require('./components/scenario-editor/scenario-editor.component');
 var AppModule = (function () {
     function AppModule() {
     }
@@ -48,7 +50,9 @@ var AppModule = (function () {
                 unit_option_editor_component_1.UnitOptionEditorComponent,
                 unit_upgrade_editor_component_1.UnitUpgradeEditorComponent,
                 special_rules_editor_component_1.SpecialRulesEditorComponent,
-                artefact_editor_component_1.ArtefactEditorComponent
+                artefact_editor_component_1.ArtefactEditorComponent,
+                scenario_editor_component_1.ScenarioEditorComponent,
+                scenario_list_component_1.ScenarioListComponent
             ],
             bootstrap: [
                 app_component_1.AppComponent

@@ -17,6 +17,8 @@ import { UnitOptionEditorComponent } from './components/unit-option-editor/unit-
 import { UnitUpgradeEditorComponent } from './components/unit-upgrade-editor/unit-upgrade-editor.component';
 import { SpecialRulesEditorComponent } from './components/special-rules-editor/special-rules-editor.component';
 import { ArtefactEditorComponent } from './components/artefact-editor/artefact-editor.component';
+import { ScenarioListComponent } from './components/scenario-list/scenario-list.component';
+import { ScenarioEditorComponent } from './components/scenario-editor/scenario-editor.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { ArtefactEditorComponent } from './components/artefact-editor/artefact-e
     UnitOptionEditorComponent,
     UnitUpgradeEditorComponent,
     SpecialRulesEditorComponent,
-    ArtefactEditorComponent
+    ArtefactEditorComponent,
+    ScenarioEditorComponent,
+    ScenarioListComponent
   ],
   bootstrap: [
     AppComponent

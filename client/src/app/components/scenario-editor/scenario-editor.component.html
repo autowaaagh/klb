@@ -1,0 +1,16 @@
+<div class="container-fluid">
+  <template ngFor let-scenario [ngForOf]="scenarios" let-i="index">
+    <div class="row">
+      <input class="col-10" [(ngModel)]="scenario.name" (ngModelChange)="update(i)">
+      <input class="col-1" [(ngModel)]="scenario.diceResult" (ngModelChange)="update(i)" type="number">
+      <button class="col-1" (click)="remove(i)">&times;</button>
+    </div>
+    <div class="row">
+      <textarea class="col-12" [(ngModel)]="scenario.description" (ngModelChange)="update(i)" rows=4></textarea>
+    </div>
+  </template>
+
+  <div class="row">
+    <button class="col-2" (click)="add()">Add New</button>
+  </div>
+</div>

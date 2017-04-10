@@ -73,3 +73,10 @@ export class SpecialRule {
     name: string;
     desc: string;
 }
+
+export class Scenario {
+    id: string;
+    name: string;
+    diceResult: number;
+    description: string;
+}
