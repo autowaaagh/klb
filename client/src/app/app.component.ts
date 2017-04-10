@@ -7,7 +7,6 @@ declare var $: any
   selector: 'my-app',
   templateUrl: 'app.component.html',
   styles: [
-    '.collapse { height: 0px; }',
     '.container { cursor: default; }',
     '.container-fluid { cursor: default; }',
     '.no-bottom-margin { margin-bottom: 0px; }',
