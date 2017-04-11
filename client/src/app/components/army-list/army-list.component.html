@@ -1,4 +1,7 @@
 <div class="component">
+  <div *ngIf="!isValidList" class="validation-errors" >
+    <span *ngFor="let err of validationErrors">{{err}}<br/></span>
+  </div>
   <div class="tbl-top-bar">
     <span class="col-3"><input [(ngModel)]="army.name" style="width:100%"></span>
     <span class="col-3"><button class="btn-flat btn-new-list" (click)="newList()">New List</button></span>

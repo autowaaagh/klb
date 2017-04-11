@@ -17,6 +17,8 @@ var ArmyListComponent = (function () {
         this.http = http;
         this.fl = fl;
         this.artefacts = [];
+        this.isValidList = true;
+        this.validationErrors = [];
         this.printListEvent = new core_1.EventEmitter();
         this.newList();
         this.loadArtefacts();
@@ -136,6 +138,7 @@ var ArmyListComponent = (function () {
             }
         });
         this.army.points = p;
+        this.isValidList = this.isListValid(this.army);
     };
     ArmyListComponent.prototype.newList = function () {
         this.army = {
@@ -147,79 +150,122 @@ var ArmyListComponent = (function () {
     };
     ArmyListComponent.prototype.outputList = function () {
         var list = (JSON.parse(JSON.stringify(this.army)));
-        if (this.isListValid(list)) {
-            list.units.forEach(function (u, i) {
-                if (u.artefact && u.artefact.name != '- Artefacts - ') {
-                    u.unitOptions[0].pts += u.artefact.pts;
-                }
-                if (u.unitUpgrades) {
-                    u.unitUpgrades.forEach(function (uu, j) {
-                        if (uu.isSelected) {
-                            u.unitOptions[0].pts += uu.pts;
-                        }
-                    });
-                }
-                if (u.unitOptions[0].unitSize === 'Single') {
-                    u.unitOptions[0].unitSize = 'Single Model';
-                }
-            });
-            this.printListEvent.emit(list);
-        }
+        this.isValidList = this.isListValid(list);
+        if (!this.isValidList) { }
+        list.units.forEach(function (u, i) {
+            if (u.artefact && u.artefact.name != '- Artefacts - ') {
+                u.unitOptions[0].pts += u.artefact.pts;
+            }
+            if (u.unitUpgrades) {
+                u.unitUpgrades.forEach(function (uu, j) {
+                    if (uu.isSelected) {
+                        u.unitOptions[0].pts += uu.pts;
+                    }
+                });
+            }
+            if (u.unitOptions[0].unitSize === 'Single') {
+                u.unitOptions[0].unitSize = 'Single Model';
+            }
+        });
+        this.printListEvent.emit(list);
     };
     ArmyListComponent.prototype.isListValid = function (list) {
         var _this = this;
         var isValid = true;
-        var universalUnlockable = 0;
-        var troopUnlockable = 0;
-        var monsterUnlockable = 0;
-        var heroUnlockable = 0;
-        var warengineUnlockable = 0;
+        var heroes = 0;
+        var monsters = 0;
+        var troops = 0;
+        var shared = 0;
+        var warengines = 0;
+        this.validationErrors = [];
         if (list.points > 0) {
             list.units.forEach(function (u, i) {
                 var unitSize = u.unitOptions[0].unitSize;
                 var unitType = u.unitType;
+                if (u.name.indexOf('[1]') >= 0) {
+                    list.units.forEach(function (u1, i1) {
+                        if (u1.name === u.name && i1 !== i) {
+                            isValid = false;
+                            var dupname = "You can have only 1 '" + u.name + "'";
+                            if (_this.validationErrors.indexOf(dupname) < 0) {
+                                _this.validationErrors.push(dupname);
+                            }
+                        }
+                    });
+                }
                 if (unitSize === 'Regiment') {
-                    universalUnlockable++;
+                    shared++;
+                    troops += 2;
                 }
                 else if (unitSize === 'Horde' || unitSize === 'Legion') {
-                    troopUnlockable += 2;
-                    monsterUnlockable++;
-                    heroUnlockable++;
-                    warengineUnlockable++;
+                    troops += 4;
+                    heroes++;
+                    monsters++;
+                    warengines++;
                 }
                 else {
-                    if (unitType === 'Monster') {
-                        _this.reduceUnlockable(universalUnlockable, monsterUnlockable);
-                    }
-                    else if (unitType.indexOf('Hero') >= 0) {
-                        _this.reduceUnlockable(universalUnlockable, heroUnlockable);
-                    }
-                    else if (unitType === 'War Engine') {
-                        _this.reduceUnlockable(universalUnlockable, warengineUnlockable);
-                    }
                     if (unitSize === 'Troop') {
-                        _this.reduceUnlockable(universalUnlockable, troopUnlockable);
+                        troops--;
+                    }
+                    else {
+                        if (unitType === 'Monster') {
+                            monsters--;
+                        }
+                        else if (unitType.indexOf('Hero') >= 0) {
+                            heroes--;
+                        }
+                        else if (unitType === 'War Engine') {
+                            warengines--;
+                        }
                     }
                 }
             });
+            if (heroes < 0 || monsters < 0 || warengines < 0) {
+                while (shared > 0) {
+                    if (heroes < 0) {
+                        heroes++;
+                        shared--;
+                    }
+                    else if (monsters < 0) {
+                        monsters++;
+                        shared--;
+                    }
+                    else if (warengines < 0) {
+                        warengines++;
+                        shared--;
+                    }
+                    else {
+                        shared = 0;
+                    }
+                }
+            }
         }
         else {
+        }
+        if (heroes < 0) {
             isValid = false;
+            this.validationErrors.push('Too many Heroes, add more regiments/hordes');
         }
-        if (universalUnlockable < 0 || troopUnlockable < 0 || monsterUnlockable < 0 || heroUnlockable < 0 || warengineUnlockable < 0) {
+        if (monsters < 0) {
             isValid = false;
+            this.validationErrors.push('Too many Monsters, add more regiments/hordes');
         }
-        // console.log(isValid);
-        // return isValid;
-        return true;
-    };
-    ArmyListComponent.prototype.reduceUnlockable = function (universal, type) {
-        if (type <= 0) {
-            universal--;
+        if (troops < 0) {
+            isValid = false;
+            this.validationErrors.push('Too many Troops, add more regiments/hordes');
         }
-        else {
-            type--;
+        if (warengines < 0) {
+            isValid = false;
+            this.validationErrors.push('Too many War Engines, add more regiments/hordes');
         }
+        // console.log("heroes :" + heroes);
+        // console.log("monsters :" + monsters);
+        // console.log("troops :" + troops);
+        // console.log("shared :" + shared);
+        // console.log("warengines :" + warengines);
+        // console.log('isValid: ' + isValid);
+        return isValid;
+        // return true;
     };
     __decorate([
         core_1.Output(), 
@@ -248,7 +294,8 @@ var ArmyListComponent = (function () {
                 '.btn-remove-unit { background-color: #f00; color: #fff; }',
                 '.btn-remove-unit:hover { background-color: #d00; }',
                 '.unit-sub-row { margin-left: 10px; }',
-                '.list-total-points { text-align: right; align: right; }'
+                '.list-total-points { text-align: right; align: right; }',
+                '.validation-errors { background-color:#f00; color: #fff; padding-left: 5px; }'
             ],
             providers: [file_loader_service_1.FileLoaderService]
         }), 
