@@ -65,4 +65,10 @@ var Scenario = (function () {
     return Scenario;
 }());
 exports.Scenario = Scenario;
+var User = (function () {
+    function User() {
+    }
+    return User;
+}());
+exports.User = User;
 //# sourceMappingURL=model.js.map

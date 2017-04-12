@@ -80,3 +80,11 @@ export class Scenario {
     diceResult: number;
     description: string;
 }
+
+export class User {
+    id: string;
+    username: string;
+    password: string;
+    permissions: string[];
+    savedListIDs: string[];
+}
