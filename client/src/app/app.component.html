@@ -16,8 +16,12 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#list-builder" (click)="menuClick($event, 'list-builder')">List Builder <span class="sr-only">(current)</span></a></li>
-          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenarios" (click)="menuClick($event, 'scenarios')">Scenarios</a></li>
+          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#list-builder"
+              (click)="menuClick($event, 'list-builder')">List Builder <span class="sr-only">(current)</span></a></li>
+          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenarios"
+              (click)="menuClick($event, 'scenarios')">Scenarios</a></li>
+          <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#cyphers-view"
+              (click)="menuClick($event, 'cyphers-view')">Cyphers</a></li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
@@ -33,6 +37,9 @@
               <li role="separator" class="divider"></li>
               <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#scenario-editor"
                   (click)="menuClick($event, 'scenario-editor')">Scenario Editor</a></li>
+              <li role="separator" class="divider"></li>
+              <li><a href="javascript:;" class="accordion-toggle" data-toggle="collapse" data-parent="#myGroup" data-target="#cypher-editor"
+                  (click)="menuClick($event, 'cypher-editor')">Cypher Editor</a></li>
             </ul>
           </li>
         </ul>
@@ -67,6 +74,14 @@
   </div>
 
   <div class="panel no-bottom-margin">
+    <div id="cyphers-view" class="accordion-body collapse">
+      <div class="container-fluid">
+        <cyphers-view></cyphers-view>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
     <div id="army-entry" class="accordion-body collapse">
       <div class="container-fluid">
         <army-entry></army-entry>
@@ -94,6 +109,14 @@
     <div id="scenario-editor" class="accordion-body collapse">
       <div class="container-fluid">
         <scenario-editor></scenario-editor>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel no-bottom-margin">
+    <div id="cypher-editor" class="accordion-body collapse">
+      <div class="container-fluid">
+        <cypher-editor></cypher-editor>
       </div>
     </div>
   </div>

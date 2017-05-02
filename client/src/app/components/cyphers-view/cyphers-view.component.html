@@ -1,0 +1,34 @@
+<div class="container-fluid">
+
+  <div class="link-bar">
+    <h3><span *ngFor="let letter of letters"><a href="#{{letter}}">{{letter}} </a></span></h3>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <template ngFor let-letter [ngForOf]="letters">
+        <p>
+          <a name="{{letter}}">
+            <h3 class="section-head" style="padding-top: 60px; margin-top: -40px;">{{letter}}</h3>
+          </a>
+          <ul>
+            <div *ngFor="let cypher of cyphers; let i = index">
+              <!--href="/api/cypher/{{cypher.id}}" target="_blank"-->
+              <li *ngIf="cypher.name[0]===letter"><a  (click)="select(i)">{{cypher.name}}</a></li>
+              <!--<li *ngIf="cypher.name[0]===letter"><a routerLink="/cypher" routeLinkActive="active" >{{cypher.name}}</a></li>-->
+              <div></div>
+            </div>
+          </ul>
+          <a href="#">Back to Top</a>
+      </template>
+    </div>
+    <div class="col-md-9">
+        <div class="affix">
+          <span>{{selectedCypher.name}}</span>
+          <span>{{selectedCypher.level}}</span>
+          <span>{{selectedCypher.desc}}</span>
+          <span>({{selectedCypher.source}})</span>
+        </div>
+    </div>
+  </div>
+</div>

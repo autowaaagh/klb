@@ -1,0 +1,21 @@
+<div class="container-fluid">
+  <span class="col-8">Name</span>
+  <span class="col-1">Level</span>
+  <span class="col-2">Source</span>
+
+  <template ngFor let-cypher [ngForOf]="cyphers" let-i="index">
+    <div class="row">
+      <input class="col-8" [(ngModel)]="cypher.name" (ngModelChange)="update(i)">
+      <input class="col-1" [(ngModel)]="cypher.level" (ngModelChange)="update(i)">
+      <input class="col-2" [(ngModel)]="cypher.source" (ngModelChange)="update(i)">
+      <button class="col-1" (click)="remove(i)">&times;</button>
+    </div>
+    <div class="row">
+      <textarea class="col-12" [(ngModel)]="cypher.desc" (ngModelChange)="update(i)" rows=4></textarea>
+    </div>
+  </template>
+
+  <div class="row">
+    <button class="col-2" (click)="createCypher()">Add New</button>
+  </div>
+</div>

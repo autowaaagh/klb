@@ -71,4 +71,10 @@ var User = (function () {
     return User;
 }());
 exports.User = User;
+var Cypher = (function () {
+    function Cypher() {
+    }
+    return Cypher;
+}());
+exports.Cypher = Cypher;
 //# sourceMappingURL=model.js.map

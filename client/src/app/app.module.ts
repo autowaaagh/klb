@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
 
 import { Ng2CompleterModule } from 'ng2-completer';
 
@@ -19,14 +20,20 @@ import { SpecialRulesEditorComponent } from './components/special-rules-editor/s
 import { ArtefactEditorComponent } from './components/artefact-editor/artefact-editor.component';
 import { ScenarioListComponent } from './components/scenario-list/scenario-list.component';
 import { ScenarioEditorComponent } from './components/scenario-editor/scenario-editor.component';
+import { CypherEditorComponent } from "./components/cypher-editor/cypher-editor.component";
+import { CyphersViewComponent } from './components/cyphers-view/cyphers-view.component';
 
+const appRoutes: Routes = [
+  { path: 'cypher', component: CyphersViewComponent }
+]
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule,
-    Ng2CompleterModule
+    Ng2CompleterModule,
+    RouterModule.forRoot(appRoutes)
   ],
   declarations: [
     AppComponent,
@@ -42,7 +49,9 @@ import { ScenarioEditorComponent } from './components/scenario-editor/scenario-e
     SpecialRulesEditorComponent,
     ArtefactEditorComponent,
     ScenarioEditorComponent,
-    ScenarioListComponent
+    ScenarioListComponent,
+    CypherEditorComponent,
+    CyphersViewComponent
   ],
   bootstrap: [
     AppComponent

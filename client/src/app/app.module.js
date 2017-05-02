@@ -12,6 +12,7 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var forms_1 = require('@angular/forms');
+var router_1 = require('@angular/router');
 var ng2_completer_1 = require('ng2-completer');
 var app_component_1 = require('./app.component');
 var army_selector_component_1 = require('./components/army-selector/army-selector.component');
@@ -27,6 +28,11 @@ var special_rules_editor_component_1 = require('./components/special-rules-edito
 var artefact_editor_component_1 = require('./components/artefact-editor/artefact-editor.component');
 var scenario_list_component_1 = require('./components/scenario-list/scenario-list.component');
 var scenario_editor_component_1 = require('./components/scenario-editor/scenario-editor.component');
+var cypher_editor_component_1 = require("./components/cypher-editor/cypher-editor.component");
+var cyphers_view_component_1 = require('./components/cyphers-view/cyphers-view.component');
+var appRoutes = [
+    { path: 'cypher', component: cyphers_view_component_1.CyphersViewComponent }
+];
 var AppModule = (function () {
     function AppModule() {
     }
@@ -36,7 +42,8 @@ var AppModule = (function () {
                 platform_browser_1.BrowserModule,
                 http_1.HttpModule,
                 forms_1.FormsModule,
-                ng2_completer_1.Ng2CompleterModule
+                ng2_completer_1.Ng2CompleterModule,
+                router_1.RouterModule.forRoot(appRoutes)
             ],
             declarations: [
                 app_component_1.AppComponent,
@@ -52,7 +59,9 @@ var AppModule = (function () {
                 special_rules_editor_component_1.SpecialRulesEditorComponent,
                 artefact_editor_component_1.ArtefactEditorComponent,
                 scenario_editor_component_1.ScenarioEditorComponent,
-                scenario_list_component_1.ScenarioListComponent
+                scenario_list_component_1.ScenarioListComponent,
+                cypher_editor_component_1.CypherEditorComponent,
+                cyphers_view_component_1.CyphersViewComponent
             ],
             bootstrap: [
                 app_component_1.AppComponent

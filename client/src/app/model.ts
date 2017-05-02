@@ -88,3 +88,12 @@ export class User {
     permissions: string[];
     savedListIDs: string[];
 }
+
+export class Cypher {
+    id: string;
+    name: string;
+    desc: string;
+    level: string;
+    source: string;
+    isBooster: boolean;
+}

@@ -118,6 +118,22 @@ var FileLoaderService = (function () {
     FileLoaderService.prototype.removeScenario = function (id, callback) {
         this.remove('scenario', id, callback);
     };
+    //==================== CYPHER RULES ====================//
+    FileLoaderService.prototype.getCyphers = function (callback) {
+        this.readAll('cypher', callback);
+    };
+    FileLoaderService.prototype.getCypher = function (id, callback) {
+        this.readSingle('cypher', id, callback);
+    };
+    FileLoaderService.prototype.createNewCypher = function (data, callback) {
+        this.create('cypher', data, callback);
+    };
+    FileLoaderService.prototype.updateCypher = function (id, data, callback) {
+        this.update('cypher', id, data, callback);
+    };
+    FileLoaderService.prototype.removeCypher = function (id, callback) {
+        this.remove('cypher', id, callback);
+    };
     FileLoaderService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [http_1.Http])

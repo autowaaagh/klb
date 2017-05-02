@@ -134,4 +134,25 @@ export class FileLoaderService {
     removeScenario(id: string, callback?: ((response: Response) => void)) {
         this.remove('scenario', id, callback);
     }
+
+    //==================== CYPHER RULES ====================//
+    getCyphers(callback?: ((response: Response) => void)) {
+        this.readAll('cypher', callback);
+    }
+
+    getCypher(id: string, callback?: ((response: Response) => void)) {
+        this.readSingle('cypher', id, callback);
+    }
+
+    createNewCypher(data: any, callback?: ((response: Response) => void)) {
+        this.create('cypher', data, callback);
+    }
+
+    updateCypher(id: string, data: any, callback?: ((response: Response) => void)) {
+        this.update('cypher', id, data, callback);
+    }
+
+    removeCypher(id: string, callback?: ((response: Response) => void)) {
+        this.remove('cypher', id, callback);
+    }
 }
